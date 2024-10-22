@@ -1,13 +1,13 @@
-<div>
-    <h1>Connexion</h1>
+<div class="connexion">
+    <h1>Connectez-vous</h1>
     <form [formGroup]="userGroup" (ngSubmit)="submit()">
-        <div>
-        <label for="email">Email</label>
-        <input type="email" id="email" formControlName="email">
+        <div class="email formdata">
+            <label for="email">Email</label>
+            <input type="email" id="email" formControlName="email"/>
         </div>
-        <div>
-        <label for="password">Mot de passe</label>
-        <input type="password" id="password" formControlName="password">
+        <div class="password formdata">
+            <label for="password">Mot de passe</label>
+            <input type="password" id="password" formControlName="password"/>
         </div>
         <button type="submit">Se connecter</button>
     </form>

@@ -1,0 +1,14 @@
+@import "styles/variable";
+
+html, body {
+    height: 100%;
+    margin: 0;
+    padding: -20;
+    font-family: 'Roboto';
+}
+
+body {
+    background: linear-gradient(to bottom, $color2, $color4);
+    width: 100%;
+    height: 100%;
+}
