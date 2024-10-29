@@ -40,6 +40,16 @@ input {
     border-radius: 2.5vh;
 }
 
+.invalid {
+    border: 1px solid red;
+}
+
+.error {
+    text-align: center;
+    margin: 1vh auto;
+    color: red; // Optionnel : pour rendre l'erreur plus visible
+}
+
 label, input{
     text-align: left;
 }

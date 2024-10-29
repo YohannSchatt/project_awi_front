@@ -2,7 +2,6 @@ import { Injectable } from '@angular/core';
 import { User } from '../../Model/user';
 import { HttpClient } from '@angular/common/http';
 import { Observable } from 'rxjs';
-import { json } from 'stream/consumers';
 
 @Injectable({
   providedIn: 'root'
@@ -18,7 +17,7 @@ export class UserService {
       email: email,
       password: password
     }
-    return this.http.post<User>('/auth/login', body);
+    return this.http.post<User>('http://localhost:3000/auth/login', body);
     
   }
 
@@ -78,6 +77,12 @@ export class UserService {
     }
   }
 
+  public getUser(): User | null {
+    return this.user;
+  }
 
+  public setUser(user : User) {
+    this.user = user;
+  }
 
 }

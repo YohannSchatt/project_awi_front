@@ -1,11 +1,15 @@
 import { Component } from '@angular/core';
-import { FormGroup,FormControl,ReactiveFormsModule, Validator, Validators } from '@angular/forms';
+import { NgIf, NgClass } from '@angular/common';
+import { FormGroup,FormControl,ReactiveFormsModule, Validators } from '@angular/forms';
+import { UserService } from '../../services/user/user.service';
+import { Router } from '@angular/router';
+import { HttpClientModule } from '@angular/common/http';
 
 
 @Component({
   selector: 'app-connexion',
   standalone: true,
-  imports: [ReactiveFormsModule],
+  imports: [ReactiveFormsModule,HttpClientModule, NgIf, NgClass],
   templateUrl: './connexion.component.html',
   styleUrl: './connexion.component.scss'
 })
@@ -15,7 +19,9 @@ export class ConnexionComponent {
 
   public error: string = '';
 
-  constructor() { }
+  public invalidAuth: boolean = false;
+
+  constructor(private userService : UserService, private router : Router) { }
 
   ngOnInit() {
     this.userGroup = new FormGroup({
@@ -30,6 +36,23 @@ export class ConnexionComponent {
 
   submit() {
     console.log('submit');
+    this.userService.getAuth(this.userGroup.value.email, this.userGroup.value.password).subscribe(
+      (user) => {
+        this.userService.setUser(user);
+        console.log('user', user);
+        this.router.navigate(['/gestion/home-gestion']);
+      },
+      (error) => {
+        this.invalidAuth = true;
+        this.error = error.error.message;
+        if (this.error === 'Invalid credentials') {
+          this.error = 'Identifiants incorrects';
+        }
+        else {
+          this.error = 'Une erreur est survenue';
+        }
+      }
+    );
   }
 
 }

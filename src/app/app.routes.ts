@@ -8,5 +8,6 @@ import { PageNotFoundComponent } from '../pages/public/page-not-found/page-not-f
 export const routes: Routes = [
     { path: '', component: HomePageComponent },
     { path: 'gestion', component: ConnexionPageComponent},
-    { path: '**', component: PageNotFoundComponent}
+    { path: "gestion/home-gestion", component: HomeGestionPageComponent},
+    { path: '**', component: PageNotFoundComponent},
   ];
