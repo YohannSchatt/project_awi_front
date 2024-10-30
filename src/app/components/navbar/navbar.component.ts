@@ -22,7 +22,7 @@ export class NavbarComponent {
     dialogRef.afterClosed().subscribe(result => {
       if (result) {
         this.userService.logout();
-        this.router.navigate(['/gestion/home-gestion']);
+        this.router.navigate(['/gestion']);
       };
     });
   }
