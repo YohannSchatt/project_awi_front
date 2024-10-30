@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
-import { User } from '../../Model/user';
+import { User } from '../../Model/UserClass';
 import { HttpClient } from '@angular/common/http';
-import { Observable } from 'rxjs';
+import { Observable, BehaviorSubject, map } from 'rxjs';
 
 @Injectable({
   providedIn: 'root'
@@ -17,37 +17,40 @@ export class UserService {
       email: email,
       password: password
     }
-    return this.http.post<User>('http://localhost:3000/auth/login', body);
-    
+    return this.http.post<{user : User}>('http://localhost:3000/auth/login', body).pipe(map(response => response.user));
   }
 
   public logout() {
     this.user = null;
   }
 
-  public getName(): string {
+  public createNewUser(){
+    this.user = new User;
+  }
+
+  public getNom(): string {
     if (this.user == null) {
       return '';
     }
-    return this.user.name;
+    return this.user.nom;
   }
 
-  public setName(name : string) {
+  public setNom(nom : string) {
     if (this.user != null) {
-      this.user.name = name;
+      this.user.nom = nom;
     }
   }
 
-  public getFirstname(): string {
+  public getPrenom(): string {
     if (this.user == null) {
       return '';
     }
-    return this.user.firstname;
+    return this.user.prenom;
   }
 
-  public setFirstname(firstname : string) {
+  public setPrenom(prenom : string) {
     if (this.user != null) {
-      this.user.firstname = firstname;
+      this.user.prenom = prenom;
     }
   }
 
@@ -64,16 +67,16 @@ export class UserService {
     }
   }
 
-  public getTel(): string {
+  public getRole(): string {
     if (this.user == null) {
       return '';
     }
-    return this.user.tel;
+    return this.user.role;
   }
 
-  public setTel(tel : string) {
+  public setRole(role : string) {
     if (this.user != null) {
-      this.user.tel = tel;
+      this.user.role = role;
     }
   }
 

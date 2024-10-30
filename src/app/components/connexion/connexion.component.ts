@@ -38,8 +38,12 @@ export class ConnexionComponent {
     console.log('submit');
     this.userService.getAuth(this.userGroup.value.email, this.userGroup.value.password).subscribe(
       (user) => {
-        this.userService.setUser(user);
-        console.log('user', user);
+        this.userService.createNewUser();
+        this.userService.setPrenom(user.prenom);
+        this.userService.setNom(user.nom);
+        this.userService.setEmail(user.email);
+        this.userService.setRole(user.role);
+        console.log('user', this.userService.getUser());
         this.router.navigate(['/gestion/home-gestion']);
       },
       (error) => {
