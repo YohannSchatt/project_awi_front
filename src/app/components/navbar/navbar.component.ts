@@ -1,7 +1,9 @@
 import { Component } from '@angular/core';
-import { Router } from '@angular/router';
 import { NgIf } from '@angular/common';
 import { UserService } from '../../services/user/user.service';
+import { MatDialog } from '@angular/material/dialog';
+import { LogoutComponent } from '../logout/logout.component';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-navbar',
@@ -12,10 +14,17 @@ import { UserService } from '../../services/user/user.service';
 })
 export class NavbarComponent {
 
-  constructor(public userService : UserService) {}
+  constructor(public userService : UserService, public dialog: MatDialog, private router : Router) {}
 
   public logout() : void {
-    this.userService.logout();
+    const dialogRef = this.dialog.open(LogoutComponent);
+
+    dialogRef.afterClosed().subscribe(result => {
+      if (result) {
+        this.userService.logout();
+        this.router.navigate(['/gestion/home-gestion']);
+      };
+    });
   }
 
   public isAuth() : boolean {
@@ -38,5 +47,7 @@ export class NavbarComponent {
     }
     return false;
   }
+
+
 
 }

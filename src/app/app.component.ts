@@ -8,6 +8,8 @@ import { ConnexionPageComponent } from '../pages/gestion/connexion-page/connexio
 import { HomeGestionPageComponent } from '../pages/gestion/home-gestion-page/home-gestion-page.component';
 import { HttpClientModule } from '@angular/common/http';
 import { NavbarComponent } from "./components/navbar/navbar.component";
+import { MatDialogModule } from '@angular/material/dialog';
+import { MatButtonModule } from '@angular/material/button';
 
 
 @Component({
@@ -22,6 +24,8 @@ import { NavbarComponent } from "./components/navbar/navbar.component";
     HomeGestionPageComponent,
     HttpClientModule,
     NavbarComponent,
+    MatDialogModule,
+    MatButtonModule,
     NgIf
 ],
   templateUrl: './app.component.html',

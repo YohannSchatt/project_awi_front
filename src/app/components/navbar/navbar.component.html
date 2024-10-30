@@ -8,5 +8,5 @@
         <a class="Dashboard" href="#" *ngIf="this.isGestionnaire()">Dashboard</a>
         <a class="Catalogue" href="#">Catalogue</a> 
         <a class="session" href="#">Session</a>
-        <a class="Déconnexion" href="#" *ngIf="this.isAuth()" (click)="logout()">Déconnexion</a>
+        <a class="Déconnexion" *ngIf="this.isAuth()" (click)="logout()">Déconnexion</a>
     </nav>
