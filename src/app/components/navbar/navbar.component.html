@@ -1,0 +1,12 @@
+    <nav class="navbar navbar-expand-lg navbar-light bg-light">
+        <a class="gestionnaire" href="#" *ngIf="this.isAdmin()">gérer gestionnaire</a>
+        <a class="AjoutSession" href="#" *ngIf="this.isAdmin()">Ajout Session</a>
+        <a class="Mon compte" href="#" *ngIf="this.isGestionnaire()">Mon compte</a>   
+        <a class="jeu" href="#" *ngIf="this.isGestionnaire()">Enregistrer un jeu</a>
+        <a class="achat" href="#" *ngIf="this.isGestionnaire()">Enregistrer un achat</a>
+        <a class="retrait" href="#" *ngIf="this.isGestionnaire()">Enregistrer un retrait</a>
+        <a class="Dashboard" href="#" *ngIf="this.isGestionnaire()">Dashboard</a>
+        <a class="Catalogue" href="#">Catalogue</a> 
+        <a class="session" href="#">Session</a>
+        <a class="Déconnexion" *ngIf="this.isAuth()" (click)="logout()">Déconnexion</a>
+    </nav>

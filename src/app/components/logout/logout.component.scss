@@ -1,0 +1,39 @@
+@import '../../styles/variable';
+
+.mat-dialog-container {
+    border: none !important;
+    box-shadow: none !important;
+}
+
+
+.dialog {
+    height: 100%;
+    width: 100%;
+    background-color: $color3;
+    overflow: hidden;
+    border: none; /* Assurez-vous qu'il n'y a pas de bordure */
+    box-shadow: none; /* Supprimez les ombres si nécessaire */
+}
+
+mat-dialog-content {
+    font-size: 16px;
+    margin-bottom: 20px;
+    background-color: $color3;
+    border: none; /* Assurez-vous qu'il n'y a pas de bordure */
+}
+
+mat-dialog-actions {
+    display: space-between;
+    justify-content: center;
+    border: none; /* Assurez-vous qu'il n'y a pas de bordure */
+    
+}
+
+.button {
+    margin-left: 20px;
+    margin-bottom: 1vh;
+    padding: 2vh 8.5vh;
+    background-color: $color5;
+    border: none;
+    color : black;
+}
