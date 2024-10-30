@@ -14,7 +14,7 @@ import { Router } from '@angular/router';
 })
 export class NavbarComponent {
 
-  constructor(public userService : UserService, public dialog: MatDialog, private router : Router) {}
+  constructor(public userService : UserService, public dialog: MatDialog, public router : Router) {}
 
   public logout() : void {
     const dialogRef = this.dialog.open(LogoutComponent);

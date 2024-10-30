@@ -4,10 +4,12 @@ import { ConnexionPageComponent } from '../pages/gestion/connexion-page/connexio
 import { HomeGestionPageComponent } from '../pages/gestion/home-gestion-page/home-gestion-page.component';
 import { PageNotFoundComponent } from '../pages/public/page-not-found/page-not-found.component';
 import { HomePageComponent } from '../pages/public/home-page/home-page.component';
+import { MonComptePageComponent } from '../pages/mon-compte-page/mon-compte-page.component';
 
 export const routes: Routes = [
     { path: '', component: HomePageComponent },
     { path: 'gestion', component: ConnexionPageComponent},
     { path: "gestion/home-gestion", component: HomeGestionPageComponent},
+    { path: "gestion/MonCompte", component: MonComptePageComponent},
     { path: '**', component: PageNotFoundComponent},
   ];
