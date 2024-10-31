@@ -1,0 +1,12 @@
+<div class="tabGestionnaire">
+    <div class="tab">
+    @for (Gestionnaire of tabGestionnaire; track Gestionnaire) {
+        <div class="elt">
+            <p>{{Gestionnaire.getNom()}}</p>
+            <p>{{Gestionnaire.getPrenom()}}</p>
+            <p>{{Gestionnaire.getEmail()}}</p>
+            <button (click)="delete()">Supprimer</button>
+        </div>
+    }
+    </div>
+</div>

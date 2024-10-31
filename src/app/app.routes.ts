@@ -5,11 +5,13 @@ import { HomeGestionPageComponent } from '../pages/gestion/home-gestion-page/hom
 import { PageNotFoundComponent } from '../pages/public/page-not-found/page-not-found.component';
 import { HomePageComponent } from '../pages/public/home-page/home-page.component';
 import { MonComptePageComponent } from '../pages/mon-compte-page/mon-compte-page.component';
+import { GestionGestionnairePageComponent } from '../pages/gestion-gestionnaire-page/gestion-gestionnaire-page.component';
 
 export const routes: Routes = [
     { path: '', component: HomePageComponent },
     { path: 'gestion', component: ConnexionPageComponent},
     { path: "gestion/home-gestion", component: HomeGestionPageComponent},
     { path: "gestion/MonCompte", component: MonComptePageComponent},
+    { path: "gestion/GestionGestionnaire", component: GestionGestionnairePageComponent},
     { path: '**', component: PageNotFoundComponent},
   ];
