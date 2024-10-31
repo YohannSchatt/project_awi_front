@@ -2,6 +2,7 @@ import { Component } from '@angular/core';
 import { FormGroup, FormControl, Validators, ReactiveFormsModule } from '@angular/forms';
 import { UserService } from '../../services/user/user.service';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
+import { environment } from '../../../environment/environment';
 
 @Component({
   selector: 'app-info-perso',
@@ -38,7 +39,7 @@ export class InfoPersoComponent {
     const options = {
       withCredentials: true // This is the key part to include cookies
     };
-    this.http.put<{prenom : string, nom : string, email : string}>('http://localhost:3000/user/UpdateInfoPerso', body, options).subscribe(
+    this.http.put<{prenom : string, nom : string, email : string}>(`${environment.apiUrl}/user/UpdateInfoPerso`, body, options).subscribe(
       (response) => {
         this.userService.setPrenom(this.PersoGroup.value.prenom);
         this.userService.setNom(this.PersoGroup.value.nom);

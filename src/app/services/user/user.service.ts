@@ -2,6 +2,7 @@ import { Injectable } from '@angular/core';
 import { User } from '../../Model/UserClass';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Observable, BehaviorSubject, map } from 'rxjs';
+import { environment } from '../../../environment/environment';
 
 @Injectable({
   providedIn: 'root'
@@ -23,7 +24,7 @@ export class UserService {
       }),
       withCredentials: true // This is the key part to include cookies
     };
-    return this.http.post<{user : User}>('http://localhost:3000/auth/login',body,options).pipe(map(response => response.user));
+    return this.http.post<{user : User}>(`${environment.apiUrl}/auth/login`,body,options).pipe(map(response => response.user));
   }
 
   public logout() {
