@@ -35,7 +35,6 @@ export class ConnexionComponent {
   }
 
   submit() {
-    console.log('submit');
     this.userService.getAuth(this.userGroup.value.email, this.userGroup.value.password).subscribe(
       (user) => {
         this.userService.createNewUser();

@@ -1,6 +1,7 @@
 import { Component } from '@angular/core';
 import { FormGroup, FormControl, Validators, ReactiveFormsModule } from '@angular/forms';
 import { UserService } from '../../services/user/user.service';
+import { HttpClient, HttpHeaders } from '@angular/common/http';
 
 @Component({
   selector: 'app-info-perso',
@@ -13,7 +14,9 @@ export class InfoPersoComponent {
 
   public PersoGroup!: FormGroup;
 
-  constructor(private userService : UserService) {}
+  constructor(private userService : UserService, private http : HttpClient) {}
+
+  public Message : string = '';
 
   ngOnInit() {
     this.PersoGroup = new FormGroup({
@@ -27,7 +30,23 @@ export class InfoPersoComponent {
   }
 
   public submit() {
-    console.log('submit');
+    const body : any = {
+      prenom: this.PersoGroup.value.prenom,
+      nom: this.PersoGroup.value.nom,
+      email: this.PersoGroup.value.email
+    }
+    const options = {
+      withCredentials: true // This is the key part to include cookies
+    };
+    this.http.put<{prenom : string, nom : string, email : string}>('http://localhost:3000/user/UpdateInfoPerso', body, options).subscribe(
+      (response) => {
+        this.userService.setPrenom(this.PersoGroup.value.prenom);
+        this.userService.setNom(this.PersoGroup.value.nom);
+        this.userService.setEmail(this.PersoGroup.value.email);
+        this.Message = 'Informations mises à jour';
+    },
+    (error) => {
+      this.Message = 'Une erreur est survenue';
+    });
   }
-
 }

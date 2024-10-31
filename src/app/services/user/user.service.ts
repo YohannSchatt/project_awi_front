@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 import { User } from '../../Model/UserClass';
-import { HttpClient } from '@angular/common/http';
+import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Observable, BehaviorSubject, map } from 'rxjs';
 
 @Injectable({
@@ -16,8 +16,14 @@ export class UserService {
     const body : any = {
       email: email,
       password: password
-    }
-    return this.http.post<{user : User}>('http://localhost:3000/auth/login', body).pipe(map(response => response.user));
+    };
+    const options = {
+      headers: new HttpHeaders({
+        'Content-Type': 'application/json'
+      }),
+      withCredentials: true // This is the key part to include cookies
+    };
+    return this.http.post<{user : User}>('http://localhost:3000/auth/login',body,options).pipe(map(response => response.user));
   }
 
   public logout() {
