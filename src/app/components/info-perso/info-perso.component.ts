@@ -16,7 +16,6 @@ export class InfoPersoComponent {
   constructor(private userService : UserService) {}
 
   ngOnInit() {
-    const user = this.userService.getUser();
     this.PersoGroup = new FormGroup({
       nom : new FormControl(this.userService.getNom()),
       prenom : new FormControl(this.userService.getPrenom()),
@@ -25,10 +24,6 @@ export class InfoPersoComponent {
         Validators.email,
         Validators.pattern('^[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,4}$')]),
     });
-    console.log(this.userService.getUser());
-    console.log(this.userService.getNom());
-    console.log(this.userService.getPrenom());
-    console.log(this.userService.getEmail());
   }
 
   public submit() {
