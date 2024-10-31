@@ -35,7 +35,6 @@ export class ConnexionComponent {
   }
 
   submit() {
-    console.log('submit');
     this.userService.getAuth(this.userGroup.value.email, this.userGroup.value.password).subscribe(
       (user) => {
         this.userService.createNewUser();
@@ -43,7 +42,6 @@ export class ConnexionComponent {
         this.userService.setNom(user.nom);
         this.userService.setEmail(user.email);
         this.userService.setRole(user.role);
-        console.log('user', this.userService.getUser());
         this.router.navigate(['/gestion/home-gestion']);
       },
       (error) => {

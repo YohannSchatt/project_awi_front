@@ -1,0 +1,20 @@
+<div class="ChangeMdp">
+    <form [formGroup]="MdpGroup" (ngSubmit)="submit()">
+            <div class="oldMdp">
+                <label for="oldMdp">Ancien mot de passe</label>
+                <input type="text" id="oldMdp" formControlName="oldMdp"/>
+            </div>
+            <div class="newMdp">
+                <label for="newMdp">Nouveau mot de passe</label>
+                <input type="text" id="newMdp" formControlName="newMdp"/>
+            </div>
+            <div class="confirmMdp">
+                <label for="confirmMdp">Confirmation</label>
+                <input type="text" id="confirmMdp" formControlName="confirmMdp"/>
+            </div>
+        <div class="button">
+            <button type="submit">Enregistrer</button>
+            <p> {{ this.Message }}</p>
+        </div>
+    </form>
+</div>

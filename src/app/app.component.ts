@@ -26,8 +26,7 @@ import { MatButtonModule } from '@angular/material/button';
     NavbarComponent,
     MatDialogModule,
     MatButtonModule,
-    NgIf
-],
+    NgIf],
   templateUrl: './app.component.html',
   styleUrl: './app.component.scss'
 })
