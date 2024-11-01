@@ -9,9 +9,11 @@ import { environment } from '../../../environments/environment.development';
   providedIn: 'root'
 })
 export class CatalogueService {
+
   initialize() {
-    this.addCatalogue(1);
-    this.setCurrentPage(1);
+    this.addCatalogue(1).subscribe(() => {
+      this.setCurrentPage(1);
+    });
   }
 
   private http = inject(HttpClient);
@@ -20,49 +22,60 @@ export class CatalogueService {
   private currentPageSubject = new BehaviorSubject<number>(-1);
   currentPage$ = this.currentPageSubject.asObservable();
 
-  currentJeu: InfoJeuUnitaireDto | undefined = undefined;
-  allJeuxLoaded: InfoJeuUnitaireDto[] = [];
+  private pageJeuxMap: Map<number, InfoJeuUnitaireDto[]> = new Map();
   loadedPages: Set<number> = new Set();
+
+  private currentJeuSubject = new BehaviorSubject<InfoJeuUnitaireDto | undefined>(undefined);
+  currentJeuInfo$ = this.currentJeuSubject.asObservable();
 
   constructor() { }
 
-  addCatalogue(page: number): void {
+  addCatalogue(page: number): Observable<void> {
+    console.log('Fetching catalogue for page:', page);
     if (this.loadedPages.has(page)) {
-      return; // Page already loaded, do nothing
+      return of(undefined); // Page already loaded, do nothing
     }
 
-    this.http.get<CatalogueDto>(`${this.url}/${page}`).pipe(
+    return this.http.get<CatalogueDto>(`${this.url}/${page}`).pipe(
       tap(catalogue => {
-        console.log('Fetched catalogue from the service :', catalogue);
-        this.allJeuxLoaded = this.allJeuxLoaded.concat(catalogue.jeux);
+        console.log('Fetched catalogue succeeded for page:', page);
+        this.pageJeuxMap.set(page, catalogue.jeux);
         this.loadedPages.add(page);
       }),
       catchError(error => {
         console.error('Error fetching catalogue:', error);
         return throwError(() => error);
-      })
-    ).subscribe();
-  }
-
-  getCurrentJeu(): Observable<InfoJeuUnitaireDto> {
-    return of(this.currentJeu ?? {} as InfoJeuUnitaireDto);
+      }),
+      map(() => undefined)
+    );
   }
 
   getCurrentPageJeux(): Observable<InfoJeuUnitaireDto[]> {
     return this.currentPage$.pipe(
-      switchMap(page => {
-        const startIndex = (page - 1) * 20;
-        const endIndex = startIndex + 20;
-        return of(this.allJeuxLoaded.slice(startIndex, endIndex));
-      })
+      map(page => this.pageJeuxMap.get(page) ?? [])
     );
   }
 
-  setCurrentJeu(jeu: InfoJeuUnitaireDto | undefined): void {
-    this.currentJeu
+  setCurrentPage(page: number): void {
+    console.log('Setting current page to from service:', page);
+    if (!this.loadedPages.has(page)) {
+      this.addCatalogue(page).subscribe(() => {
+        this.currentPageSubject.next(page);
+      });
+    } else {
+      this.currentPageSubject.next(page);
+    }
+  }
+  
+
+  unSelectJeu(): void {
+    console.log('Unselecting jeu from service');
+    this.currentJeuSubject.next(undefined);
   }
 
-  setCurrentPage(page: number): void {
-    this.currentPageSubject.next(page);
+  setSelectedJeu(jeuInfo: InfoJeuUnitaireDto): void {
+    console.log('Setting selected jeu from the service:', jeuInfo);
+    this.currentJeuSubject.next(jeuInfo);
   }
+
 }

@@ -7,6 +7,20 @@ h2 {
   margin-left: 10vh;
 }
 
+.jeuDetail{
+  margin-left: 10vh;
+  width: 90vw;
+  height: 100vh;
+}
+.jeuDetail app-jeux-unitaire{
+  height: 80vh;
+
+}
+
+
+
+
+
 .listJeu {
   display: grid;
   grid-template-columns: repeat(auto-fill, minmax(45%, 1fr)); /* Create a two-column grid */

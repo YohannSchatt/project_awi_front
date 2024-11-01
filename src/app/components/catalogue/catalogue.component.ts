@@ -1,5 +1,5 @@
-import { Component, inject, OnDestroy, OnInit } from '@angular/core';
-import { CatalogueDto, InfoJeuUnitaireDto } from '../../services/catalogue/response-catalogue.dto';
+import { Component, OnDestroy, OnInit } from '@angular/core';
+import { InfoJeuUnitaireDto } from '../../services/catalogue/response-catalogue.dto';
 import { CatalogueService } from '../../services/catalogue/catalogue.service';
 import { JeuxUnitaireComponent } from '../jeux-unitaire/jeux-unitaire.component';
 import { HttpErrorResponse } from '@angular/common/http';
@@ -12,12 +12,13 @@ import { Subscription } from 'rxjs';
   templateUrl: './catalogue.component.html',
   styleUrls: ['./catalogue.component.scss']
 })
-export class CatalogueComponent implements OnInit, OnDestroy {
+export class CatalogueComponent implements OnInit, OnDestroy{
 
   error: HttpErrorResponse | undefined = undefined; // Store the error
   currentPageJeux: InfoJeuUnitaireDto[] = [];
-  currentJeuInfo : InfoJeuUnitaireDto | undefined = undefined;
+  currentJeuInfo: InfoJeuUnitaireDto | undefined = undefined;
   private subscriptions: Subscription = new Subscription();
+
 
   constructor(private catalogueService: CatalogueService) { }
 
@@ -33,11 +34,30 @@ export class CatalogueComponent implements OnInit, OnDestroy {
           this.currentPageJeux = jeux;
         },
         error: (error) => {
-          // console.error('Error fetching current page jeux:', error);
           this.error = error;
         }
       })
     );
+
+    // Subscribe to currentJeuInfo$ to get the selected game
+    this.subscriptions.add(
+      this.catalogueService.currentJeuInfo$.subscribe({
+        next: (jeu) => {
+          console.log('Selected jeu in catalogue comp:', jeu);
+          this.currentJeuInfo = jeu;
+          if (jeu === undefined) {
+          }
+        },
+        error: (error) => {
+          this.error = error;
+        }
+      })
+    );
+  }
+
+  setPage(page: number): void {
+    console.log('Setting current page to:', page);
+    this.catalogueService.setCurrentPage(page);
   }
 
   ngOnDestroy(): void {
@@ -45,22 +65,4 @@ export class CatalogueComponent implements OnInit, OnDestroy {
     this.subscriptions.unsubscribe();
   }
 
-  // // Method to set the current page
-  // setCurrentPage(page: number): void {
-  //   this.catalogueService.setCurrentPage(page);
-  //   this.subscriptions.add(
-  //     this.catalogueService.addCatalogue(page).subscribe({
-  //       next: () => {},
-  //       error: (error) => {
-  //         console.error('Error fetching catalogue for page:', page, error);
-  //         this.error = error;
-  //       }
-  //     })
-  //   );
-  // }
-
-  // // Method to set the current game being looked at in detail
-  // setCurrentJeu(jeu: InfoJeuUnitaireDto | undefined): void {
-  //   this.catalogueService.setCurrentJeu(jeu);
-  // }
 }
