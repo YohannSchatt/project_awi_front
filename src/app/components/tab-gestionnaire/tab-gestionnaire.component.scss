@@ -23,7 +23,7 @@
     justify-self: center;
     width: 95%;
     margin-bottom: 1vh;
-    overflow-y:scroll; /* Ajoute une barre de défilement si le contenu dépasse la hauteur de la vue */
+    overflow-y:auto; /* Ajoute une barre de défilement si le contenu dépasse la hauteur de la vue */
     box-sizing:border-box;
     max-height: 27vh; /* Limite la hauteur maximale à 80% de la hauteur de la vue */
 }

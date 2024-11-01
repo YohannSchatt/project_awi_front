@@ -1,5 +1,6 @@
 import { Component } from '@angular/core';
 import { FormGroup, FormControl, ReactiveFormsModule } from '@angular/forms';
+import { HttpClient } from '@angular/common/http';
 
 @Component({
   selector: 'app-create-gestionnaire',
@@ -14,7 +15,7 @@ export class CreateGestionnaireComponent {
 
   public Message : string = '';
 
-  constructor() { }
+  constructor(private http : HttpClient) { }
 
   ngOnInit(): void {
     this.GestionnaireGroup = new FormGroup({
@@ -25,6 +26,22 @@ export class CreateGestionnaireComponent {
   }
 
   submit() : void {
-    console.log(this.GestionnaireGroup.value);
+    this.Message = 'Création du gestionnaire en cours...';
+    const body : any = {
+      nom: this.GestionnaireGroup.value.nom,
+      prenom: this.GestionnaireGroup.value.prenom,
+      email: this.GestionnaireGroup.value.email
+    };
+    const options = {
+      withCredentials: true 
+    };
+    this.http.post('http://localhost:3000/admin/createGestionnaire', body, options).subscribe(
+      (response) => {
+        this.Message = 'Gestionnaire créé';
+      },
+      (error) => {
+        this.Message = 'Une erreur est survenue';
+      }
+    )
   }
 }

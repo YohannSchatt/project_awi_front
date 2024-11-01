@@ -1,0 +1,40 @@
+@import '../../styles/variable';
+
+.tabGestionnaire {
+    width: 95%;
+    align-self: center;
+    justify-self: center;
+    background-color: $color3;
+    border-radius: 3vh;
+    padding-top: 2vh;
+    padding-bottom: 2vh;
+}
+
+.tab {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-around;
+    justify-self: center;
+    width: 95%;
+    height: 95%;
+    margin-bottom: 1vh;
+    overflow-y:auto;
+    box-sizing:content-box;
+    max-height: 80vh;
+}
+
+.elt {
+    background-color: $color4;
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    border : 0.2vh solid black;
+    padding-left: 2vh;
+    padding-right: 2vh;
+    flex-shrink: 0;
+}
+
+.elt div {
+    display: flex;
+    flex-direction: column;
+}
