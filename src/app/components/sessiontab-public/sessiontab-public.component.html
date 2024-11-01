@@ -1,5 +1,26 @@
 <div class="tabGestionnaire">
+    <div>
+        <div class="elt" *ngIf="sessionActuelle">
+            <p> Session Actuelle </p>
+            <div>
+                <p> Titre :</p>
+                <p> {{sessionActuelle.getTitre()}}</p>
+            </div>
+            <div>
+                <p> Lieu :</p>
+                <p> {{sessionActuelle.getLieu()}}</p>
+            </div>
+            <div>
+                <p> Début :</p>
+                <p> {{sessionActuelle.getDateDebut()}}</p>
+            </div>
+            <div>
+                <p> Fin :</p>
+                <p> {{sessionActuelle.getDateFin()}}</p>
+            </div>
+    </div>
     <div class="tab">
+        <p> Session à venir</p>
     @for (session of tabSession; track session) {
         <div class="elt">
             <div>
