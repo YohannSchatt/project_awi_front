@@ -1,0 +1,36 @@
+:host {
+  display: block;
+  width: 100vw;
+
+}
+h2 {
+  margin-left: 10vh;
+}
+
+.listJeu {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(45%, 1fr)); /* Create a two-column grid */
+  width: 90vw; /* Set the width for the grid container */
+  margin-left: 10vh;
+  overflow-y: auto;
+  max-height: 100vh;
+}
+
+/* Media queries for different breakpoints */
+@media (max-width: 1200px) {
+  .listJeu {
+    grid-template-columns: repeat(auto-fill, minmax(100%, 1fr)); /* Single column for smaller screens */
+  }
+}
+
+@media (max-width: 768px) {
+  .listJeu {
+    grid-template-columns: repeat(auto-fill, minmax(100%, 1fr)); /* Single column for smaller screens */
+  }
+}
+
+@media (max-width: 480px) {
+  .listJeu {
+    grid-template-columns: repeat(auto-fill, minmax(100%, 1fr)); /* Single column for smaller screens */
+  }
+}

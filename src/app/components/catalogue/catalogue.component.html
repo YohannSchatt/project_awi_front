@@ -1,0 +1,26 @@
+<h2>Liste des jeux disponibles</h2>
+
+
+
+@if (this.error == null){
+  <div class="listJeu">
+  @for (jeu of this.currentPageJeux; track jeu.id) {
+    <app-jeux-unitaire [jeu]="jeu"></app-jeux-unitaire>
+    }
+  </div>
+  }
+
+@else if (this.error !== null) {
+  <p>{{this.error.message}}</p>
+}
+
+@else if (this.currentJeuInfo !== undefined){
+  <app-jeux-unitaire [jeu]="this.currentJeuInfo"></app-jeux-unitaire>
+}
+
+@else {
+  <p>Erreur inconnue</p>
+}
+
+
+
