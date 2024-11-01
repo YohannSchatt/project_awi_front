@@ -1,0 +1,32 @@
+[
+    {
+        "titre": "Session 1",
+        "dateDebut": "2021-01-01",
+        "dateFin": "2021-01-02",
+        "lieu": "Paris"
+    },
+    {
+        "titre": "Session 2",
+        "dateDebut": "2021-02-01",
+        "dateFin": "2021-02-02",
+        "lieu": "Lyon"
+    },
+    {
+        "titre": "Session 3",
+        "dateDebut": "2021-03-01",
+        "dateFin": "2021-03-02",
+        "lieu": "Marseille"
+    },
+    {
+        "titre": "Session 4",
+        "dateDebut": "2021-04-01",
+        "dateFin": "2021-04-02",
+        "lieu": "Bordeaux"
+    },
+    {
+        "titre": "Session 5",
+        "dateDebut": "2021-05-01",
+        "dateFin": "2021-05-02",
+        "lieu": "Toulouse"
+    }
+]

@@ -1,0 +1,23 @@
+<div class="createGestionnaire">
+    <p>Création d'un gestionnaire</p>
+    <form [formGroup]="GestionnaireGroup" (ngSubmit)="submit()">
+        <div class="AllForms">
+            <div class="nom">
+                <label for="nom">Nom</label>
+                <input type="text" id="nom" formControlName="nom"/>
+            </div>
+            <div class="prenom">
+                <label for="prenom">Prénom</label>
+                <input type="text" id="prenom" formControlName="prenom"/>
+            </div>
+            <div class="email">
+                <label for="email">Email</label>
+                <input type="text" id="email" formControlName="email"/>
+            </div>
+        </div>
+        <div class="button">
+            <button type="submit">Enregistrer</button>
+            <p> {{ this.Message }}</p>
+        </div>
+    </form>
+</div>

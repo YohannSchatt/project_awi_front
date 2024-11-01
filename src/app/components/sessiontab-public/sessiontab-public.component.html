@@ -1,0 +1,24 @@
+<div class="tabGestionnaire">
+    <div class="tab">
+    @for (session of tabSession; track session) {
+        <div class="elt">
+            <div>
+                <p> Titre :</p>
+                <p> {{session.getTitre()}}</p>
+            </div>
+            <div>
+                <p> Lieu :</p>
+                <p> {{session.getLieu()}}</p>
+            </div>
+            <div>
+                <p> Début :</p>
+                <p> {{session.getDateDebut()}}</p>
+            </div>
+            <div>
+                <p> Fin :</p>
+                <p> {{session.getDateFin()}}</p>
+            </div>
+        </div>
+    }
+    </div>
+</div>

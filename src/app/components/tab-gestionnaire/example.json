@@ -1,0 +1,27 @@
+[
+    {
+        "nom": "Schatt",
+        "prenom": "Yohann",
+        "email": "yohann@example.com"
+    },
+    {
+        "nom": "Donnelly",
+        "prenom": "Shane",
+        "email": "shane@example.com"
+    },
+    {
+        "nom": "nom1",
+        "prenom":"prenom1",
+        "email": "email1@gmail.com"
+    },
+    {
+        "nom": "nom2",
+        "prenom":"prenom2",
+        "email": "email2@gmail.com"
+    },
+    {
+        "nom": "nom3",
+        "prenom":"prenom3",
+        "email": "email3@gmail.com"
+    }
+]
