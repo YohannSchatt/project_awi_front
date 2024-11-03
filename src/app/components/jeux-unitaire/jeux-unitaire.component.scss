@@ -1,0 +1,96 @@
+#nom {
+  font-size: clamp(16px, 2vw, 24px); /* Minimum 16px, preferred 2vw, maximum 24px */
+  font-weight: bold;
+}
+
+#editeur, #vendeur, #etat {
+  font-size: clamp(12px, 1.2vw, 18px); /* Minimum 12px, preferred 1.2vw, maximum 18px */
+  font-style: italic;
+}
+
+#prix {
+  font-size: clamp(14px, 1.8vw, 22px); /* Minimum 14px, preferred 1.8vw, maximum 22px */
+  color: green;
+}
+
+#detailbutton:hover {
+  filter: saturate(200%);
+}
+
+#detailbutton {
+  height: max-content; /* Set height to max-content */
+  padding: 10px 5px;
+  margin-top: auto;
+  margin-bottom: auto;
+  margin-right: 3vh; /* Position 3vh from the right */
+  background-color: rgb(130, 62, 255);
+  border-radius: 12px;
+}
+
+#detailbutton p {
+  color: #ffffff;
+}
+
+:host * {
+  margin: 5px;
+}
+
+:host {
+  display: flex;
+  justify-content: space-between; /* Distribute space between child elements */
+  align-items: center; /* Center items vertically */
+  background-color: #ffffff;
+  padding: 10px;
+  border-radius: 5px;
+  border: #d1d1d1 2px solid;
+}
+
+.close {
+  right: 2vw; /* Position 2vw from the right */
+  top: -5vh; /* Position 5vh above */
+  width: 3vw; /* Set width to 3vw */
+  height: 3vw; /* Set height to 3vw */
+  opacity: 0.3;
+  position: relative;
+  cursor: pointer; /* Add cursor pointer to indicate it's clickable */
+}
+
+.close:hover {
+  opacity: 1;
+}
+
+.close:before, .close:after {
+  position: absolute;
+  left: 15px;
+  content: ' ';
+  height: 33px;
+  width: 2px;
+  background-color: #333;
+}
+
+.close:before {
+  transform: rotate(45deg);
+}
+
+.close:after {
+  transform: rotate(-45deg);
+}
+
+/* Styles for the selected state */
+.selected {
+  font-size: 1.2em; /* Increase font size */
+}
+
+.selected #image {
+  width: 200px; /* Increase image size */
+  height: auto;
+}
+
+.selected .infos {
+  font-size: 1.2em; /* Increase font size for infos */
+  margin-left: 20px; /* Ensure infos are just to the right of the image */
+}
+
+.selected p {
+  font-size: 1.2em; /* Increase font size for all paragraphs */
+}
