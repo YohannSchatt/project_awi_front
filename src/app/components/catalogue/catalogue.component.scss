@@ -18,8 +18,27 @@ h2 {
 }
 
 
+#errormessage {
+  color: red;
+  margin-left: 10vh;
+}
 
+/* Pagination styles */
+.pagination {
+  display: flex;
+  margin-left: 10vh;
+}
 
+.page-button {
+  height: 3vh;
+  width: 3vh;/* Set height to max-content */
+  padding: 8px 8px 8px 8px;
+  background-color: rgb(130, 62, 255);
+  border-radius: 12px;
+  color: #ffffff;
+  cursor: pointer;
+  text-align: center;
+}
 
 .listJeu {
   display: grid;
