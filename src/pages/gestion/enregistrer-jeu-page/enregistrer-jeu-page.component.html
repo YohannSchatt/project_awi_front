@@ -1,0 +1,66 @@
+
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.4.0/css/font-awesome.min.css">
+
+<h4>Enregistrer un jeu</h4>
+<!-- le form -->
+<form [formGroup] = "enregistrerJeuForm" (ngSubmit)="logInfo()">
+  <div class = "champ"><!-- le champ pour l'email du vendeur -->
+    <label for = "mailVendeur" class="required">Mail du vendeur : </label>
+    <!-- la barre de recherche d'email -->
+    <input type="text"
+         placeholder="taper l'email"
+         ariel-label="mailVendeur"
+         matInput
+         formControlName="mailVendeur"
+         [matAutocomplete]="autoVendeur">
+    <!-- le menu déroulant -->
+    <mat-autocomplete #autoVendeur="matAutocomplete">
+      @for (vmail of filteredVmails | async; track vmails) {
+        <mat-option [value]="vmail">{{vmail}}</mat-option>
+      }
+    </mat-autocomplete>
+   <!-- le bouton de refresh -->
+    <button type="button" (click)="refreshVendeur()"><i class="fa fa-refresh fa_custom fa-2x"></i></button>
+  </div>
+  <div class><!-- le champ pour les infos du vendeur -->
+    <!-- infos sur le vendeur -->
+     @if(this.vendeurFirstName){
+       <p>Prénom du vendeur : {{this.vendeurFirstName}}</p>
+       <p>Nom du vendeur : {{this.vendeurName}}</p>
+     }
+  </div>
+  <div class = "champ"><!-- le champ pour le nom du jeu -->
+    <label for = "jeu" class="required">Jeu : </label>
+    <input type="text"
+         placeholder="taper le nom du jeu"
+        ariel-label="nomJeu"
+         matInput
+         formControlName="nomJeu"
+         [matAutocomplete]="autoJeu">
+    <mat-autocomplete #autoJeu="matAutocomplete">
+      @for (jeu of filteredJeuNoms | async; track filteredJeuNoms) {
+        <mat-option [value]="jeu">{{jeu}}</mat-option>
+      }
+    </mat-autocomplete>
+       <!-- le bouton de refresh -->
+       <button type="button" (click)="refreshJeu()"><i class="fa fa-refresh fa_custom fa-2x"></i></button>
+  </div>
+  <div class = "champ">
+    <label for="prix" class = "required">Prix du jeu :</label>
+    <input type="number"
+         placeholder="prix (en €)"
+         formControlName="prix">
+  </div>
+
+  <p>
+    <button id ="submitbutton" type="submit" [disabled]="!enregistrerJeuForm.valid">Enregistrer l'achat</button>
+  </p>
+
+
+
+
+
+</form>
+@if(errorMessage){
+  <h5 id = "errormessage">{{errorMessage}}</h5>
+}
