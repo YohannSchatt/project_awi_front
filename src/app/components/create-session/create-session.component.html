@@ -1,0 +1,27 @@
+<div class="createSession">
+    <p>Création d'une session</p>
+    <form [formGroup]="SessionGroup" (ngSubmit)="submit()">
+        <div class="AllForms">
+            <div class="nom">
+                <label for="nom">nom</label>
+                <input type="text" id="nom" formControlName="titre"/>
+            </div>
+            <div class="lieu">
+                <label for="lieu">lieu</label>
+                <input type="text" id="lieu" formControlName="lieu"/>
+            </div>
+            <div class="début">
+                <label for="datedébut">début</label>
+                <input type="date" id="début" formControlName="dateDebut"/>
+            </div>
+            <div class="fin">
+                <label for="datefin">fin</label>
+                <input type="date" id="fin" formControlName="dateFin"/>
+            </div>
+        </div>
+        <div class="button">
+            <button type="submit">Enregistrer</button>
+            <p> {{ this.Message }}</p>
+        </div>
+    </form>
+</div>

@@ -1,5 +1,9 @@
 export class Session {
 
+    public id : number;
+
+    public static numberOfSession : number = 0;
+
     public lieu : string;
 
     public dateDebut : Date;
@@ -13,6 +17,8 @@ export class Session {
         this.dateDebut = dateDebut;
         this.dateFin = dateFin;
         this.titre = titre;
+        this.id = Session.numberOfSession;
+        Session.numberOfSession++;
     }
 
     public getLieu(): string {
@@ -45,5 +51,13 @@ export class Session {
 
     public setTitre(titre: string): void {
         this.titre = titre;
+    }
+
+    public getId(): number {
+        return this.id;
+    }
+
+    public setId(id: number): void {
+        this.id = id;
     }
 }
