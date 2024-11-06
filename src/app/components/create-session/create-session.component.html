@@ -1,5 +1,6 @@
 <div class="createSession">
-    <p>Création d'une session</p>
+    <p *ngIf="!this.isEditing">Création d'une session</p>
+    <p *ngIf="this.isEditing">Modification d'une session</p>
     <form [formGroup]="SessionGroup" (ngSubmit)="submit()">
         <div class="AllForms">
             <div class="nom">

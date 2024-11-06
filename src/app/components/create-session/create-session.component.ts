@@ -1,5 +1,6 @@
 import { Component } from '@angular/core';
 import { FormGroup, FormControl, ReactiveFormsModule } from '@angular/forms';
+import { NgIf } from '@angular/common';
 import { HttpClient } from '@angular/common/http';
 import { SessionService } from '../../services/session/session.service';
 import { Session } from '../../Model/SessionClass'; // Assurez-vous d'importer le modèle de session
@@ -8,7 +9,7 @@ import { Subscription } from 'rxjs';
 @Component({
   selector: 'app-create-session',
   standalone: true,
-  imports: [ReactiveFormsModule],
+  imports: [ReactiveFormsModule, NgIf],
   templateUrl: './create-session.component.html',
   styleUrl: './create-session.component.scss'
 })
@@ -18,7 +19,9 @@ export class CreateSessionComponent {
 
   public Message : string = '';
 
-  private sessionSubscription!: Subscription;
+  public sessionSubscription!: Subscription;
+
+  public isEditing: boolean = false;
 
   constructor(private http : HttpClient, private sessionService : SessionService) { }
 
@@ -32,11 +35,21 @@ export class CreateSessionComponent {
 
     this.sessionSubscription = this.sessionService.sessionSelectionne$.subscribe(session => {
       if (session) {
+        this.isEditing = true;
         this.SessionGroup.patchValue({
           titre: session.titre,
           dateDebut: session.dateDebut,
           dateFin: session.dateFin,
           lieu: session.lieu
+        });
+      }
+      else {
+        this.isEditing = false;
+        this.SessionGroup.patchValue({
+          titre: '',
+          dateDebut: '',
+          dateFin: '',
+          lieu: ''
         });
       }
     });
@@ -60,24 +73,16 @@ export class CreateSessionComponent {
   }
 
   submit() : void {
-    this.Message = 'Création de la session en cours...';
-    const body : any = {
-      titre: this.SessionGroup.value.titre,
-      dateDebut: this.SessionGroup.value.dateDebut,
-      dateFin: this.SessionGroup.value.dateFin,
-      lieu: this.SessionGroup.value.lieu
-    };
-    const options = {
-      withCredentials: true 
-    };
-    this.http.post('http://localhost:3000/admin/createSession', body, options).subscribe(
-      (response) => {
-        this.Message = 'Session créée';
-      },
-      (error) => {
-        this.Message = 'Une erreur est survenue';
-      }
-    )
+    console.log('submit');
+    if (this.isEditing) {
+      this.Message = 'Mise à jour de la session en cours...';
+    }
+    else {
+      this.Message = 'Création de la session en cours...';
+    }
+    this.sessionService.UpdateOrCreateSession(this.SessionGroup.value).subscribe((response) => {
+      this.Message = response;
+    });
   }
 
 }

@@ -6,7 +6,7 @@
     align-items: center;
     justify-self: center;
     justify-content: center;
-    height: 31%;
+    height: 33%;
     width: 93%;
     border-radius: 4vh;
     background-color: $color3;
@@ -64,4 +64,9 @@ button {
     align-self: center;
     margin-top: 2vh;
     margin-left: 27%;
+}
+
+.button p {
+    justify-self: center;
+    align-self: center;
 }
