@@ -8,6 +8,7 @@ import { MonComptePageComponent } from '../pages/mon-compte-page/mon-compte-page
 import { GestionGestionnairePageComponent } from '../pages/gestion-gestionnaire-page/gestion-gestionnaire-page.component';
 import { SessionPageComponent } from '../pages/session-page/session-page.component';
 import { CataloguePageComponent } from '../pages/public/catalogue-page/catalogue-page.component';import { GestionSessionComponent } from '../pages/gestion-session/gestion-session.component';
+import { GestionSessionComponent } from '../pages/gestion-session/gestion-session.component';
 
 export const routes: Routes = [
     { path: '', component: HomePageComponent },
@@ -15,7 +16,6 @@ export const routes: Routes = [
     { path: "gestion/home-gestion", component: HomeGestionPageComponent},
     { path: "gestion/MonCompte", component: MonComptePageComponent},
     { path: "gestion/GestionGestionnaire", component: GestionGestionnairePageComponent},
-    { path: "gestion/GestionSession", component: GestionSessionComponent},
     { path: "session", component: SessionPageComponent},
     {path : "catalogue", component : CataloguePageComponent},
     { path: '**', component: PageNotFoundComponent},

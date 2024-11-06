@@ -17,6 +17,13 @@ p {
     margin-bottom: 2vh;
 }
 
+p {
+    font-size: 2.5vh;
+    text-align: left;
+    margin-left: 2.5vh;
+    margin-bottom: 2vh;
+}
+
 .tab {
     display: flex;
     flex-direction: column;
@@ -38,6 +45,14 @@ p {
     padding-left: 2vh;
     padding-right: 2vh;
     flex-shrink: 0;
+}
+
+.session-page  {
+    max-height: 70vh; /* Taille max pour la page /session */
+}
+
+.gestion-session-page {
+    max-height: 25vh; /* Taille max pour la page /gestion/GestionSession */
 }
 
 .session-page  {
