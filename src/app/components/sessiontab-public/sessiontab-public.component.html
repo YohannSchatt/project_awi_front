@@ -1,49 +1,64 @@
-<div class="tabGestionnaire">
+<div class="tabGestionnaire" [ngClass]="{'session-page': !this.OnAdminPage, 'gestion-session-page': this.OnAdminPage}">
     <div>
-        <div class="elt" *ngIf="sessionActuelle">
-            <p>Session Actuelle</p>
-            <div>
-                <p> Titre :</p>
-                <p> {{sessionActuelle.getTitre()}}</p>
-            </div>
-            <div>
-                <p> Lieu :</p>
-                <p> {{sessionActuelle.getLieu()}}</p>
-            </div>
-            <div>
-                <p> Début :</p>
-                <p> {{sessionActuelle.getDateDebut()}}</p>
-            </div>
-            <div>
-                <p> Fin :</p>
-                <p> {{sessionActuelle.getDateFin()}}</p>
-            </div>
-            <button *ngIf="OnAdminPage" (click)="modifierSession(sessionActuelle); onButtonClick(sessionActuelle)" [ngClass]="{'clicked': selectedSessionId === sessionActuelle.id}">Modifier</button>
-            <button *ngIf="OnAdminPage" (click)="supprimerSession(sessionActuelle)">Supprimer</button>
-    </div>
-    <p>Session à venir</p>
-    <div class="tab" [ngClass]="{'session-page': !this.OnAdminPage, 'gestion-session-page': this.OnAdminPage}">
-        @for (session of tabSession; track session) {
+    <div class="tab" *ngIf="sessionActuelle">
+        <p>Session Actuelle</p>
         <div class="elt">
-            <div>
-                <p> Titre :</p>
-                <p> {{session.getTitre()}}</p>
+            <div class="upper">
+                <div>
+                    <p> Titre :</p>
+                    <p> {{sessionActuelle.getTitre()}}</p>
+                </div>
+                <div>
+                    <p> Lieu :</p>
+                    <p> {{sessionActuelle.getLieu()}}</p>
+                </div>
+                <div>
+                    <p> Début :</p>
+                    <p> {{this.formatDateToDDMMYYYY(sessionActuelle.getDateDebut())}}</p>
+                </div>
+                <div>
+                    <p> Fin :</p>
+                    <p> {{this.formatDateToDDMMYYYY(sessionActuelle.getDateFin())}}</p>
+                </div>
+                <button *ngIf="OnAdminPage" (click)="modifierSession(sessionActuelle); onButtonClick(sessionActuelle)" [ngClass]="{'clicked': selectedSessionId === sessionActuelle.id}">Modifier</button>
+                <button *ngIf="OnAdminPage" (click)="supprimerSession(sessionActuelle)">Supprimer</button>
             </div>
-            <div>
-                <p> Lieu :</p>
-                <p> {{session.getLieu()}}</p>
+            <div class="lower">
+                <p> Description :</p>
+                <p> {{sessionActuelle.getDescription()}}</p>
             </div>
-            <div>
-                <p> Début :</p>
-                <p> {{session.getDateDebut()}}</p>
+        </div>   
+    </div>
+    <div class="tab">
+        <p>Session à venir</p>
+        @for (session of tabSession; track session) {    
+        <div class="elt">
+            <div class="upper">
+                <div>
+                    <p> Titre :</p>
+                    <p> {{session.getTitre()}}</p>
+                </div>
+                <div>
+                    <p> Lieu :</p>
+                    <p> {{session.getLieu()}}</p>
+                </div>
+                <div>
+                    <p> Début :</p>
+                    <p> {{this.formatDateToDDMMYYYY(session.getDateDebut())}}</p>
+                </div>
+                <div>
+                    <p> Fin :</p>
+                    <p> {{this.formatDateToDDMMYYYY(session.getDateFin())}}</p>
+                </div>
+                <button *ngIf="OnAdminPage" (click)="modifierSession(session); onButtonClick(session)" [ngClass]="{'clicked': selectedSessionId === session.id}">Modifier</button>
+                <button *ngIf="OnAdminPage" (click)="supprimerSession(session)">Supprimer</button>
             </div>
-            <div>
-                <p> Fin :</p>
-                <p> {{session.getDateFin()}}</p>
+            <div class="lower">
+                <p> Description :</p>
+                <p> {{session.getDescription()}}</p>
             </div>
-            <button *ngIf="OnAdminPage" (click)="modifierSession(session); onButtonClick(session)" [ngClass]="{'clicked': selectedSessionId === session.id}">Modifier</button>
-            <button *ngIf="OnAdminPage" (click)="supprimerSession(session)">Supprimer</button>
         </div>
         }
+    </div>
     </div>
 </div>

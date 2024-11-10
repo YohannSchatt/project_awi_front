@@ -6,15 +6,9 @@
     justify-self: center;
     background-color: $color3;
     border-radius: 3vh;
-    padding-top: 2vh;
     padding-bottom: 2vh;
-}
-
-p {
-    font-size: 2.5vh;
-    text-align: left;
-    margin-left: 2.5vh;
-    margin-bottom: 2vh;
+    box-sizing:content-box;
+    overflow-y:auto;
 }
 
 p {
@@ -32,8 +26,6 @@ p {
     width: 95%;
     height: 95%;
     margin-bottom: 1vh;
-    overflow-y:auto;
-    box-sizing:content-box;
 }
 
 .elt {
@@ -48,27 +40,31 @@ p {
 }
 
 .session-page  {
-    max-height: 70vh; /* Taille max pour la page /session */
+    height: 70vh; /* Taille max pour la page /session */
 }
 
 .gestion-session-page {
-    max-height: 25vh; /* Taille max pour la page /gestion/GestionSession */
+    height: 30vh; /* Taille max pour la page /gestion/GestionSession */
 }
 
-.session-page  {
-    max-height: 70vh; /* Taille max pour la page /session */
-}
-
-.gestion-session-page {
-    max-height: 25vh; /* Taille max pour la page /gestion/GestionSession */
-}
-
-.elt div {
+.elt {
     display: flex;
     flex-direction: column;
 }
 
+.upper {
+    display : flex;
+    flex-direction: row;
+}
+
+.upper div {
+    flex: 1;
+    margin-right: 1vh;
+}
+
 button {
+    margin: 1vh;
+    flex:1;
     width: 10%;
     height: 7vh;
     background-color: $color5;

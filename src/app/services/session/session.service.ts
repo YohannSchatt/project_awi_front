@@ -66,6 +66,14 @@ export class SessionService {
     );
   }
 
+  public getActuelSessionDB() {
+    return this.http.get(`${environment.apiUrl}/session/ActualSession`)
+  }
+
+  public GetNextSessionDB() {
+    return this.http.get(`${environment.apiUrl}/session/NextSession`)
+  }
+
   private DeleteSession(session: Session) {
     console.log('Session supprimée');
   }

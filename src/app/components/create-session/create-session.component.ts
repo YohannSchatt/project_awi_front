@@ -30,7 +30,8 @@ export class CreateSessionComponent {
       titre: new FormControl(''),
       dateDebut: new FormControl(''),
       dateFin: new FormControl(''),
-      lieu: new FormControl('')
+      lieu: new FormControl(''),
+      description : new FormControl('')
     });
 
     this.sessionSubscription = this.sessionService.sessionSelectionne$.subscribe(session => {
@@ -38,9 +39,10 @@ export class CreateSessionComponent {
         this.isEditing = true;
         this.SessionGroup.patchValue({
           titre: session.titre,
-          dateDebut: session.dateDebut,
-          dateFin: session.dateFin,
-          lieu: session.lieu
+          dateDebut: this.formatDateToYYYYMMDD(new Date(session.dateDebut)),
+          dateFin: this.formatDateToYYYYMMDD(new Date(session.dateFin)),
+          lieu: session.lieu,
+          description : session.description
         });
       }
       else {
@@ -49,7 +51,8 @@ export class CreateSessionComponent {
           titre: '',
           dateDebut: '',
           dateFin: '',
-          lieu: ''
+          lieu: '',
+          description : ''
         });
       }
     });
@@ -59,9 +62,10 @@ export class CreateSessionComponent {
     if (initialSession) {
       this.SessionGroup.patchValue({
         titre: initialSession.titre,
-        dateDebut: initialSession.dateDebut,
-        dateFin: initialSession.dateFin,
-        lieu: initialSession.lieu
+        dateDebut: this.formatDateToYYYYMMDD(new Date(initialSession.dateDebut)),
+        dateFin: this.formatDateToYYYYMMDD(new Date(initialSession.dateFin)),
+        lieu: initialSession.lieu,
+        description : initialSession.description
       });
     }
   }
@@ -70,6 +74,13 @@ export class CreateSessionComponent {
     if (this.sessionSubscription) {
       this.sessionSubscription.unsubscribe();
     }
+  }
+
+  private formatDateToYYYYMMDD(date: Date): string {
+    const year = date.getFullYear();
+    const month = String(date.getMonth() + 1).padStart(2, '0');
+    const day = String(date.getDate()).padStart(2, '0');
+    return `${year}-${month}-${day}`;
   }
 
   submit() : void {

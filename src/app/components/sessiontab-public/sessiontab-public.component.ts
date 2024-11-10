@@ -27,9 +27,21 @@ export class SessiontabPublicComponent {
   constructor(private router : Router, private http : HttpClient, private sessionService : SessionService) { }
 
   ngOnInit() {
-    this.loadSession();
+    this.getActualSession();
+    this.getNextSession();
     this.checkCurrentUrl(this.router.url);
+  }
 
+  public formatDateToDDMMYYYY(dateString: Date): string {
+    if (!dateString) {
+      return '';
+    }
+    const date = new Date(dateString);
+    const day = String(date.getDate()).padStart(2, '0'); // Ajout des parenthèses
+    const month = String(date.getMonth() + 1).padStart(2, '0'); // Ajout des parenthèses et correction de l'indexation des mois
+    const year = date.getFullYear().toString(); // Ajout des parenthèses
+  
+    return `${day}-${month}-${year}`;
   }
 
   private checkCurrentUrl(url: string) {
@@ -37,27 +49,20 @@ export class SessiontabPublicComponent {
     console.log('OnAdminPage:', this.OnAdminPage);
   }
 
-  private getSessionActuelle() {
-    const dateActuelle = new Date();
-    this.tabSession.forEach((session: Session) => {
-      if (session.dateDebut < dateActuelle && session.dateFin > dateActuelle) {
-        this.sessionActuelle = session;
-      }
+  private getActualSession() {
+    this.sessionService.getActuelSessionDB().subscribe((data : any) => {
+      this.sessionActuelle = new Session(data.lieu, new Date(data.dateDebut), new Date(data.dateFin), data.titre, data.description);
     });
   }
 
   private getNextSession() {
-    const dateActuelle = new Date();
-    this.tabSession.forEach((session: Session) => {
-      if (session.dateDebut > dateActuelle) {
-        this.sessionActuelle = session;
-      }
+    this.sessionService.GetNextSessionDB().subscribe((data) => {
+      this.loadSession(data);
     });
   }
 
-  private loadSession() {
-    const data = require('./session.json');
-    this.tabSession = data.map((item: any) => new Session(item.lieu, item.dateDebut, item.dateFin, item.titre));
+  private loadSession(data : any) {
+    this.tabSession = data.map((item: any) => new Session(item.lieu, item.dateDebut, item.dateFin, item.titre, item.description));
   }
 
   public modifierSession(session: Session) {

@@ -6,7 +6,7 @@
     align-items: center;
     justify-self: center;
     justify-content: center;
-    height: 33%;
+    height: 45%;
     width: 93%;
     border-radius: 4vh;
     background-color: $color3;
@@ -69,4 +69,10 @@ button {
 .button p {
     justify-self: center;
     align-self: center;
+}
+
+.description {
+    display: flex;
+    flex-direction: column;
+    justify-self: center;
 }

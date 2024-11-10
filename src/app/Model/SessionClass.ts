@@ -12,11 +12,14 @@ export class Session {
 
     public titre : string;
 
-    constructor(lieu: string, dateDebut: Date, dateFin: Date, titre: string) {
+    public  description : string;
+
+    constructor(lieu: string, dateDebut: Date, dateFin: Date, titre: string, description: string) {
         this.lieu = lieu;
         this.dateDebut = dateDebut;
         this.dateFin = dateFin;
         this.titre = titre;
+        this.description = description;
         this.id = Session.numberOfSession;
         Session.numberOfSession++;
     }
@@ -59,5 +62,13 @@ export class Session {
 
     public setId(id: number): void {
         this.id = id;
+    }
+
+    public getDescription(): string {
+        return this.description;
+    }
+
+    public setDescription(description: string): void {
+        this.description = description;
     }
 }
