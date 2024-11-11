@@ -86,6 +86,7 @@ export class SessionService {
     return this.http.post(`${environment.apiUrl}/session/DeleteSession`, body, options).subscribe(
       (response) => {
         console.log('Session supprimée');
+        this.sessionsUpdatedSubject.next();
       },
       (error) => {
         console.log('Une erreur est survenue');

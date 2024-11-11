@@ -4,6 +4,7 @@ import { UserService } from '../../services/user/user.service';
 import { MatDialog } from '@angular/material/dialog';
 import { LogoutComponent } from '../logout/logout.component';
 import { Router } from '@angular/router';
+import { AuthService } from '../../services/auth/auth.service';
 
 @Component({
   selector: 'app-navbar',
@@ -14,7 +15,8 @@ import { Router } from '@angular/router';
 })
 export class NavbarComponent {
 
-  constructor(public userService : UserService, public dialog: MatDialog, public router : Router) {}
+  constructor(public userService : UserService, public dialog: MatDialog, public router : Router, private auth : AuthService) {}
+
 
   public logout() : void {
     const dialogRef = this.dialog.open(LogoutComponent);
