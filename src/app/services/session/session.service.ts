@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 import { Session } from '../../Model/SessionClass';
-import { BehaviorSubject, Observable, of  } from 'rxjs';
+import { BehaviorSubject, Observable, of, tap  } from 'rxjs';
 import { catchError, map } from 'rxjs/operators';
 import { HttpClient } from '@angular/common/http';
 import { environment } from '../../../environment/environment';
@@ -14,6 +14,9 @@ export class SessionService {
 
   private sessionSelectionneSubject = new BehaviorSubject<Session | null>(null);
   sessionSelectionne$ = this.sessionSelectionneSubject.asObservable();
+
+  private sessionsUpdatedSubject = new BehaviorSubject<void>(undefined);
+  sessionsUpdated$ = this.sessionsUpdatedSubject.asObservable();
 
   constructor(private http: HttpClient) { }
 
@@ -30,39 +33,36 @@ export class SessionService {
     return this.sessionSelectionneSubject.getValue() !== null;
   }
 
-  createSession(lieu: string, dateDebut: Date, dateFin: Date, titre : string): Observable<string> {
+  createSession(lieu: string, dateDebut: Date, dateFin: Date, titre : string, description : string): Observable<string> {
     const body = {
       titre: titre,
       dateDebut: dateDebut,
       dateFin: dateFin,
-      lieu: lieu
+      lieu: lieu,
+      description: description,
     };
     const options = {
       withCredentials: true 
     };
-    return this.http.post(`${environment.apiUrl}/admin/createSession`, body, options).pipe(
-      map((response) => 'Session créée'),
-      catchError((error) => of('Une erreur est survenue'))
+    return this.http.post<string>(`${environment.apiUrl}/session/CreateSession`, body, options).pipe(
+      tap(() => this.sessionsUpdatedSubject.next())
     );
   }
 
-  private UpdateSession(lieu: string, dateDebut: Date, dateFin: Date, titre: string): Observable<string> {
-    this.sessionSelectionne!.lieu = lieu;
-    this.sessionSelectionne!.dateDebut = dateDebut;
-    this.sessionSelectionne!.dateFin = dateFin;
-    this.sessionSelectionne!.titre = titre;
-    const body = {
+  private UpdateSession(lieu: string, dateDebut: Date, dateFin: Date, titre: string, description : string): Observable<string> {
+    const body : any = {
+      id: this.sessionSelectionneSubject.getValue()?.getId(),
       titre: titre,
       dateDebut: dateDebut,
       dateFin: dateFin,
-      lieu: lieu
+      lieu: lieu,
+      description: description,
     };
     const options = {
       withCredentials: true 
     };
-    return this.http.put(`${environment.apiUrl}/admin/createSession`, body, options).pipe(
-      map((response) => 'Session Modifiée'),
-      catchError((error) => of('Une erreur est survenue'))
+    return this.http.put<string>(`${environment.apiUrl}/session/UpdateSession`, body, options).pipe(
+      tap(() => this.sessionsUpdatedSubject.next()),
     );
   }
 
@@ -74,17 +74,32 @@ export class SessionService {
     return this.http.get(`${environment.apiUrl}/session/NextSession`)
   }
 
-  private DeleteSession(session: Session) {
-    console.log('Session supprimée');
+  public deleteSession(session: Session) {
+    console.log("session");
+    console.log(session);
+    const options = {
+      withCredentials: true 
+    };
+    const body = {
+      id: session.getId()
+    };
+    return this.http.post(`${environment.apiUrl}/session/DeleteSession`, body, options).subscribe(
+      (response) => {
+        console.log('Session supprimée');
+      },
+      (error) => {
+        console.log('Une erreur est survenue');
+      }
+    );
   }
 
   public UpdateOrCreateSession(Session: Session) : Observable<string> {
     if (!this.HasSessionSelectionne()) {
       console.log('create');
-      return this.createSession(Session.titre, Session.dateDebut, Session.dateFin, Session.lieu);
+      return this.createSession(Session.lieu, Session.dateDebut, Session.dateFin, Session.titre, Session.description);
     } else {
-      console.log('update');
-      return this.UpdateSession(Session.titre, Session.dateDebut, Session.dateFin, Session.lieu);
+      console.log('update', Session);
+      return this.UpdateSession(Session.lieu, Session.dateDebut, Session.dateFin, Session.titre, Session.description);
     }
   }
 

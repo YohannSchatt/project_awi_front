@@ -14,14 +14,13 @@ export class Session {
 
     public  description : string;
 
-    constructor(lieu: string, dateDebut: Date, dateFin: Date, titre: string, description: string) {
+    constructor(lieu: string, dateDebut: Date, dateFin: Date, titre: string, description: string, id : number = Session.numberOfSession) {
         this.lieu = lieu;
         this.dateDebut = dateDebut;
         this.dateFin = dateFin;
         this.titre = titre;
         this.description = description;
-        this.id = Session.numberOfSession;
-        Session.numberOfSession++;
+        this.id = id
     }
 
     public getLieu(): string {
@@ -58,10 +57,6 @@ export class Session {
 
     public getId(): number {
         return this.id;
-    }
-
-    public setId(id: number): void {
-        this.id = id;
     }
 
     public getDescription(): string {

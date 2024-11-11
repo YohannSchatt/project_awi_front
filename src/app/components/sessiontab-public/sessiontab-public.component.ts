@@ -30,6 +30,15 @@ export class SessiontabPublicComponent {
     this.getActualSession();
     this.getNextSession();
     this.checkCurrentUrl(this.router.url);
+
+    this.sessionService.sessionsUpdated$.subscribe(() => {
+      this.getActualSession();
+      this.getNextSession();
+    });
+  }
+
+  ngOnDestroy() {
+    this.sessionService.setSessionSelectionne(null);
   }
 
   public formatDateToDDMMYYYY(dateString: Date): string {
@@ -51,26 +60,24 @@ export class SessiontabPublicComponent {
 
   private getActualSession() {
     this.sessionService.getActuelSessionDB().subscribe((data : any) => {
-      this.sessionActuelle = new Session(data.lieu, new Date(data.dateDebut), new Date(data.dateFin), data.titre, data.description);
+      console.log(data);
+      this.sessionActuelle = new Session(data.lieu, new Date(data.dateDebut), new Date(data.dateFin), data.titre, data.description, data.idSession);
     });
   }
 
   private getNextSession() {
     this.sessionService.GetNextSessionDB().subscribe((data) => {
+      console.log(data);
       this.loadSession(data);
     });
   }
 
   private loadSession(data : any) {
-    this.tabSession = data.map((item: any) => new Session(item.lieu, item.dateDebut, item.dateFin, item.titre, item.description));
-  }
-
-  public modifierSession(session: Session) {
-    console.log(session);
+    this.tabSession = data.map((item: any) => new Session(item.lieu, item.dateDebut, item.dateFin, item.titre, item.description, item.idSession));
   }
 
   public supprimerSession(session: Session) {
-    console.log(session);
+    this.sessionService.deleteSession(session)
   }
   
   public onButtonClick(session : Session) {

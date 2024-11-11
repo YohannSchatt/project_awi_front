@@ -20,7 +20,7 @@
                     <p> Fin :</p>
                     <p> {{this.formatDateToDDMMYYYY(sessionActuelle.getDateFin())}}</p>
                 </div>
-                <button *ngIf="OnAdminPage" (click)="modifierSession(sessionActuelle); onButtonClick(sessionActuelle)" [ngClass]="{'clicked': selectedSessionId === sessionActuelle.id}">Modifier</button>
+                <button *ngIf="OnAdminPage" (click)="onButtonClick(sessionActuelle)" [ngClass]="{'clicked': selectedSessionId === sessionActuelle.id}">Modifier</button>
                 <button *ngIf="OnAdminPage" (click)="supprimerSession(sessionActuelle)">Supprimer</button>
             </div>
             <div class="lower">
@@ -31,7 +31,7 @@
     </div>
     <div class="tab">
         <p>Session à venir</p>
-        @for (session of tabSession; track session) {    
+        @for (session of tabSession; track session){    
         <div class="elt">
             <div class="upper">
                 <div>
@@ -50,7 +50,7 @@
                     <p> Fin :</p>
                     <p> {{this.formatDateToDDMMYYYY(session.getDateFin())}}</p>
                 </div>
-                <button *ngIf="OnAdminPage" (click)="modifierSession(session); onButtonClick(session)" [ngClass]="{'clicked': selectedSessionId === session.id}">Modifier</button>
+                <button *ngIf="OnAdminPage" (click)="onButtonClick(session)" [ngClass]="{'clicked': selectedSessionId === session.id}">Modifier</button>
                 <button *ngIf="OnAdminPage" (click)="supprimerSession(session)">Supprimer</button>
             </div>
             <div class="lower">

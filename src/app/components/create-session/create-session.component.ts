@@ -3,7 +3,7 @@ import { FormGroup, FormControl, ReactiveFormsModule } from '@angular/forms';
 import { NgIf } from '@angular/common';
 import { HttpClient } from '@angular/common/http';
 import { SessionService } from '../../services/session/session.service';
-import { Session } from '../../Model/SessionClass'; // Assurez-vous d'importer le modèle de session
+import { Session } from '../../Model/SessionClass';
 import { Subscription } from 'rxjs';
 
 @Component({
@@ -92,7 +92,7 @@ export class CreateSessionComponent {
       this.Message = 'Création de la session en cours...';
     }
     this.sessionService.UpdateOrCreateSession(this.SessionGroup.value).subscribe((response) => {
-      this.Message = response;
+      this.Message = 'Sessions mise à jour avec succès';
     });
   }
 
