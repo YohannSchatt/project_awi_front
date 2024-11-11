@@ -1,3 +1,5 @@
+@import "../../styles/variable";
+
 #nom {
   font-size: clamp(16px, 2vw, 24px); /* Minimum 16px, preferred 2vw, maximum 24px */
   font-weight: bold;
@@ -23,13 +25,11 @@
   margin-top: auto;
   margin-bottom: auto;
   margin-right: 3vh; /* Position 3vh from the right */
-  background-color: rgb(130, 62, 255);
+  background-color: $color7; /* Set background color to $color7 */
   border-radius: 12px;
+  color: white
 }
 
-#detailbutton p {
-  color: #ffffff;
-}
 
 :host * {
   margin: 5px;

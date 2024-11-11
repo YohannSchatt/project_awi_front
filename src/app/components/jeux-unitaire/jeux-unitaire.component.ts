@@ -20,7 +20,6 @@ byebye() {
   constructor(private catalogueService: CatalogueService) { }
 
   makeMeTheBoss() : void {
-    console.log("I'm the boss now");
     this.catalogueService.setSelectedJeu(this.jeu);
   }
 

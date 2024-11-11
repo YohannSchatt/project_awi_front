@@ -62,7 +62,6 @@ export class CatalogueService {
   }
 
   setCurrentPage(page: number): void {
-    console.log('Setting current page to from service:', page);
     if (!this.loadedPages.has(page)) {
       this.addCatalogue(page).subscribe(() => {
         this.currentPageSubject.next(page);
@@ -74,12 +73,10 @@ export class CatalogueService {
 
 
   unSelectJeu(): void {
-    console.log('Unselecting jeu from service');
     this.currentJeuSubject.next(undefined);
   }
 
   setSelectedJeu(jeuInfo: InfoJeuUnitaireDto): void {
-    console.log('Setting selected jeu from the service:', jeuInfo);
     this.currentJeuSubject.next(jeuInfo);
   }
 

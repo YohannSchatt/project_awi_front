@@ -52,6 +52,10 @@ form > * {
   font-size: 16px; // Adjust the font size if needed
 }
 
+#submitbutton:hover {
+  filter: saturate(200%);
+}
+
 #submitbutton:disabled {
   background-color: lighten($color7, 20%); // Lighten the color when disabled
   cursor:default; // Change the cursor to not-allowed when disabled

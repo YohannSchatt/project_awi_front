@@ -28,6 +28,11 @@
        <p>Prénom du vendeur : {{this.vendeurFirstName}}</p>
        <p>Nom du vendeur : {{this.vendeurName}}</p>
      }
+     @else {
+      <span>Le vendeur n'est pas encore enregistrer ?</span>
+      <a [routerLink]="['/session']">Cliquer ici</a>
+
+     }
   </div>
   <div class = "champ"><!-- le champ pour le nom du jeu -->
     <label for = "jeu" class="required">Jeu : </label>
@@ -51,11 +56,15 @@
          placeholder="prix (en €)"
          formControlName="prix">
   </div>
-
-  <p>
-    <button id ="submitbutton" type="submit" [disabled]="!enregistrerJeuForm.valid">Enregistrer l'achat</button>
-  </p>
-
+<!-- submit button  -->
+<button
+  id="submitbutton"
+  type="submit"
+  [disabled]="!enregistrerJeuForm.valid"
+  [attr.title]="enregistrerJeuForm.invalid ? getFormValidationErrors() : ''"
+>
+  Enregistrer l'achat
+</button>
 
 
 
