@@ -1,0 +1,58 @@
+@import "../../../app/styles/variable";
+
+form
+{
+  background-color: $color4;
+  padding: 20px;
+  display: block;
+  width: 28%;
+  border-radius: 8px;
+  border: 1px solid $color4;
+  box-shadow: 0 0 8px rgb(46, 37, 66);
+}
+
+label, select, input {
+
+  font-size: clamp(14px, 1.8vh,  1.8vh);
+}
+
+input {
+  width: 50%;
+}
+
+#errormessage {
+  color: red;
+  margin-left: 10vh;
+}
+
+form > * {
+  padding: 5px;
+}
+
+.champ {
+  display: flex;
+}
+.champ > * {
+  margin: 10px;
+}
+
+
+.required::after {
+  content: '*';
+  color: red;
+}
+
+#submitbutton {
+  padding: 10px 20px; // Make the button fatter
+  border-radius: 12px; // Make the button a bit roundish
+  background-color: $color7; // Set the background color to $color3
+  color: white; // Set the font color to white
+  border: none; // Remove the default border
+  cursor: pointer; // Change the cursor to pointer on hover
+  font-size: 16px; // Adjust the font size if needed
+}
+
+#submitbutton:disabled {
+  background-color: lighten($color7, 20%); // Lighten the color when disabled
+  cursor:default; // Change the cursor to not-allowed when disabled
+}

@@ -1,3 +1,4 @@
+import { EnregistrerJeuPageComponent } from './../pages/gestion/enregistrer-jeu-page/enregistrer-jeu-page.component';
 
 import {Routes } from '@angular/router';
 import { ConnexionPageComponent } from '../pages/gestion/connexion-page/connexion-page.component';
@@ -19,5 +20,6 @@ export const routes: Routes = [
     { path: "gestion/GestionSession", component: GestionSessionComponent},
     { path: "session", component: SessionPageComponent},
     {path : "catalogue", component : CataloguePageComponent},
-    { path: '**', component: PageNotFoundComponent},
+    {path: "gestion/enregister-jeu", component: EnregistrerJeuPageComponent },
+    { path: '**', component: PageNotFoundComponent}
   ];

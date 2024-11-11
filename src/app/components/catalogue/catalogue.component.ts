@@ -14,7 +14,7 @@ import { Subscription } from 'rxjs';
 })
 export class CatalogueComponent implements OnInit, OnDestroy{
 
-  error: HttpErrorResponse | undefined = undefined; // Store the error
+  errorMessage : String | undefined = undefined; // Store the error
   currentPageJeux: InfoJeuUnitaireDto[] = [];
   currentJeuInfo: InfoJeuUnitaireDto | undefined = undefined;
   private subscriptions: Subscription = new Subscription();
@@ -23,19 +23,27 @@ export class CatalogueComponent implements OnInit, OnDestroy{
   constructor(private catalogueService: CatalogueService) { }
 
   ngOnInit(): void {
-    console.log('CatalogueComponent initializing...');
+    // console.log('CatalogueComponent initializing...');
 
     this.catalogueService.initialize();
 
+
+    // Subscribe to errorMessage$ to get the error message
+
+    this.subscriptions.add(
+      this.catalogueService.errorMessage$.subscribe({
+        next: (errorMessage) => {
+          // console.log('Error message:', errorMessage);
+          this.errorMessage = errorMessage;
+        },
+      })
+    );
     // Subscribe to getCurrentPageJeux to get the current page's games
     this.subscriptions.add(
       this.catalogueService.getCurrentPageJeux().subscribe({
         next: (jeux) => {
           this.currentPageJeux = jeux;
         },
-        error: (error) => {
-          this.error = error;
-        }
       })
     );
 
@@ -43,20 +51,16 @@ export class CatalogueComponent implements OnInit, OnDestroy{
     this.subscriptions.add(
       this.catalogueService.currentJeuInfo$.subscribe({
         next: (jeu) => {
-          console.log('Selected jeu in catalogue comp:', jeu);
+          // console.log('Selected jeu in catalogue comp:', jeu);
           this.currentJeuInfo = jeu;
-          if (jeu === undefined) {
-          }
         },
-        error: (error) => {
-          this.error = error;
-        }
+
       })
     );
   }
 
   setPage(page: number): void {
-    console.log('Setting current page to:', page);
+    // console.log('Setting current page to:', page);
     this.catalogueService.setCurrentPage(page);
   }
 

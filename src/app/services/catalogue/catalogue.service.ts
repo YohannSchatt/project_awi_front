@@ -1,7 +1,7 @@
 import { Injectable, inject } from '@angular/core';
 import { HttpClient, HttpErrorResponse } from '@angular/common/http';
 import { BehaviorSubject, Observable, of, throwError } from 'rxjs';
-import { catchError, map, switchMap, tap } from 'rxjs/operators';
+import { catchError, map, tap } from 'rxjs/operators';
 import { CatalogueDto, InfoJeuUnitaireDto } from './response-catalogue.dto';
 import { environment } from '../../../environments/environment.development';
 
@@ -28,23 +28,28 @@ export class CatalogueService {
   private currentJeuSubject = new BehaviorSubject<InfoJeuUnitaireDto | undefined>(undefined);
   currentJeuInfo$ = this.currentJeuSubject.asObservable();
 
+  //same idea for the error message
+  private errorMessageSubject = new BehaviorSubject<string | undefined>(undefined);
+  errorMessage$ = this.errorMessageSubject.asObservable();
+
   constructor() { }
 
   addCatalogue(page: number): Observable<void> {
-    console.log('Fetching catalogue for page:', page);
+    // console.log('Fetching catalogue for page:', page);
     if (this.loadedPages.has(page)) {
       return of(undefined); // Page already loaded, do nothing
     }
 
     return this.http.get<CatalogueDto>(`${this.url}/${page}`).pipe(
       tap(catalogue => {
-        console.log('Fetched catalogue succeeded for page:', page);
+        // console.log('Fetched catalogue succeeded for page:', page);
         this.pageJeuxMap.set(page, catalogue.jeux);
         this.loadedPages.add(page);
       }),
       catchError(error => {
-        console.error('Error fetching catalogue:', error);
-        return throwError(() => error);
+      console.error(`HTTP Error: ${error.status} ${error.statusText}`);
+      this.errorMessageSubject.next(`HTTP Error: ${error.status} ${error.statusText}`);
+      return of(undefined);
       }),
       map(() => undefined)
     );
@@ -66,7 +71,7 @@ export class CatalogueService {
       this.currentPageSubject.next(page);
     }
   }
-  
+
 
   unSelectJeu(): void {
     console.log('Unselecting jeu from service');

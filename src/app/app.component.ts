@@ -2,11 +2,10 @@ import { Component } from '@angular/core';
 import { RouterOutlet, RouterModule, Router, NavigationEnd } from '@angular/router';
 import { filter } from 'rxjs/operators';
 import { NgIf } from '@angular/common';
-import { ReactiveFormsModule } from '@angular/forms'; 
+import { ReactiveFormsModule } from '@angular/forms';
 import { HomePageComponent } from '../pages/public/home-page/home-page.component';
 import { ConnexionPageComponent } from '../pages/gestion/connexion-page/connexion-page.component';
 import { HomeGestionPageComponent } from '../pages/gestion/home-gestion-page/home-gestion-page.component';
-import { HttpClientModule } from '@angular/common/http';
 import { NavbarComponent } from "./components/navbar/navbar.component";
 import { MatDialogModule } from '@angular/material/dialog';
 import { MatButtonModule } from '@angular/material/button';
@@ -23,7 +22,6 @@ import { AuthService } from './services/auth/auth.service';
     HomePageComponent,
     ConnexionPageComponent,
     HomeGestionPageComponent,
-    HttpClientModule,
     NavbarComponent,
     MatDialogModule,
     MatButtonModule,
