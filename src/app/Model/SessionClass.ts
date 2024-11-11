@@ -1,5 +1,9 @@
 export class Session {
 
+    public id : number;
+
+    public static numberOfSession : number = 0;
+
     public lieu : string;
 
     public dateDebut : Date;
@@ -8,11 +12,15 @@ export class Session {
 
     public titre : string;
 
-    constructor(lieu: string, dateDebut: Date, dateFin: Date, titre: string) {
+    public  description : string;
+
+    constructor(lieu: string, dateDebut: Date, dateFin: Date, titre: string, description: string, id : number = Session.numberOfSession) {
         this.lieu = lieu;
         this.dateDebut = dateDebut;
         this.dateFin = dateFin;
         this.titre = titre;
+        this.description = description;
+        this.id = id
     }
 
     public getLieu(): string {
@@ -45,5 +53,17 @@ export class Session {
 
     public setTitre(titre: string): void {
         this.titre = titre;
+    }
+
+    public getId(): number {
+        return this.id;
+    }
+
+    public getDescription(): string {
+        return this.description;
+    }
+
+    public setDescription(description: string): void {
+        this.description = description;
     }
 }

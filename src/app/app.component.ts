@@ -9,6 +9,7 @@ import { HomeGestionPageComponent } from '../pages/gestion/home-gestion-page/hom
 import { NavbarComponent } from "./components/navbar/navbar.component";
 import { MatDialogModule } from '@angular/material/dialog';
 import { MatButtonModule } from '@angular/material/button';
+import { AuthService } from './services/auth/auth.service';
 
 
 @Component({
@@ -33,9 +34,12 @@ export class AppComponent {
 
   OnConnexionPage : boolean = false;
 
-  constructor(private router : Router) { }
+  constructor(private router : Router, private auth : AuthService) { }
 
-  ngOnInit() {
+  async ngOnInit() {
+
+    await this.auth.isAuthenticated();
+
     this.router.events.pipe(
       filter(event => event instanceof NavigationEnd)
     ).subscribe((event: NavigationEnd) => {
