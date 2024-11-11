@@ -1,6 +1,7 @@
 
 export class VendeurInfoDto
 {
+  idVendeur : number = 0;
   prenom: string = '';
   nom: string = '';
   email: string = '';

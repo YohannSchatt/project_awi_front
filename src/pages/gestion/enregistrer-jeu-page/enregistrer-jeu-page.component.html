@@ -3,7 +3,7 @@
 
 <h4>Enregistrer un jeu</h4>
 <!-- le form -->
-<form [formGroup] = "enregistrerJeuForm" (ngSubmit)="logInfo()">
+<form [formGroup] = "enregistrerJeuForm" (ngSubmit)="submitDepot()">
   <div class = "champ"><!-- le champ pour l'email du vendeur -->
     <label for = "mailVendeur" class="required">Mail du vendeur : </label>
     <!-- la barre de recherche d'email -->
@@ -33,6 +33,15 @@
       <a [routerLink]="['/session']">Cliquer ici</a>
 
      }
+  </div>
+  <!-- le champ pour l'état du jeu -->
+  <div class = "champ">
+    <label for = "etat" class="required">Etat du jeu : </label>
+    <select formControlName="etat">
+      <option value="NEUF">Neuf</option>
+      <option value="BONNE_ETAT">Bonne état</option>
+      <option value="PIECE_MANQUANTES">Pièces manquantes</option>
+    </select>
   </div>
   <div class = "champ"><!-- le champ pour le nom du jeu -->
     <label for = "jeu" class="required">Jeu : </label>
@@ -65,9 +74,6 @@
 >
   Enregistrer l'achat
 </button>
-
-
-
 
 </form>
 @if(errorMessage){
