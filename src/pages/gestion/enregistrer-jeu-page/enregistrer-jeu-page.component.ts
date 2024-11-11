@@ -1,8 +1,9 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnDestroy, OnInit } from '@angular/core';
 import { FormGroup, FormControl, Validators, ValidationErrors, ValidatorFn, AbstractControl, ReactiveFormsModule } from '@angular/forms';
-import { Observable } from 'rxjs';
+import { Observable, Subscription } from 'rxjs';
 import { map, startWith } from 'rxjs/operators';
 import { AsyncPipe } from '@angular/common';
+import { RouterModule } from '@angular/router';
 
 import { MatAutocompleteModule } from '@angular/material/autocomplete';
 import { MatInputModule } from '@angular/material/input';
@@ -12,15 +13,18 @@ import { VendeurService } from '../../../app/services/vendeur/vendeur.service';
 import { VendeurInfoDto } from '../../../app/services/vendeur/dto/vendeur.info.dto';
 import { JeuService } from '../../../app/services/jeu/jeu.service';
 import { InfoJeuDto } from '../../../app/services/jeu/dto/jeu.info.dto';
+import { log } from 'console';
+import { CreerJeuUnitaire } from '../../../app/services/jeu/dto/create-jeu-unitaire.dto';
 
 @Component({
   selector: 'app-enregistrer-jeu-page',
   standalone: true,
-  imports: [ReactiveFormsModule, MatAutocompleteModule, MatInputModule, MatFormFieldModule, AsyncPipe],
+  imports: [ReactiveFormsModule, MatAutocompleteModule, MatInputModule, MatFormFieldModule, AsyncPipe, RouterModule],
   templateUrl: './enregistrer-jeu-page.component.html',
   styleUrls: ['./enregistrer-jeu-page.component.scss']
 })
 export class EnregistrerJeuPageComponent implements OnInit {
+
 
   vmails: string[] = [];
   filteredVmails: Observable<string[]> = new Observable<string[]>();
@@ -39,10 +43,13 @@ export class EnregistrerJeuPageComponent implements OnInit {
   enregistrerJeuForm: FormGroup = new FormGroup({
     mailVendeur: new FormControl('', [Validators.required, this.emailValidator()]),
     nomJeu: new FormControl('', [Validators.required, this.jeuValidator()]),
-    prix: new FormControl('', [Validators.required, Validators.min(1)]),
+    prix: new FormControl('', [Validators.required, Validators.min(0.5)]),
+    etat : new FormControl('', [Validators.required, this.etatValidator()]),
+
   });
 
   constructor(private vendeurService: VendeurService, private jeuService: JeuService) { }
+
 
   ngOnInit(): void {
     this.getVendeurInfo();
@@ -63,15 +70,52 @@ export class EnregistrerJeuPageComponent implements OnInit {
     });
 
     // this.enregistrerJeuForm.get('nomJeu')?.valueChanges.subscribe(value => {
-    //   this.onNomJeuChange(value);
-    // });
-  }
+      //   this.onNomJeuChange(value);
+      // });
+    }
 
-  emailValidator(): ValidatorFn {
-    return (control: AbstractControl): ValidationErrors | null => {
-      const value = control.value;
-      return this.vmails.includes(value) ? null : { invalidEmail: true };
-    };
+    etatValidator(): ValidatorFn {
+      return (control: AbstractControl): ValidationErrors | null => {
+        const value = control.value;
+        return value === 'NEUF' || value === 'BONNE_ETAT' || value === 'PIECE_MANQUANTES' ? null : { invalidEtat: true };
+      };
+    }
+
+    emailValidator(): ValidatorFn {
+      return (control: AbstractControl): ValidationErrors | null => {
+        const value = control.value;
+        return this.vmails.includes(value) ? null : { invalidEmail: true };
+      };
+    }
+    getFormValidationErrors() {
+      const errors: string[] = [];
+      Object.keys(this.enregistrerJeuForm.controls).forEach(key => {
+        const control = this.enregistrerJeuForm.get(key);
+        const controlErrors: ValidationErrors | null = this.enregistrerJeuForm.get(key)!.errors;
+        if (controlErrors) {
+          Object.keys(controlErrors).forEach(errorKey => {
+            if (errorKey === 'required') {
+              if(key === 'mailVendeur') {
+                errors.push(`l'email du vendeur est requis`);
+              }
+              else if(key === 'nomJeu') {
+                errors.push(`le nom du jeu est requis`);
+              }
+              else{
+                errors.push(`${key} est requis`);}
+              } else if (errorKey === 'min') {
+                errors.push(`le prix doit être au moins ${controlErrors[errorKey].min}`);
+              } else if (errorKey === 'invalidEmail' && control?.value !== '') {
+                errors.push(`l'email du vendeur n'est pas valide`);
+              } else if (errorKey === 'invalidJeu' && control?.value !== '') {
+                errors.push(`le nom du jeu n'est pas valide`);
+              } else {
+                // errors.push(`${key}: ${errorKey}`);
+              }
+            });
+      }
+    });
+    return errors.join(', ');
   }
 
   jeuValidator(): ValidatorFn {
@@ -138,13 +182,41 @@ export class EnregistrerJeuPageComponent implements OnInit {
     }
   }
 
+  submitDepot() {
+    const formValue = this.enregistrerJeuForm.value;
+
+    const vendeur : VendeurInfoDto | undefined = this.listvendeur.find(v => v.email === formValue.mailVendeur);
+    const jeu = this.listJeux.find(j => j.nom === formValue.nomJeu);
+    console.log('vendeur:', vendeur);
+    console.log('jeu:', jeu);
+    if (vendeur && jeu) {
+      const nouveauJeu: CreerJeuUnitaire = {
+        prix: formValue.prix,
+        statut: "DISPONIBLE",
+        etat: formValue.etat,
+        idVendeur: vendeur.idVendeur,
+        idJeu: jeu.idJeu
+      };
+
+      this.jeuService.postJeuUnitaire(nouveauJeu)
+        .then(result => {
+          alert('Jeu enregistré');
+        })
+        .catch(error => {
+          alert('Erreur lors de l\'enregistrement du jeu');
+          console.error('An error occurred:', error.message);
+        });
+    } else {
+      alert('Le vendeur ou le jeu n\'a pas été trouvé.');
+    }
+  }
   // onNomJeuChange(nomJeu: string): void {
-  //   const jeu: InfoJeuDto | undefined = this.listJeux.find(jeu => jeu.nom === nomJeu);
-  //   if (jeu) {
-  //     this.jeuGenre = jeu.genre;
-  //     this.jeuEditeur = jeu.editeur;
-  //   } else {
-  //     this.jeuGenre = undefined;
+    //   const jeu: InfoJeuDto | undefined = this.listJeux.find(jeu => jeu.nom === nomJeu);
+    //   if (jeu) {
+      //     this.jeuGenre = jeu.genre;
+      //     this.jeuEditeur = jeu.editeur;
+      //   } else {
+        //     this.jeuGenre = undefined;
   //     this.jeuEditeur = undefined;
   //   }
   // }
