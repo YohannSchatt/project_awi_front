@@ -1,4 +1,4 @@
 export const environment = {
   production: false,
-  apiURL: 'http://[::1]:3000'
+  apiUrl: 'http://localhost:3000' // Replace with your development API URL
 };
