@@ -5,6 +5,7 @@ import { lastValueFrom, map, Observable } from 'rxjs';
 import { InfoJeuDto } from './dto/jeu.info.dto';
 import { InfoJeuUnitaireDto } from '../catalogue/response-catalogue.dto';
 import { CreerJeuUnitaire } from './dto/create-jeu-unitaire.dto';
+import { InfoAchatJeuUnitaireDisponibleDto } from './dto/info-achat-jeu-unitaire-disponible.dto';
 
 @Injectable({
   providedIn: 'root'
@@ -32,4 +33,19 @@ export class JeuService {
       )
     );
   }
+
+  getListeJeuUnitaire(): Observable<InfoAchatJeuUnitaireDisponibleDto[]> {
+    const options = { withCredentials: true };
+    return this.http.get<InfoAchatJeuUnitaireDisponibleDto[]>(
+      `${this.url}/listInfoAchatJeuUnitaireDisponible`,
+      options
+    );
+  }
+  enregisterAchat(idJeuUnitaire: number): Observable<void> {
+    const options = { withCredentials: true };
+    return this.http.post<void>(`${this.url}/achat/${idJeuUnitaire}`, {}, options);
+  }
+
+
+
 }

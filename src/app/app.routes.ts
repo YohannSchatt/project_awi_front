@@ -10,6 +10,7 @@ import { GestionGestionnairePageComponent } from '../pages/gestion-gestionnaire-
 import { SessionPageComponent } from '../pages/session-page/session-page.component';
 import { CataloguePageComponent } from '../pages/public/catalogue-page/catalogue-page.component';
 import { GestionSessionComponent } from '../pages/gestion-session/gestion-session.component';
+import { EnregistrerAchatPageComponent } from '../pages/gestion/enregistrer-achat-page/enregistrer-achat-page.component';
 
 export const routes: Routes = [
     { path: '', component: HomePageComponent },
@@ -20,6 +21,7 @@ export const routes: Routes = [
     { path: "gestion/GestionSession", component: GestionSessionComponent},
     { path: "session", component: SessionPageComponent},
     {path : "catalogue", component : CataloguePageComponent},
-    {path: "gestion/enregister-jeu", component: EnregistrerJeuPageComponent },
+    {path: "gestion/enregistrer-jeu", component: EnregistrerJeuPageComponent },
+    {path: "gestion/enregistrer-achat", component: EnregistrerAchatPageComponent},
     { path: '**', component: PageNotFoundComponent}
   ];
