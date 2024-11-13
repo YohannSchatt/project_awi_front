@@ -1,0 +1,42 @@
+[
+    {
+      "idVendeur": 1,
+      "prenom": "Jean",
+      "nom": "Dupont",
+      "email": "jean.dupont@example.com",
+      "numero": "0123456789",
+      "sommeTotale": 1000.50,
+      "sommeDue": 200.75,
+      "sommeRetire": 799.75
+    },
+    {
+      "idVendeur": 2,
+      "prenom": "Marie",
+      "nom": "Curie",
+      "email": "marie.curie@example.com",
+      "numero": "0987654321",
+      "sommeTotale": 1500.00,
+      "sommeDue": 300.00,
+      "sommeRetire": 1200.00
+    },
+    {
+      "idVendeur": 3,
+      "prenom": "Albert",
+      "nom": "Einstein",
+      "email": "albert.einstein@example.com",
+      "numero": "1234567890",
+      "sommeTotale": 2000.00,
+      "sommeDue": 500.00,
+      "sommeRetire": 1500.00
+    },
+    {
+        "idVendeur": 4,
+        "prenom": "Albert",
+        "nom": "Einstein",
+        "email": "albert.einstein@example.com",
+        "numero": "1234567890",
+        "sommeTotale": 2000.00,
+        "sommeDue": 500.00,
+        "sommeRetire": 1500.00  
+    }
+  ]
