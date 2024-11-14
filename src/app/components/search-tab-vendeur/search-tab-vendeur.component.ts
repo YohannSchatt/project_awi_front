@@ -3,6 +3,8 @@ import { FormGroup, FormControl, ReactiveFormsModule } from '@angular/forms';
 import { VendeurInfoDto } from '../../services/vendeur/dto/vendeur.info.dto';
 import { HttpClient } from '@angular/common/http';
 import { NgClass } from '@angular/common';
+import { VendeurService } from '../../services/vendeur/vendeur.service';
+import { SearchVendeurDto } from '../../services/vendeur/dto/search-Vendeur.dto';
 
 
 @Component({
@@ -24,19 +26,25 @@ export class SearchTabVendeurComponent {
 
   idSelectedVendeur : number = -1;
 
-  constructor(private http : HttpClient) {  }
+  constructor(private vendeurService : VendeurService ) {  }
 
   ngOnInit(): void {
     this.VendeurSearchGroup = new FormGroup({
       nom: new FormControl(''),
       prenom: new FormControl(''),
       email: new FormControl(''),
+      numero: new FormControl(''),
     });
     this.loadVendeurs();
   }
 
   submit(): void{
-    console.log("submit");
+    const searchVendeur : SearchVendeurDto = new SearchVendeurDto();
+    searchVendeur.nom = this.VendeurSearchGroup.get('nom')?.value;
+    searchVendeur.prenom = this.VendeurSearchGroup.get('prenom')?.value;
+    searchVendeur.email = this.VendeurSearchGroup.get('email')?.value;
+    searchVendeur.numero = this.VendeurSearchGroup.get('numero')?.value;
+    this.loadVendeurs(searchVendeur);
   }
 
   chercher(vendeur : VendeurInfoDto): void{
@@ -51,10 +59,16 @@ export class SearchTabVendeurComponent {
 
   }
 
-  loadVendeurs(): void {
-    const data: VendeurInfoDto[] = require('./exemple.json');
-    this.tabVendeur = data;
+  loadVendeurs(vendeur? : SearchVendeurDto): void {
+      this.vendeurService.getVendeurs(vendeur).subscribe(
+      (data : VendeurInfoDto[]) => {
+        this.tabVendeur = data;
+        console.log("data");
+      },
+      (error) => {
+        console.error('Error loading vendeurs:', error);
+      }
+    );
   }
-
   
 }

@@ -2,6 +2,7 @@ import { Component, Input } from '@angular/core';
 import { NgIf } from '@angular/common';
 import { FormGroup, FormControl, ReactiveFormsModule } from '@angular/forms';
 import { VendeurInfoDto } from '../../services/vendeur/dto/vendeur.info.dto';
+import { VendeurService } from '../../services/vendeur/vendeur.service';
 
 @Component({
   selector: 'app-info-vendeur',
@@ -12,19 +13,20 @@ import { VendeurInfoDto } from '../../services/vendeur/dto/vendeur.info.dto';
 })
 export class InfoVendeurComponent {
 
-  constructor() {  }
-
   @Input() vendeur : VendeurInfoDto = new VendeurInfoDto();
 
   VendeurGroup!: FormGroup;
 
   Message: string = '';
 
+  constructor(private vendeurService : VendeurService ) {  }
+
   ngOnInit(): void {
     this.VendeurGroup = new FormGroup({
       nom: new FormControl(this.vendeur.nom),
       prenom: new FormControl(this.vendeur.prenom),
       email: new FormControl(this.vendeur.email),
+      numero: new FormControl(this.vendeur.numero),
     });
   }
 
@@ -33,11 +35,33 @@ export class InfoVendeurComponent {
       nom: new FormControl(this.vendeur.nom),
       prenom: new FormControl(this.vendeur.prenom),
       email: new FormControl(this.vendeur.email),
+      numero : new FormControl(this.vendeur.numero),
     });
   }
 
   submit(): void{
-    console.log("submit");
+    if (this.vendeur.idVendeur == -1){
+      this.vendeur.nom = this.VendeurGroup.get('nom')?.value;
+      this.vendeur.prenom = this.VendeurGroup.get('prenom')?.value;
+      this.vendeur.email = this.VendeurGroup.get('email')?.value;
+      this.vendeur.numero = this.VendeurGroup.get('numero')?.value;
+      this.vendeurService.createVendeur(this.vendeur).subscribe(
+        (data : VendeurInfoDto) => {
+          this.Message = "Vendeur créé";
+        }
+      );
+    }
+    else {
+      this.vendeur.nom = this.VendeurGroup.get('nom')?.value;
+      this.vendeur.prenom = this.VendeurGroup.get('prenom')?.value;
+      this.vendeur.email = this.VendeurGroup.get('email')?.value;
+      this.vendeur.numero = this.VendeurGroup.get('numero')?.value;
+      this.vendeurService.updateVendeur(this.vendeur).subscribe(
+        (data : VendeurInfoDto) => {
+          this.Message = "Vendeur mis à jour";
+        }
+      );
+    }
   }
 
   createVendeur(): VendeurInfoDto{
