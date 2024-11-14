@@ -1,11 +1,17 @@
 @import "../../../app/styles/variable";
 
+:host{
+  display: flex;
+  justify-content: center;
+}
+
 form
 {
+  margin-top: 10vh;
   background-color: $color4;
   padding: 20px;
   display: block;
-  width: 28%;
+  width: 40%;
   border-radius: 8px;
   border: 1px solid $color4;
   box-shadow: 0 0 8px rgb(46, 37, 66);
@@ -31,6 +37,7 @@ form > * {
 
 .champ {
   display: flex;
+
 }
 .champ > * {
   margin: 10px;
@@ -43,6 +50,7 @@ form > * {
 }
 
 #submitbutton {
+  margin-left: 32%;
   padding: 10px 20px; // Make the button fatter
   border-radius: 12px; // Make the button a bit roundish
   background-color: $color7; // Set the background color to $color3

@@ -1,0 +1,12 @@
+.detail
+{
+  display: flex;
+  justify-content: space-between; /* Distribute space between child elements */
+ align-items: right; /* Center items vertically */
+  padding: 10px;
+
+}
+
+.detail * {
+  margin: 5px;
+}

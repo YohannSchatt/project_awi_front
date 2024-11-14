@@ -1,36 +1,56 @@
 
 
-<h4>Enregistrer un Achat</h4>
+<script src='https://kit.fontawesome.com/a076d05399.js' crossorigin='anonymous'></script>
 <!-- le form -->
 <form [formGroup] = "enregistrerAchatForm" (ngSubmit)="submitAchat()">
+  <h4>Enregistrer un achat</h4>
   <div class = "champ"><!-- le champ pour l'identifiant du jeu -->
     <label for = "idJeuUnitaire" class="required">Numéro d'article : </label>
     <!-- la barre de recherche d'email -->
+    <!-- formControlName="idJeuUnitaire" -->
     <input type="text"
          placeholder="taper le numéro d'article"
+         [(ngModel)] = "inputJeuSelectionneId"
          ariel-label="idJeuUnitaire"
          matInput
-         formControlName="idJeuUnitaire"
-         [matAutocomplete]="autoIdJeuUnitaire">
+         [matAutocomplete]="autoIdJeuUnitaire"
+         (ngModelChange)="validateInput()"
+         [ngModelOptions]="{standalone: true}">
     <!-- le menu déroulant -->
     <mat-autocomplete #autoIdJeuUnitaire="matAutocomplete">
-      @for (ids of filteredIdJeuUnitaire| async; track listIdJeuUnitaire) {
+      @for (ids of filteredIdJeuUnitaire| async; track setIdJeuUnitaireRestant) {
         <mat-option [value]="ids">{{ids}}</mat-option>
       }
     </mat-autocomplete>
+    <!-- le bouton d'ajout -->
+    <button type="button" (click)="ajouterJeu()" [disabled]="!this.isInputValid">
+      <p>Ajouter</p>
+      <!-- <i class='fas fa-plus' style='font-size:24px'></i> -->
+    </button>
   </div>
-  <div class><!-- le champ pour les infos du jeu -->
-    <!-- infos sur le jeu -->
-     @if(this.jeuSelectionne){
-      <p>Nom du jeu : {{this.jeuSelectionne.nom}}</p>
-      <p>Prix du jeu : {{this.jeuSelectionne.prix}} €</p>
-      <p>Prix de la commission : {{this.prixCommission}} €</p>
-      <p>Montant Totale : {{this.getPrixTotal()}} €</p>
-      <div class="champ">
-        <input type = "checkbox" formControlName="validationEncaissement">Je confirme avoir reçu le montant à encaisser.
-      </div>
+
+  <div class = "liste-article">
+    @for (jeu of this.jeuxSelectionne; track $index) {
+      <app-detail-article
+      [jeuUnitaire]= "jeu"
+      (deleteJeuSelect)="onDeleteJeu($event)"
+      ></app-detail-article>
     }
   </div>
+  @if (this.jeuxSelectionne.length > 0) {
+    <div class="champ">
+      <div>
+        <p>Prix d'achat des jeux : {{this.getPrixJeuxTotal()}} €</p>
+        <p>Prix de la commission : {{this.getPrixCommission()}} €</p>
+        <p>Prix total : {{this.getPrixTotal()}} €</p>
+      </div>
+    </div>
+
+  }
+  <div class="champ">
+    Je confirme avoir reçu le montant à encaisser.<input type = "checkbox" formControlName="validationEncaissement">
+  </div>
+
 <!-- submit button  -->
 <button
   id="submitbutton"
@@ -44,3 +64,6 @@
 @if(errorMessage){
   <h5 id = "errormessage">{{errorMessage}}</h5>
 }
+
+
+

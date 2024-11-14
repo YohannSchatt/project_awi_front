@@ -41,11 +41,11 @@ export class JeuService {
       options
     );
   }
-  enregisterAchat(idJeuUnitaire: number): Observable<void> {
+  enregisterAchat(setIdJeuUnitaire: Set<number>): Observable<void> {
     const options = { withCredentials: true };
-    return this.http.post<void>(`${this.url}/achat/${idJeuUnitaire}`, {}, options);
+    const idsJeuUnitaire = Array.from(setIdJeuUnitaire); // Convert Set to Array
+    return this.http.post<void>(`${this.url}/achat`, { idsJeuUnitaire }, options);
   }
-
-
-
 }
+
+
