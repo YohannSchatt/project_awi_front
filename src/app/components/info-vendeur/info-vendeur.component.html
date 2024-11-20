@@ -1,0 +1,28 @@
+<div class="InfoVendeur">
+    <p *ngIf="vendeur.idVendeur == -1"> Création vendeur</p>
+    <p *ngIf="vendeur.idVendeur != -1"> Modification vendeur</p>
+    <form [formGroup]="VendeurGroup" (ngSubmit)="submit()">
+        <div class="AllForms">
+            <div class="nom">
+                <label for="nom">Nom</label>
+                <input type="text" id="nom" formControlName="nom"/>
+            </div>
+            <div class="prenom">
+                <label for="prenom">Prénom</label>
+                <input type="text" id="prenom" formControlName="prenom"/>
+            </div>
+            <div class="email">
+                <label for="email">Email</label>
+                <input type="text" id="email" formControlName="email"/>
+            </div>
+            <div class="numero">
+                <label for="numero">Numero</label>
+                <input type="text" id="numero" formControlName="numero"/>
+            </div>
+        </div>
+        <div class="button">
+            <button type="submit">Enregistrer</button>
+            <p> {{ this.Message }}</p>
+        </div>
+    </form>
+</div>

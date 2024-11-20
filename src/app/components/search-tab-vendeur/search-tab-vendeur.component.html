@@ -1,0 +1,44 @@
+<div class="SearchTabVendeur">
+    <div class="SearchVendeur">
+        <p>Chercher un vendeur</p>
+        <form [formGroup]="VendeurSearchGroup" (ngSubmit)="submit()">
+            <div class="nom">
+                <label for="nom">Nom</label>
+                <input type="text" id="nom" formControlName="nom"/>
+            </div>
+            <div class="prenom">
+                <label for="prenom">Prénom</label>
+                <input type="text" id="prenom" formControlName="prenom"/>
+            </div>
+            <div class="email">
+                <label for="email">Email</label>
+                <input type="text" id="email" formControlName="email"/>
+            </div>
+            <div class="numero">
+                <label for="numero">Numero</label>
+                <input type="text" id="numero" formControlName="numero"/>
+            </div>
+            <div class="button">
+                <button type="submit">chercher</button>
+                <p> {{ this.Message }}</p>
+            </div>
+        </form>
+    </div>
+    <div>
+        <div class="tabVendeur">
+            <div class="tab">
+            @for (vendeur of tabVendeur; track vendeur) {
+                <div class="elt">
+                    <p>{{vendeur.nom}}</p>
+                    <p>{{vendeur.prenom}}</p>
+                    <p>{{vendeur.email}}</p>
+                    <p>{{vendeur.numero}}</p>
+                    <div class="buttonModifier">
+                        <button class="modifier" (click)="chercher(vendeur)" [ngClass]="{'clicked': this.idSelectedVendeur === vendeur.idVendeur}">Sélectionner</button>
+                    </div>
+                </div>
+            }
+            </div>
+        </div>  
+    </div>
+</div>

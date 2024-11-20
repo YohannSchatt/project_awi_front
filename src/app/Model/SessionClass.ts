@@ -14,13 +14,16 @@ export class Session {
 
     public  description : string;
 
-    constructor(lieu: string, dateDebut: Date, dateFin: Date, titre: string, description: string, id : number = Session.numberOfSession) {
+    public comission : number;
+
+    constructor(lieu: string, dateDebut: Date, dateFin: Date, titre: string, description: string, id : number = Session.numberOfSession, comission : number = 0) {
         this.lieu = lieu;
         this.dateDebut = dateDebut;
         this.dateFin = dateFin;
         this.titre = titre;
         this.description = description;
         this.id = id
+        this.comission = comission;
     }
 
     public getLieu(): string {
@@ -65,5 +68,13 @@ export class Session {
 
     public setDescription(description: string): void {
         this.description = description;
+    }
+
+    public getComission(): number {
+        return this.comission;
+    }
+
+    public setComission(comission: number): void {
+        this.comission = comission;
     }
 }

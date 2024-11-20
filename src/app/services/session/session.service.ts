@@ -33,23 +33,25 @@ export class SessionService {
     return this.sessionSelectionneSubject.getValue() !== null;
   }
 
-  createSession(lieu: string, dateDebut: Date, dateFin: Date, titre : string, description : string): Observable<string> {
+  createSession(lieu: string, dateDebut: Date, dateFin: Date, titre : string, description : string, comission : number): Observable<string> {
     const body = {
       titre: titre,
       dateDebut: dateDebut,
       dateFin: dateFin,
       lieu: lieu,
       description: description,
+      comission: comission
     };
     const options = {
       withCredentials: true 
     };
+    console.log(body);
     return this.http.post<string>(`${environment.apiUrl}/session/CreateSession`, body, options).pipe(
       tap(() => this.sessionsUpdatedSubject.next())
     );
   }
 
-  private UpdateSession(lieu: string, dateDebut: Date, dateFin: Date, titre: string, description : string): Observable<string> {
+  private UpdateSession(lieu: string, dateDebut: Date, dateFin: Date, titre: string, description : string, comission:number): Observable<string> {
     const body : any = {
       id: this.sessionSelectionneSubject.getValue()?.getId(),
       titre: titre,
@@ -57,6 +59,7 @@ export class SessionService {
       dateFin: dateFin,
       lieu: lieu,
       description: description,
+      comission: comission
     };
     const options = {
       withCredentials: true 
@@ -97,10 +100,10 @@ export class SessionService {
   public UpdateOrCreateSession(Session: Session) : Observable<string> {
     if (!this.HasSessionSelectionne()) {
       console.log('create');
-      return this.createSession(Session.lieu, Session.dateDebut, Session.dateFin, Session.titre, Session.description);
+      return this.createSession(Session.lieu, Session.dateDebut, Session.dateFin, Session.titre, Session.description, Session.comission);
     } else {
       console.log('update', Session);
-      return this.UpdateSession(Session.lieu, Session.dateDebut, Session.dateFin, Session.titre, Session.description);
+      return this.UpdateSession(Session.lieu, Session.dateDebut, Session.dateFin, Session.titre, Session.description, Session.comission);
     }
   }
 

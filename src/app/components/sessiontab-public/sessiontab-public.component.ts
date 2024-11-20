@@ -60,8 +60,7 @@ export class SessiontabPublicComponent {
 
   private getActualSession() {
     this.sessionService.getActuelSessionDB().subscribe((data : any) => {
-      console.log(data);
-      this.sessionActuelle = new Session(data.lieu, new Date(data.dateDebut), new Date(data.dateFin), data.titre, data.description, data.idSession);
+      this.sessionActuelle = new Session(data.lieu, new Date(data.dateDebut), new Date(data.dateFin), data.titre, data.description, data.idSession, data.comission);
     });
   }
 
@@ -73,7 +72,7 @@ export class SessiontabPublicComponent {
   }
 
   private loadSession(data : any) {
-    this.tabSession = data.map((item: any) => new Session(item.lieu, item.dateDebut, item.dateFin, item.titre, item.description, item.idSession));
+    this.tabSession = data.map((item: any) => new Session(item.lieu, item.dateDebut, item.dateFin, item.titre, item.description, item.idSession, item.comission));
   }
 
   public supprimerSession(session: Session) {
