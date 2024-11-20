@@ -1,10 +1,11 @@
+import { environment } from '../../../environment/environment';
 import { Injectable, inject } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { lastValueFrom, map, Observable } from 'rxjs';
-import { environment } from '../../../environments/environment.development';
 import { InfoJeuDto } from './dto/jeu.info.dto';
 import { InfoJeuUnitaireDto } from '../catalogue/response-catalogue.dto';
 import { CreerJeuUnitaire } from './dto/create-jeu-unitaire.dto';
+import { InfoAchatJeuUnitaireDisponibleDto } from './dto/info-achat-jeu-unitaire-disponible.dto';
 
 @Injectable({
   providedIn: 'root'
@@ -13,21 +14,38 @@ export class JeuService {
 
   private http = inject(HttpClient);
 
-  readonly url = environment.apiURL + '/jeu';
+  readonly url = environment.apiUrl + '/jeu';
 
   constructor() { }
 
-  // Method to get all jeux
+  // Method to get all jeux with credentials
   getJeux(): Observable<InfoJeuDto[]> {
-    return this.http.get<InfoJeuDto[]>(`${this.url}/listeJeu`);
+    const options = { withCredentials: true };
+    return this.http.get<InfoJeuDto[]>(`${this.url}/listeJeu`, options);
   }
 
+  // Method to post a new jeu unitaire with credentials
   postJeuUnitaire(nouveauJeu: CreerJeuUnitaire): Promise<boolean> {
-    console.log('Sending request with body:', nouveauJeu);
+    const options = { withCredentials: true };
     return lastValueFrom(
-      this.http.post(`${this.url}/creerJeuUnitaire`, nouveauJeu).pipe(
-      map(() => true)
+      this.http.post(`${this.url}/creerJeuUnitaire`, nouveauJeu, options).pipe(
+        map(() => true)
       )
     );
   }
+
+  getListeJeuUnitaire(): Observable<InfoAchatJeuUnitaireDisponibleDto[]> {
+    const options = { withCredentials: true };
+    return this.http.get<InfoAchatJeuUnitaireDisponibleDto[]>(
+      `${this.url}/listInfoAchatJeuUnitaireDisponible`,
+      options
+    );
+  }
+  enregisterAchat(idJeuUnitaire: number): Observable<void> {
+    const options = { withCredentials: true };
+    return this.http.post<void>(`${this.url}/achat/${idJeuUnitaire}`, {}, options);
+  }
+
+
+
 }

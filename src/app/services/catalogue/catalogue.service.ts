@@ -3,7 +3,7 @@ import { HttpClient, HttpErrorResponse } from '@angular/common/http';
 import { BehaviorSubject, Observable, of, throwError } from 'rxjs';
 import { catchError, map, tap } from 'rxjs/operators';
 import { CatalogueDto, InfoJeuUnitaireDto } from './response-catalogue.dto';
-import { environment } from '../../../environments/environment.development';
+import { environment } from '../../../environment/environment';
 
 @Injectable({
   providedIn: 'root'
@@ -17,7 +17,7 @@ export class CatalogueService {
   }
 
   private http = inject(HttpClient);
-  readonly url = environment.apiURL + '/jeu/catalogue';
+  readonly url = environment.apiUrl + '/jeu/catalogue';
 
   private currentPageSubject = new BehaviorSubject<number>(-1);
   currentPage$ = this.currentPageSubject.asObservable();

@@ -1,0 +1,46 @@
+
+
+<h4>Enregistrer un Achat</h4>
+<!-- le form -->
+<form [formGroup] = "enregistrerAchatForm" (ngSubmit)="submitAchat()">
+  <div class = "champ"><!-- le champ pour l'identifiant du jeu -->
+    <label for = "idJeuUnitaire" class="required">Numéro d'article : </label>
+    <!-- la barre de recherche d'email -->
+    <input type="text"
+         placeholder="taper le numéro d'article"
+         ariel-label="idJeuUnitaire"
+         matInput
+         formControlName="idJeuUnitaire"
+         [matAutocomplete]="autoIdJeuUnitaire">
+    <!-- le menu déroulant -->
+    <mat-autocomplete #autoIdJeuUnitaire="matAutocomplete">
+      @for (ids of filteredIdJeuUnitaire| async; track listIdJeuUnitaire) {
+        <mat-option [value]="ids">{{ids}}</mat-option>
+      }
+    </mat-autocomplete>
+  </div>
+  <div class><!-- le champ pour les infos du jeu -->
+    <!-- infos sur le jeu -->
+     @if(this.jeuSelectionne){
+      <p>Nom du jeu : {{this.jeuSelectionne.nom}}</p>
+      <p>Prix du jeu : {{this.jeuSelectionne.prix}} €</p>
+      <p>Prix de la commission : {{this.prixCommission}} €</p>
+      <p>Montant Totale : {{this.getPrixTotal()}} €</p>
+      <div class="champ">
+        <input type = "checkbox" formControlName="validationEncaissement">Je confirme avoir reçu le montant à encaisser.
+      </div>
+    }
+  </div>
+<!-- submit button  -->
+<button
+  id="submitbutton"
+  type="submit"
+  [disabled]="!enregistrerAchatForm.valid"
+>
+  Enregistrer l'achat
+</button>
+
+</form>
+@if(errorMessage){
+  <h5 id = "errormessage">{{errorMessage}}</h5>
+}

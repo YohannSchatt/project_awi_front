@@ -1,7 +1,7 @@
+import { environment } from '../../../environment/environment';
 import { inject, Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { BehaviorSubject, Observable, of } from 'rxjs';
-import { environment } from '../../../environment/environment';
 import { VendeurInfoDto } from './dto/vendeur.info.dto';
 import { SearchVendeurDto } from './dto/search-Vendeur.dto';
 
@@ -19,6 +19,7 @@ export class VendeurService {
     errorMessage$ = this.errorMessageSubject.asObservable();
 
   constructor() { }
+
 
   getVendeurs(SearchVendeurDto? : SearchVendeurDto): Observable<VendeurInfoDto[]> {
     const body : any =  {}

@@ -1,6 +1,6 @@
-import { Component, OnDestroy, OnInit } from '@angular/core';
+import { Component , OnInit } from '@angular/core';
 import { FormGroup, FormControl, Validators, ValidationErrors, ValidatorFn, AbstractControl, ReactiveFormsModule } from '@angular/forms';
-import { Observable, Subscription } from 'rxjs';
+import { Observable } from 'rxjs';
 import { map, startWith } from 'rxjs/operators';
 import { AsyncPipe } from '@angular/common';
 import { RouterModule } from '@angular/router';
@@ -13,7 +13,6 @@ import { VendeurService } from '../../../app/services/vendeur/vendeur.service';
 import { VendeurInfoDto } from '../../../app/services/vendeur/dto/vendeur.info.dto';
 import { JeuService } from '../../../app/services/jeu/jeu.service';
 import { InfoJeuDto } from '../../../app/services/jeu/dto/jeu.info.dto';
-import { log } from 'console';
 import { CreerJeuUnitaire } from '../../../app/services/jeu/dto/create-jeu-unitaire.dto';
 
 @Component({
@@ -162,11 +161,17 @@ export class EnregistrerJeuPageComponent implements OnInit {
   }
 
   private _filterVmails(value: string): string[] {
+    if (!value) {
+      return [];
+    }
     const filterValue = value.toLowerCase();
     return this.vmails.filter(option => option.toLowerCase().includes(filterValue));
   }
 
   private _filterJeuNoms(value: string): string[] {
+    if (!value) {
+      return [];
+    }
     const filterValue = value.toLowerCase();
     return this.jeuNoms.filter(option => option.toLowerCase().includes(filterValue));
   }
@@ -201,6 +206,7 @@ export class EnregistrerJeuPageComponent implements OnInit {
       this.jeuService.postJeuUnitaire(nouveauJeu)
         .then(result => {
           alert('Jeu enregistré');
+          window.location.reload();
         })
         .catch(error => {
           alert('Erreur lors de l\'enregistrement du jeu');
