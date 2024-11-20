@@ -16,4 +16,12 @@ export class PageVendeurComponent {
   onVendeurSelected(vendeur: VendeurInfoDto): void {
     this.selectedVendeur = vendeur;
   }
+
+  onVendeurCreated(): void {
+    // Recharger les vendeurs dans SearchTabVendeurComponent
+    const searchTabVendeurComponent = document.querySelector('app-search-tab-vendeur') as any;
+    if (searchTabVendeurComponent) {
+      searchTabVendeurComponent.loadVendeurs();
+    }
+  }
 }

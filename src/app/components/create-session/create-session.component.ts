@@ -5,6 +5,7 @@ import { HttpClient } from '@angular/common/http';
 import { SessionService } from '../../services/session/session.service';
 import { Session } from '../../Model/SessionClass';
 import { Subscription } from 'rxjs';
+import { SessiontabPublicComponent } from '../sessiontab-public/sessiontab-public.component';
 
 @Component({
   selector: 'app-create-session',
@@ -31,7 +32,8 @@ export class CreateSessionComponent {
       dateDebut: new FormControl(''),
       dateFin: new FormControl(''),
       lieu: new FormControl(''),
-      description : new FormControl('')
+      description : new FormControl(''),
+      comission: new FormControl('')
     });
 
     this.sessionSubscription = this.sessionService.sessionSelectionne$.subscribe(session => {
@@ -42,7 +44,8 @@ export class CreateSessionComponent {
           dateDebut: this.formatDateToYYYYMMDD(new Date(session.dateDebut)),
           dateFin: this.formatDateToYYYYMMDD(new Date(session.dateFin)),
           lieu: session.lieu,
-          description : session.description
+          description : session.description,
+          comission : session.comission
         });
       }
       else {
@@ -52,7 +55,8 @@ export class CreateSessionComponent {
           dateDebut: '',
           dateFin: '',
           lieu: '',
-          description : ''
+          description : '',
+          comission : ''
         });
       }
     });
@@ -65,7 +69,8 @@ export class CreateSessionComponent {
         dateDebut: this.formatDateToYYYYMMDD(new Date(initialSession.dateDebut)),
         dateFin: this.formatDateToYYYYMMDD(new Date(initialSession.dateFin)),
         lieu: initialSession.lieu,
-        description : initialSession.description
+        description : initialSession.description,
+        comission : initialSession.comission
       });
     }
   }
@@ -93,6 +98,9 @@ export class CreateSessionComponent {
     }
     this.sessionService.UpdateOrCreateSession(this.SessionGroup.value).subscribe((response) => {
       this.Message = 'Sessions mise à jour avec succès';
+    }, (error) => {
+      this.Message = 'Une erreur est survenue lors de la mise à jour des sessions';
+      console.error('Error updating session:', error);
     });
   }
 

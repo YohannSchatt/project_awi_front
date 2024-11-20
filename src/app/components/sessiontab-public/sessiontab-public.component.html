@@ -20,6 +20,10 @@
                     <p> Fin :</p>
                     <p> {{this.formatDateToDDMMYYYY(sessionActuelle.getDateFin())}}</p>
                 </div>
+                <div>
+                    <p> Comission :</p>
+                    <p> {{sessionActuelle.getComission()}}</p>
+                </div>
                 <button *ngIf="OnAdminPage" (click)="onButtonClick(sessionActuelle)" [ngClass]="{'clicked': selectedSessionId === sessionActuelle.id}">Modifier</button>
                 <button *ngIf="OnAdminPage" (click)="supprimerSession(sessionActuelle)">Supprimer</button>
             </div>
@@ -49,6 +53,10 @@
                 <div>
                     <p> Fin :</p>
                     <p> {{this.formatDateToDDMMYYYY(session.getDateFin())}}</p>
+                </div>
+                <div>
+                    <p> Comission :</p>
+                    <p> {{session.getComission()}}</p>
                 </div>
                 <button *ngIf="OnAdminPage" (click)="onButtonClick(session)" [ngClass]="{'clicked': selectedSessionId === session.id}">Modifier</button>
                 <button *ngIf="OnAdminPage" (click)="supprimerSession(session)">Supprimer</button>

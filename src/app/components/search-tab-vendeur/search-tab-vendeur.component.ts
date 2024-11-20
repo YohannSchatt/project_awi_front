@@ -59,7 +59,7 @@ export class SearchTabVendeurComponent {
 
   }
 
-  loadVendeurs(vendeur? : SearchVendeurDto): void {
+  public loadVendeurs(vendeur? : SearchVendeurDto): void {
       this.vendeurService.getVendeurs(vendeur).subscribe(
       (data : VendeurInfoDto[]) => {
         this.tabVendeur = data;

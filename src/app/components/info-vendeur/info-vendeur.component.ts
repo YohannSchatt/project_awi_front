@@ -1,4 +1,4 @@
-import { Component, Input } from '@angular/core';
+import { Component, Input, Output, EventEmitter } from '@angular/core';
 import { NgIf } from '@angular/common';
 import { FormGroup, FormControl, ReactiveFormsModule } from '@angular/forms';
 import { VendeurInfoDto } from '../../services/vendeur/dto/vendeur.info.dto';
@@ -19,7 +19,7 @@ export class InfoVendeurComponent {
 
   Message: string = '';
 
-  constructor(private vendeurService : VendeurService ) {  }
+  constructor(private vendeurService : VendeurService) {  }
 
   ngOnInit(): void {
     this.VendeurGroup = new FormGroup({
