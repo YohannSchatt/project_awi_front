@@ -11,7 +11,7 @@ import { CataloguePageComponent } from '../pages/public/catalogue-page/catalogue
 import { GestionSessionComponent } from '../pages/gestion-session/gestion-session.component';
 import { PageVendeurComponent } from '../pages/page-vendeur/page-vendeur.component';
 import { EnregistrerAchatPageComponent } from '../pages/gestion/enregistrer-achat-page/enregistrer-achat-page.component';
-
+import { DashboardPageComponent } from '../pages/dashboard-page/dashboard-page.component';
 import { RetraitPageComponent } from '../pages/gestion/retrait-page/retrait-page.component';
 export const routes: Routes = [
   { path: '', component: HomePageComponent },
@@ -24,7 +24,8 @@ export const routes: Routes = [
   { path : "catalogue", component : CataloguePageComponent},
   { path: "gestion/enregistrer-jeu", component: EnregistrerJeuPageComponent },
   { path: 'gestion/vendeur', component: PageVendeurComponent },
-  {path: "gestion/enregistrer-achat", component: EnregistrerAchatPageComponent},
-  {path: "gestion/retrait", component: RetraitPageComponent},
+  { path: "gestion/enregistrer-achat", component: EnregistrerAchatPageComponent},
+  { path: "gestion/retrait", component: RetraitPageComponent},
+  { path : "gestion/Dashboard", component : DashboardPageComponent},
   { path: '**', component: PageNotFoundComponent}
   ];
