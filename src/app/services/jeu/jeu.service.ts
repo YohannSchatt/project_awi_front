@@ -5,22 +5,25 @@ import { lastValueFrom, map, Observable } from 'rxjs';
 import { InfoJeuDto } from './dto/jeu.info.dto';
 import { InfoJeuUnitaireDto } from '../catalogue/response-catalogue.dto';
 import { CreerJeuUnitaire } from './dto/create-jeu-unitaire.dto';
-import { InfoJeuUnitaireDisponibleDto } from './dto/info-achat-jeu-unitaire-disponible.dto';
+import { InfoJeuUnitaireDisponibleDto } from './dto/info-jeu-unitaire-disponible.dto';
 
 @Injectable({
   providedIn: 'root'
 })
 export class JeuService {
-  getJeuUnitairesByVendeur(idVendeur: number) {
-    throw new Error('Method not implemented.');
-  }
-
   private http = inject(HttpClient);
 
   readonly url = environment.apiUrl + '/jeu';
 
   constructor() { }
 
+  getJeuUnitairesByVendeur(idVendeur: number): Observable<InfoJeuUnitaireDisponibleDto[]> {
+    const options = { withCredentials: true };
+    return this.http.get<InfoJeuUnitaireDisponibleDto[]>(
+      `${this.url}/jeuxDisponibleByVendeur/${idVendeur}`,
+      options
+    );
+  }
   // Method to get all jeux with credentials
   getJeux(): Observable<InfoJeuDto[]> {
     const options = { withCredentials: true };

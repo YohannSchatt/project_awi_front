@@ -1,0 +1,74 @@
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.4.0/css/font-awesome.min.css">
+
+<form [formGroup]="retraitJeuForm" (ngSubmit)="submitRetrait()">
+  <h4>Retrait d'un jeu</h4>
+
+  <!-- Email du vendeur -->
+  <div class="champ">
+    <label for="mailVendeur" class="required">Mail du vendeur :</label>
+    <input type="text"
+           placeholder="taper l'email"
+           aria-label="mailVendeur"
+           matInput
+           formControlName="mailVendeur"
+           [matAutocomplete]="autoVendeur">
+    <mat-autocomplete #autoVendeur="matAutocomplete">
+      @for (email of filteredVmails | async; track filteredVmails) {
+        <mat-option [value]="email">
+          {{ email }}
+        </mat-option>
+      }
+    </mat-autocomplete>
+    <button type="button" (click)="refreshVendeur()">
+      <i class="fa fa-refresh fa_custom fa-2x"></i>
+    </button>
+  </div>
+
+  <!-- Infos du vendeur -->
+  <div>
+    @if (vendeurFirstName) {
+      <p>Prénom du vendeur : {{ vendeurFirstName }}</p>
+      <p>Nom du vendeur : {{ vendeurName }}</p>
+    } @else {
+      <span>Le vendeur n'est pas encore enregistré ?</span>
+      <a [routerLink]="['/gestion/vendeur']">Cliquer ici</a>
+    }
+  </div>
+
+  <!-- Sélection du jeu unitaire -->
+  @if (vendeurFirstName) {
+    <div class="champ">
+      <label for="idJeuUnitaire" class="required">ID du jeu unitaire :</label>
+      <input type="text"
+             placeholder="taper l'ID du jeu"
+             aria-label="idJeuUnitaire"
+             matInput
+             formControlName="idJeuUnitaire"
+             [matAutocomplete]="autoJeuUnitaire">
+      <mat-autocomplete #autoJeuUnitaire="matAutocomplete">
+        @for (id of filteredJeuUnitaireIds | async; track filteredJeuUnitaireIds) {
+          <mat-option [value]="id">
+            {{id}}
+          </mat-option>
+        }
+      </mat-autocomplete>
+      <button type="button" (click)="refreshJeuUnitaire()">
+        <i class="fa fa-refresh fa_custom fa-2x"></i>
+      </button>
+    </div>
+  }
+
+  <!-- Submit button -->
+<!-- Submit button -->
+<button
+  id="submitbutton"
+  type="submit"
+  [disabled]="retraitJeuForm.invalid || !retraitJeuForm.get('idJeuUnitaire')?.value">
+  Enregistrer le retrait
+</button>
+</form>
+
+<!-- Error message -->
+@if (errorMessage) {
+  <h5 id="errormessage">{{ errorMessage }}</h5>
+}

@@ -1,0 +1,67 @@
+@import "../../../app/styles/variable";
+
+form {
+  margin-top: 10vh;
+  background-color: $color4;
+  padding: 20px;
+  display: block;
+  width: 40%;
+  border-radius: 8px;
+  border: 1px solid $color4;
+  box-shadow: 0 0 8px rgb(46, 37, 66);
+}
+
+label, select, input {
+  font-size: clamp(14px, 1.8vh, 1.8vh);
+}
+
+:host {
+  display: flex;
+  justify-content: center;
+}
+
+input {
+  width: 50%;
+}
+
+#errormessage {
+  color: red;
+  margin-left: 10vh;
+}
+
+form > * {
+  padding: 5px;
+}
+
+.champ {
+  display: flex;
+}
+
+.champ > * {
+  margin: 10px;
+}
+
+.required::after {
+  content: '*';
+  color: red;
+}
+
+#submitbutton {
+  margin-left: 32%;
+  padding: 10px 20px;
+  border-radius: 12px;
+  background-color: $color7;
+  color: white;
+  border: none;
+  cursor: pointer;
+  font-size: 16px;
+}
+
+#submitbutton:hover {
+  filter: saturate(200%);
+}
+
+#submitbutton:disabled {
+  background-color: lighten($color7, 20%);
+  cursor: default;
+}

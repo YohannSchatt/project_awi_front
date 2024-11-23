@@ -1,5 +1,5 @@
 import { Component, EventEmitter, Input, Output } from '@angular/core';
-import { InfoJeuUnitaireDisponibleDto } from '../../../services/jeu/dto/info-achat-jeu-unitaire-disponible.dto';
+import { InfoJeuUnitaireDisponibleDto } from '../../../services/jeu/dto/info-jeu-unitaire-disponible.dto';
 
 @Component({
   selector: 'app-detail-article',

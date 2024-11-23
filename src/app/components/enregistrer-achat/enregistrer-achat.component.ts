@@ -14,7 +14,7 @@ import { AsyncPipe } from '@angular/common';
 import { RouterModule } from '@angular/router';
 import { map, Observable, startWith } from 'rxjs';
 import { JeuService } from '../../../app/services/jeu/jeu.service';
-import { InfoJeuUnitaireDisponibleDto } from '../../services/jeu/dto/info-achat-jeu-unitaire-disponible.dto';
+import { InfoJeuUnitaireDisponibleDto } from '../../services/jeu/dto/info-jeu-unitaire-disponible.dto';
 import { FormsModule } from '@angular/forms';
 import { DetailArticleComponent } from './detail-article/detail-article.component';
 
