@@ -137,7 +137,7 @@ export class EnregistrerJeuPageComponent implements OnInit {
   }
 
   getVendeurInfo(): void {
-    this.vendeurService.getVendeurs().subscribe({
+    this.vendeurService.getAllVendeurs().subscribe({
       next: (vendeurs) => {
         this.listvendeur = vendeurs;
         this.vmails = vendeurs.map(vendeur => vendeur.email);

@@ -40,6 +40,12 @@ export class VendeurService {
     return this.http.post<VendeurInfoDto[]>(`${this.url}/getListVendeur`, body, options);
   }
 
+  getAllVendeurs(): Observable<VendeurInfoDto[]> {
+    return this.http.get<VendeurInfoDto[]>(`${this.url}/getListAllVendeur`, {withCredentials: true});
+  }
+
+
+
   updateVendeur(vendeur: VendeurInfoDto): Observable<VendeurInfoDto> {
     const options = { withCredentials: true };
     const body : any = {

@@ -14,19 +14,17 @@ import { EnregistrerAchatPageComponent } from '../pages/gestion/enregistrer-acha
 
 import { RetraitPageComponent } from '../pages/gestion/retrait-page/retrait-page.component';
 export const routes: Routes = [
-    { path: '', component: HomePageComponent },
-    { path: 'gestion', component: ConnexionPageComponent},
-    { path: "gestion/home-gestion", component: HomeGestionPageComponent},
-    { path: "gestion/MonCompte", component: MonComptePageComponent},
-    { path: "gestion/GestionGestionnaire", component: GestionGestionnairePageComponent},
-    { path: "gestion/GestionSession", component: GestionSessionComponent},
-    { path: "session", component: SessionPageComponent},
-    { path : "catalogue", component : CataloguePageComponent},
-    { path: "gestion/enregister-jeu", component: EnregistrerJeuPageComponent },
-    { path: 'gestion/vendeur', component: PageVendeurComponent },
-    {path: "gestion/enregistrer-achat", component: EnregistrerAchatPageComponent},
-    {path : "catalogue", component : CataloguePageComponent},
-    {path: "gestion/enregister-jeu", component: EnregistrerJeuPageComponent },
-    {path : "gestion/retrait", component : RetraitPageComponent},
-    { path: '**', component: PageNotFoundComponent}
+  { path: '', component: HomePageComponent },
+  { path: 'gestion', component: ConnexionPageComponent},
+  { path: "gestion/home-gestion", component: HomeGestionPageComponent},
+  { path: "gestion/MonCompte", component: MonComptePageComponent},
+  { path: "gestion/GestionGestionnaire", component: GestionGestionnairePageComponent},
+  { path: "gestion/GestionSession", component: GestionSessionComponent},
+  { path: "session", component: SessionPageComponent},
+  { path : "catalogue", component : CataloguePageComponent},
+  { path: "gestion/enregistrer-jeu", component: EnregistrerJeuPageComponent },
+  { path: 'gestion/vendeur', component: PageVendeurComponent },
+  {path: "gestion/enregistrer-achat", component: EnregistrerAchatPageComponent},
+  {path: "gestion/retrait", component: RetraitPageComponent},
+  { path: '**', component: PageNotFoundComponent}
   ];
