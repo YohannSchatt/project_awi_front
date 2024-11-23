@@ -14,7 +14,7 @@ import { AsyncPipe } from '@angular/common';
 import { RouterModule } from '@angular/router';
 import { map, Observable, startWith } from 'rxjs';
 import { JeuService } from '../../../app/services/jeu/jeu.service';
-import { InfoAchatJeuUnitaireDisponibleDto } from '../../services/jeu/dto/info-achat-jeu-unitaire-disponible.dto';
+import { InfoJeuUnitaireDisponibleDto } from '../../services/jeu/dto/info-achat-jeu-unitaire-disponible.dto';
 import { FormsModule } from '@angular/forms';
 import { DetailArticleComponent } from './detail-article/detail-article.component';
 
@@ -36,7 +36,7 @@ import { DetailArticleComponent } from './detail-article/detail-article.componen
 })
 export class EnregistrerAchatComponent implements OnInit {
   // All data
-  setInfoJeuAchat: InfoAchatJeuUnitaireDisponibleDto[] = [];
+  setInfoJeuAchat: InfoJeuUnitaireDisponibleDto[] = [];
   setIdJeuUnitaire: Set<number> = new Set<number>();
 
   // IDs of remaining jeux unitaires
@@ -51,7 +51,7 @@ export class EnregistrerAchatComponent implements OnInit {
 
   // Selected jeux
   idsJeuSelectionne: Set<number> = new Set<number>();
-  jeuxSelectionne: InfoAchatJeuUnitaireDisponibleDto[] = [];
+  jeuxSelectionne: InfoJeuUnitaireDisponibleDto[] = [];
 
   // Error message
   errorMessage: string | undefined = undefined;

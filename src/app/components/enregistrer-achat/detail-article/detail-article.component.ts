@@ -1,5 +1,5 @@
 import { Component, EventEmitter, Input, Output } from '@angular/core';
-import { InfoAchatJeuUnitaireDisponibleDto } from '../../../services/jeu/dto/info-achat-jeu-unitaire-disponible.dto';
+import { InfoJeuUnitaireDisponibleDto } from '../../../services/jeu/dto/info-achat-jeu-unitaire-disponible.dto';
 
 @Component({
   selector: 'app-detail-article',
@@ -10,7 +10,7 @@ import { InfoAchatJeuUnitaireDisponibleDto } from '../../../services/jeu/dto/inf
 })
 export class DetailArticleComponent {
 
-  @Input() jeuUnitaire : InfoAchatJeuUnitaireDisponibleDto | undefined;
+  @Input() jeuUnitaire : InfoJeuUnitaireDisponibleDto | undefined;
   @Output() deleteJeuSelect = new EventEmitter<number>();
   onDelete(): void {
     this.deleteJeuSelect.emit(this.jeuUnitaire?.idJeuUnitaire);

@@ -1,4 +1,4 @@
-export interface InfoAchatJeuUnitaireDisponibleDto {
+export interface InfoJeuUnitaireDisponibleDto {
   idJeuUnitaire: number;
   prix: number;
   nom: string;
