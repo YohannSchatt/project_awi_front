@@ -1,5 +1,12 @@
 import { Component, OnInit } from '@angular/core';
-import { AbstractControl, FormControl, FormGroup, ReactiveFormsModule, ValidationErrors, ValidatorFn, Validators } from '@angular/forms';
+import {
+  FormGroup,
+  FormControl,
+  Validators,
+  ReactiveFormsModule,
+  AbstractControl,
+  ValidationErrors,
+} from '@angular/forms';
 import { MatAutocompleteModule } from '@angular/material/autocomplete';
 import { MatInputModule } from '@angular/material/input';
 import { MatFormFieldModule } from '@angular/material/form-field';
@@ -8,63 +15,95 @@ import { RouterModule } from '@angular/router';
 import { map, Observable, startWith } from 'rxjs';
 import { JeuService } from '../../../app/services/jeu/jeu.service';
 import { InfoAchatJeuUnitaireDisponibleDto } from '../../services/jeu/dto/info-achat-jeu-unitaire-disponible.dto';
-
+import { FormsModule } from '@angular/forms';
+import { DetailArticleComponent } from './detail-article/detail-article.component';
 
 @Component({
   selector: 'app-enregistrer-achat',
   standalone: true,
-  imports: [ReactiveFormsModule, MatAutocompleteModule, MatInputModule, MatFormFieldModule, AsyncPipe, RouterModule],
+  imports: [
+    ReactiveFormsModule,
+    MatAutocompleteModule,
+    MatInputModule,
+    MatFormFieldModule,
+    AsyncPipe,
+    FormsModule,
+    RouterModule,
+    DetailArticleComponent,
+  ],
   templateUrl: './enregistrer-achat.component.html',
-  styleUrl: './enregistrer-achat.component.scss'
+  styleUrls: ['./enregistrer-achat.component.scss'], // Fixed 'styleUrl' to 'styleUrls'
 })
 export class EnregistrerAchatComponent implements OnInit {
+  // All data
+  setInfoJeuAchat: InfoAchatJeuUnitaireDisponibleDto[] = [];
+  setIdJeuUnitaire: Set<number> = new Set<number>();
 
-  submitAchat(): void {
-    if (this.enregistrerAchatForm.valid) {
-      const idJeuUnitaire = this.enregistrerAchatForm.get('idJeuUnitaire')!.value;
-      this.jeuService.enregisterAchat(idJeuUnitaire).subscribe({
-        next: () => {
-          alert('Achat enregistré');
-          //we reload fully the component
-          window.location.reload();
-        },
-        error: (error) => {
-          alert('Erreur lors de l\'enregistrement de l\'achat');
-        }
-      });
+  // IDs of remaining jeux unitaires
+  setIdJeuUnitaireRestant: Set<number> = new Set<number>();
 
-    }
-  }
+  // Input for adding a jeu
+  inputJeuSelectionneId: string = '';
+  isInputValid: boolean = false;
 
-  enregistrerAchatForm: FormGroup = new FormGroup({
-   idJeuUnitaire: new FormControl('', [Validators.required, this.idValidator()]),
-   validationEncaissement: new FormControl(false, Validators.requiredTrue), // Add the checkbox control
-  });
+  // Observable for filtered IDs
+  filteredIdJeuUnitaire!: Observable<number[]>;
 
-  filteredIdJeuUnitaire: Observable<number[]> = new Observable<number[]>();
-  listIdJeuUnitaire: number[] = [];
-  listInfoJeuAchat: InfoAchatJeuUnitaireDisponibleDto[] = [];
-  jeuSelectionne : InfoAchatJeuUnitaireDisponibleDto | undefined = undefined;
+  // Selected jeux
+  idsJeuSelectionne: Set<number> = new Set<number>();
+  jeuxSelectionne: InfoAchatJeuUnitaireDisponibleDto[] = [];
+
+  // Error message
   errorMessage: string | undefined = undefined;
-  prixCommission: number = 2;// à implémenter
 
-  getPrixTotal(): number {
-    if (this.jeuSelectionne) {
-      return Number (this.jeuSelectionne.prix + this.prixCommission);
-    }
-    else {
-      return this.prixCommission;
-    }
+  // Form group
+// Add the validator function to the FormGroup
+enregistrerAchatForm: FormGroup = new FormGroup(
+  {
+    validationEncaissement: new FormControl(false, Validators.requiredTrue),
+  },
+  {
+    validators: [this.idsSelectionnesValidator.bind(this)],
   }
-  constructor(private jeuService: JeuService) { }
+);
+
+
+  constructor(private jeuService: JeuService) {}
+
+  ngOnInit(): void {
+    this.getJeuUnitaire();
+
+    // Initialize filteredIdJeuUnitaire
+    this.filteredIdJeuUnitaire = new Observable((observer) => {
+      observer.next(Array.from(this.setIdJeuUnitaireRestant));
+    });
+
+    // Update filteredIdJeuUnitaire when input changes
+    this.enregistrerAchatForm.valueChanges.subscribe(() => {
+      this.filteredIdJeuUnitaire = this.getFilteredOptions(
+        this.inputJeuSelectionneId
+      );
+    });
+  }
+
+  validateInput(): void {
+    const id = Number(this.inputJeuSelectionneId);
+    this.isInputValid = this.setIdJeuUnitaireRestant.has(id);
+  }
 
   getJeuUnitaire(): void {
     this.jeuService.getListeJeuUnitaire().subscribe({
       next: (data) => {
-        this.listInfoJeuAchat = data;
-        this.listIdJeuUnitaire = this.listInfoJeuAchat.map(
-          (jeu) => jeu.idJeuUnitaire
+        this.setInfoJeuAchat = data;
+        // Initialize the set with available IDs
+        this.setIdJeuUnitaire = new Set(
+          this.setInfoJeuAchat.map((jeu) => jeu.idJeuUnitaire)
         );
+        this.setIdJeuUnitaireRestant = new Set(this.setIdJeuUnitaire);
+
+
+        // Initialize filteredIdJeuUnitaire with all IDs
+        this.filteredIdJeuUnitaire = this.getFilteredOptions('');
       },
       error: (error) => {
         this.errorMessage = error.message;
@@ -72,37 +111,101 @@ export class EnregistrerAchatComponent implements OnInit {
     });
   }
 
-  ngOnInit(): void {
-    this.getJeuUnitaire();
-    this.enregistrerAchatForm.get('idJeuUnitaire')!.valueChanges.subscribe((idJeuUnitaire) => {
-      this.jeuSelectionne = this.listInfoJeuAchat.find(
-        (jeu) => String(jeu.idJeuUnitaire) === String(idJeuUnitaire)
+  // Custom validator to check if selected IDs are in setIdJeuUnitaire
+// Custom validator to check if selected IDs are in setIdJeuUnitaire and the list is not empty
+idsSelectionnesValidator(formGroup: AbstractControl): ValidationErrors | null {
+  const invalidIds = Array.from(this.idsJeuSelectionne).filter(
+    (id) => !this.setIdJeuUnitaire.has(id)
+  );
+
+  if (this.idsJeuSelectionne.size === 0) {
+    return { emptySelection: true };
+  }
+
+  return invalidIds.length > 0 ? { invalidIdsSelected: invalidIds } : null;
+}
+
+  ajouterJeu(): void {
+    const id = Number(this.inputJeuSelectionneId);
+    if (id && this.setIdJeuUnitaireRestant.has(id)) {
+      this.idsJeuSelectionne.add(id);
+      this.setIdJeuUnitaireRestant.delete(id);
+      this.inputJeuSelectionneId = '';
+      this.isInputValid = false;
+      // Update selected jeux info
+      this.updateJeuxSelectionne();
+
+      // Update filtered options
+      this.filteredIdJeuUnitaire = this.getFilteredOptions('');
+    }
+  }
+
+  onDeleteJeu($event: number) {
+    this.removeJeu($event);
+  }
+
+  removeJeu(id: number): void {
+    if (this.idsJeuSelectionne.has(id)) {
+      this.idsJeuSelectionne.delete(id);
+      this.setIdJeuUnitaireRestant.add(id);
+      // Update selected jeux info
+      this.updateJeuxSelectionne();
+
+      // Update filtered options
+      this.filteredIdJeuUnitaire = this.getFilteredOptions(
+        this.inputJeuSelectionneId
       );
     }
-    );
+  }
 
-    this.filteredIdJeuUnitaire = this.enregistrerAchatForm.get('idJeuUnitaire')!.valueChanges.pipe(
-      startWith(''),
-      map(value => this._filterIdJeuUnitaire(value || '')),
+  updateJeuxSelectionne(): void {
+    this.jeuxSelectionne = this.setInfoJeuAchat.filter((jeu) =>
+      this.idsJeuSelectionne.has(jeu.idJeuUnitaire)
     );
   }
 
-  idValidator(): ValidatorFn {
-    return (control: AbstractControl): ValidationErrors | null => {
-      const value = control.value;
-      if (!value) {
-        return null;
-      }
-      const id = Number(value);
-      return this.listIdJeuUnitaire.includes(id) ? null : { invalidIdJeuUnitaire: true };
-    };
-  }
-
-  private _filterIdJeuUnitaire(value: string): number[] {
-    if (!value) {
-      return [];
-    }
+  getFilteredOptions(value: string): Observable<number[]> {
     const filterValue = value.toLowerCase();
-    return this.listIdJeuUnitaire.filter(idJeuUnitaire => idJeuUnitaire.toString().toLowerCase().includes(filterValue));
+    const filteredIds = Array.from(this.setIdJeuUnitaireRestant).filter((id) =>
+      id.toString().toLowerCase().includes(filterValue)
+    );
+    return new Observable((observer) => {
+      observer.next(filteredIds);
+    });
   }
+
+  submitAchat(): void {
+      if (this.enregistrerAchatForm.valid) {
+        this.jeuService.enregisterAchat(this.idsJeuSelectionne).subscribe({
+          next: () => {
+            alert('Achat enregistré');
+            //we reload fully the component
+            window.location.reload();
+          },
+          error: (error) => {
+            alert('Erreur lors de l\'enregistrement de l\'achat: ' + error.message);
+          }
+        });
+      }
+}
+roundToPrecision(value: number, precision: number): number {
+  const factor = Math.pow(10, precision);
+  return Math.round(value * factor) / factor;
+}
+
+getPrixJeuxTotal(): number {
+  const total = this.jeuxSelectionne.reduce((total, jeu) => total + jeu.prix, 0);
+  return this.roundToPrecision(total, 2);
+}
+
+getPrixCommission(): number {
+  const commission = 0.1 * this.getPrixJeuxTotal();
+  return this.roundToPrecision(commission, 2);
+}
+
+getPrixTotal(): number {
+  const total = this.getPrixJeuxTotal() + this.getPrixCommission();
+  return this.roundToPrecision(total, 2);
+}
+
 }
