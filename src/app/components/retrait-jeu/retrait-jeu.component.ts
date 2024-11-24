@@ -33,6 +33,8 @@ export class RetraitJeuComponent implements OnInit {
   filteredJeuUnitaireIds: Observable<number[]> = new Observable<number[]>();
   listJeuUnitaires: InfoJeuUnitaireDisponibleDto[] = [];
 
+  jeuSelectionne?: InfoJeuUnitaireDisponibleDto;
+
   errorMessage?: string;
 
   constructor(
@@ -42,7 +44,7 @@ export class RetraitJeuComponent implements OnInit {
   ) {
     this.retraitJeuForm = this.fb.group({
       mailVendeur: ['', [Validators.required, this.emailValidator()]],
-      idJeuUnitaire: ['', Validators.required]
+      idJeuUnitaire: ['', [Validators.required, this.idJeuUnitaireValidator()]]
     });
   }
 
@@ -68,6 +70,20 @@ export class RetraitJeuComponent implements OnInit {
     return (control: AbstractControl): ValidationErrors | null => {
       const value = control.value;
       return this.vmails.includes(value) ? null : { invalidEmail: true };
+    };
+  }
+
+  idJeuUnitaireValidator(): ValidatorFn {
+    return (control: AbstractControl): ValidationErrors | null => {
+      const value = control.value;
+      const correct : boolean = this.jeuUnitaireIds.includes(Number(value));
+      if (correct) {
+        this.jeuSelectionne = this.listJeuUnitaires.find(jeu => jeu.idJeuUnitaire === Number(value));
+      }
+      else {
+        this.jeuSelectionne = undefined;
+      }
+      return this.jeuUnitaireIds.includes(Number(value)) ? null : { invalidIdJeuUnitaire: true };
     };
   }
 
@@ -97,11 +113,13 @@ export class RetraitJeuComponent implements OnInit {
     } else {
       this.vendeurName = undefined;
       this.vendeurFirstName = undefined;
-      this.retraitJeuForm.get('idJeuUnitaire')?.disable();
       this.jeuUnitaireIds = [];
       this.listJeuUnitaires = [];
     }
   }
+
+
+
 
   getJeuUnitairesByVendeur(idVendeur: number): void {
     this.jeuService.getJeuUnitairesByVendeur(idVendeur).subscribe({
@@ -133,7 +151,6 @@ export class RetraitJeuComponent implements OnInit {
           if (success) {
             alert(message);
             this.retraitJeuForm.reset();
-            this.retraitJeuForm.get('idJeuUnitaire')?.disable();
             this.vendeurName = undefined;
             this.vendeurFirstName = undefined;
             this.jeuUnitaireIds = [];
@@ -153,10 +170,12 @@ export class RetraitJeuComponent implements OnInit {
 
   refreshVendeur(): void {
     this.getVendeurInfo();
-    this.retraitJeuForm.get('mailVendeur')?.updateValueAndValidity();
+    this.retraitJeuForm.reset();
+    // this.retraitJeuForm.get('mailVendeur')?.updateValueAndValidity();
   }
 
   refreshJeuUnitaire(): void {
+    this.retraitJeuForm.get('idJeuUnitaire')?.reset();
     const email = this.retraitJeuForm.get('mailVendeur')?.value;
     const vendeur = this.listvendeur.find(v => v.email === email);
     if (vendeur) {

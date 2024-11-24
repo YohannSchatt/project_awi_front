@@ -56,6 +56,12 @@
         <i class="fa fa-refresh fa_custom fa-2x"></i>
       </button>
     </div>
+    @if(jeuSelectionne) {
+      <div>
+        <p>Nom du jeu : {{ jeuSelectionne.nom }}</p>
+        <p>Prix du jeu : {{ jeuSelectionne.prix }}</p>
+      </div>
+    }
   }
 
   <!-- Submit button -->
