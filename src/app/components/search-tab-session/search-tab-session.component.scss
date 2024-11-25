@@ -1,6 +1,6 @@
 @import '../../styles/variable';
 
-.SearchTabVendeur {
+.SearchTabSession {
     margin-top: 3vh;
     flex-direction: column;
     align-items: center;
@@ -87,7 +87,7 @@ button {
     margin-top: auto;
 }
 
-.tabVendeur {
+.tabSession {
     margin-top: 3vh;
     flex-direction: column;
     align-items: center;
@@ -110,7 +110,7 @@ button {
     margin-bottom: 1vh;
     overflow-y:auto; /* Ajoute une barre de défilement si le contenu dépasse la hauteur de la vue */
     box-sizing:border-box;
-    max-height: 14vh;
+    max-height: 24vh; /* Limite la hauteur maximale à 80% de la hauteur de la vue */
 }
 
 .elt {
