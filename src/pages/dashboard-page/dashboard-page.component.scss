@@ -17,11 +17,20 @@ app-search-tab-session, app-search-tab-vendeur .tab {
 }
 
 button {
-    color: brown;
-    background-color: $color5;
-    margin: 0 1rem;
-    padding: 3;
-    border: 0;
+    background-color: $color4;
+    border: 1px solid black;
+    padding: 0.5rem 1rem;
+    margin-bottom: -3vh;
     font-size: 1rem;
     cursor: pointer;
+}
+
+button:hover {
+    background-color: $color5;
+    border: 1px solid black;
+    padding: 0.5rem 1rem;
+    margin-bottom: -3vh;
+    font-size: 1rem;
+    cursor: pointer;
+    transition: 0.5s;
 }

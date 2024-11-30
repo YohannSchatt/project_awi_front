@@ -14,7 +14,7 @@ import { SessionService } from '../../services/session/session.service';
 })
 export class SearchTabSessionComponent {
 
-  @Output() vendeurSelected = new EventEmitter<SessionInfoDto>();
+  @Output() sessionSelected = new EventEmitter<SessionInfoDto>();
 
   Message: string = '';
 
@@ -31,7 +31,7 @@ export class SearchTabSessionComponent {
       titre: new FormControl(''),
       lieu: new FormControl(''),
       dateDebut: new FormControl(''),
-      DateFin: new FormControl(''),
+      dateFin: new FormControl(''),
     });
     this.loadSession();
   }
@@ -42,17 +42,18 @@ export class SearchTabSessionComponent {
     searchSession.lieu = this.SessionSearchGroup.get('lieu')?.value;
     searchSession.dateDebut = this.SessionSearchGroup.get('dateDebut')?.value;
     searchSession.dateFin = this.SessionSearchGroup.get('dateFin')?.value;
+    console.log(searchSession);
     this.loadSession(searchSession);
   }
 
   chercher(session : SessionInfoDto): void{
     if (session.idSession == this.idSelectedSession){
       this.idSelectedSession = -1;
-      this.vendeurSelected.emit(new SessionInfoDto());
+      this.sessionSelected.emit(new SessionInfoDto());
     }
     else {
       this.idSelectedSession = session.idSession;
-      this.vendeurSelected.emit(session);
+      this.sessionSelected.emit(session);
     }
 
   }
@@ -61,7 +62,6 @@ export class SearchTabSessionComponent {
       this.vendeurService.getSessions(session).subscribe(
         (data: SessionInfoDto[]) => {
           this.tabSession = data.map(session => {
-            console.log(session);
             session.dateDebut = this.formatDateJJMMYYYY(session.dateDebut);
             session.dateFin = this.formatDateJJMMYYYY(session.dateFin);
             return session;

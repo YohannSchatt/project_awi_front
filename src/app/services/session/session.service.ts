@@ -42,7 +42,7 @@ export class SessionService {
       dateFin: dateFin,
       lieu: lieu,
       description: description,
-      comission: comission
+      comission: Number(comission)
     };
     const options = {
       withCredentials: true 
@@ -61,7 +61,7 @@ export class SessionService {
       dateFin: dateFin,
       lieu: lieu,
       description: description,
-      comission: comission
+      comission: Number(comission)
     };
     const options = {
       withCredentials: true 
@@ -123,9 +123,8 @@ export class SessionService {
     if (SearchSessionDto?.dateFin != '') {
       body.dateFin = SearchSessionDto?.dateFin
     }
-    console.log(SearchSessionDto);
     const options = { withCredentials: true };
-    return this.http.post<SessionInfoDto[]>(`${environment.apiUrl}/session/getListsession`, body, options);
+    return this.http.post<SessionInfoDto[]>(`${environment.apiUrl}/session/GetListSession`, body, options);
   }
 
 }
