@@ -1,5 +1,5 @@
 <div class="dashboard">
-    <app-dashboard></app-dashboard>
+    <app-dashboard [infoDashboard]="infoDashboard" [case]="case"></app-dashboard>
 </div>
 <div class="choiceSelect">
     <button class="choiceSession" (click)="choiceComponent(0)" [ngClass]="{'clicked': this.SelectedSearchComponent == 0}">Session</button>
@@ -7,6 +7,6 @@
     <button class="chercher" (click)="chercher()">Chercher</button>
 </div>
 <div class="Select">
-    <app-search-tab-session *ngIf="this.SelectedSearchComponent==0" (sessionSelected)="onSessionSelected($event)"></app-search-tab-session>
-    <app-search-tab-vendeur *ngIf="this.SelectedSearchComponent==1" (vendeurSelected)="onVendeurSelected($event)"></app-search-tab-vendeur>
+    <app-search-tab-session  (sessionSelected)="onSessionSelected($event)" [class.hidden]="!(this.SelectedSearchComponent==0)"></app-search-tab-session>
+    <app-search-tab-vendeur  (vendeurSelected)="onVendeurSelected($event)" [class.hidden]="!(this.SelectedSearchComponent==1)"></app-search-tab-vendeur>
 </div>

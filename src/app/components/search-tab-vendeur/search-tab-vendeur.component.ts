@@ -23,9 +23,11 @@ export class SearchTabVendeurComponent {
 
   tabVendeur : VendeurInfoDto[] = [];
 
-  idSelectedVendeur : number = -1;
+  idSelectedVendeur : number;
 
-  constructor(private vendeurService : VendeurService ) {  }
+  constructor(private vendeurService : VendeurService ) {
+    this.idSelectedVendeur = -1;
+    }
 
   ngOnInit(): void {
     this.VendeurSearchGroup = new FormGroup({

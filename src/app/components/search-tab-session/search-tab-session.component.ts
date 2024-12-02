@@ -1,4 +1,4 @@
-import { Component, Output, EventEmitter } from '@angular/core';
+import { Component, Output, EventEmitter, Input } from '@angular/core';
 import { FormGroup, FormControl, ReactiveFormsModule } from '@angular/forms';
 import { SearchSessionDto } from '../../services/session/dto/search-Session.dto';
 import { SessionInfoDto } from '../../services/session/dto/session.info.dto';
@@ -24,7 +24,9 @@ export class SearchTabSessionComponent {
 
   idSelectedSession : number = -1;
 
-  constructor(private vendeurService : SessionService ) {  }
+  constructor(private vendeurService : SessionService ) {
+    this.idSelectedSession = -1;
+    }
 
   ngOnInit(): void {
     this.SessionSearchGroup = new FormGroup({
