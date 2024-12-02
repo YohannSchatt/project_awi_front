@@ -1,0 +1,35 @@
+<div class="dashboard">
+    <div class="mainInfo">
+        <div class="general_info">
+            <p>Information générale</p>
+            <div *ngIf="case==3 || case==2 || case==0" class="gen">
+                <p>Argent Total : {{infoDashboard.ArgentTotal}}€ </p>
+                <p>Somme due : {{infoDashboard.sommeDue}}€ </p>
+                <p>Somme retire : {{infoDashboard.sommeRetire}}€ </p>
+            </div>
+        </div>
+        <div class="general_session">
+            <p>Information générale session</p>
+            <div *ngIf="case==1 || case==3" class="session">
+                <p>Argent à rendre session : {{infoDashboard.ArgentARendreSession}}€ </p>
+                <p>Argent à gagner comission : {{infoDashboard.ArgentComission}}€ </p>
+                <p>Argent vendeur gagné : {{infoDashboard.ArgentGagneSession}}€ </p>
+            </div>
+        </div>
+    </div>
+    <div class="logVente">
+        <p>Tableau des ventes</p>
+        <div class="tab">
+            @for (vente of infoDashboard.DetailVentes; track infoDashboard.DetailVentes) {
+                <div class="elt">
+                    <p>Details des ventes</p>
+                    <p>{{vente.nomJeu}}</p>
+                    <p>{{vente.nomVendeur}}</p>
+                    <p>{{vente.nomSession}}</p>
+                    <p>{{vente.dateAchat}}</p>
+                    <p>{{vente.prix}}€</p>
+                </div>
+            }
+        </div>
+    </div>
+</div>

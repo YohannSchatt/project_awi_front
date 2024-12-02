@@ -1,0 +1,44 @@
+<div class="SearchTabSession">
+    <div class="SearchSession">
+        <p>Chercher une Session</p>
+        <form [formGroup]="SessionSearchGroup" (ngSubmit)="submit()">
+            <div class="titre">
+                <label for="titre">titre</label>
+                <input type="text" id="titre" formControlName="titre"/>
+            </div>
+            <div class="lieu">
+                <label for="lieu">lieu</label>
+                <input type="text" id="lieu" formControlName="lieu"/>
+            </div>
+            <div class="dateDebut">
+                <label for="dateDebut">date début</label>
+                <input type="date" id="dateDebut" formControlName="dateDebut"/>
+            </div>
+            <div class="DateFin">
+                <label for="DateFin">date fin</label>
+                <input type="date" id="DateFin" formControlName="dateFin"/>
+            </div>
+            <div class="button">
+                <button type="submit">chercher</button>
+                <p> {{ this.Message }}</p>
+            </div>
+        </form>
+    </div>
+    <div>
+        <div class="tabSession">
+            <div class="tab">
+            @for (session of tabSession; track session) {
+                <div class="elt">
+                    <p>{{session.titre}}</p>
+                    <p>{{session.lieu}}</p>
+                    <p>{{session.dateDebut}}</p>
+                    <p>{{session.dateFin}}</p>
+                    <div class="buttonModifier">
+                        <button class="modifier" (click)="chercher(session)" [ngClass]="{'clicked': this.idSelectedSession === session.idSession}">Sélectionner</button>
+                    </div>
+                </div>
+            }
+            </div>
+        </div>  
+    </div>
+</div>

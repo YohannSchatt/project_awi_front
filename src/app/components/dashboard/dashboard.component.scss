@@ -1,0 +1,81 @@
+@import "../../styles/variable";
+
+.dashboard {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    height: 90%;
+    background-color: $color3;
+    margin-top : 1vh;
+    margin-left: 2vh;
+    margin-right: 2vh;
+    margin-bottom: 5vh;
+    padding: 2vh;
+    border-radius: 5vh;
+    box-shadow: 0 0 10px 0 rgba(0, 0, 0, 0.2);
+}
+
+.mainInfo {
+    display: flex;
+    flex-direction: row;
+    margin-bottom: 2vh;
+}
+
+.general_info {
+    display: flex;
+    flex-direction: column;
+    margin-bottom: 1vh;
+    margin-right: 1vh;
+    width: 43%;
+    height: 3vh;
+}
+
+.gen {
+    background-color: $color4;
+    display: flex;
+    flex-direction: row;
+    margin-bottom: 1vh;
+    border: 1px solid black;
+    justify-content: space-between;
+}
+
+.session {
+    background-color: $color4;
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    margin-bottom: 1vh;
+    border: 1px solid black;
+}
+
+.general_session {
+    display: flex;
+    flex-direction: column;
+    margin-bottom: 2vh;
+    width: 58%;
+    height: 3vh;
+}
+
+.logVente {
+    display: flex;
+    flex-direction: column;
+    height: 60%;
+    box-sizing: border-box;
+}
+
+.tab {
+    display: flex;
+    flex-direction: column;
+    max-height: 15vh;
+    overflow-y: auto;
+    border: 2px solid $color5;
+}
+
+.elt {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    background-color: $color4;
+    padding: 1vh;
+    border: 1px solid black;
+}

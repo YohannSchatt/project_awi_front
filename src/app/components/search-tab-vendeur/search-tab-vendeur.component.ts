@@ -1,7 +1,6 @@
 import { Component, Output, EventEmitter } from '@angular/core';
 import { FormGroup, FormControl, ReactiveFormsModule } from '@angular/forms';
 import { VendeurInfoDto } from '../../services/vendeur/dto/vendeur.info.dto';
-import { HttpClient } from '@angular/common/http';
 import { NgClass } from '@angular/common';
 import { VendeurService } from '../../services/vendeur/vendeur.service';
 import { SearchVendeurDto } from '../../services/vendeur/dto/search-Vendeur.dto';
@@ -24,9 +23,11 @@ export class SearchTabVendeurComponent {
 
   tabVendeur : VendeurInfoDto[] = [];
 
-  idSelectedVendeur : number = -1;
+  idSelectedVendeur : number;
 
-  constructor(private vendeurService : VendeurService ) {  }
+  constructor(private vendeurService : VendeurService ) {
+    this.idSelectedVendeur = -1;
+    }
 
   ngOnInit(): void {
     this.VendeurSearchGroup = new FormGroup({

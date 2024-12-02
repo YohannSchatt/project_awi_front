@@ -4,6 +4,8 @@ import { BehaviorSubject, Observable, of, tap  } from 'rxjs';
 import { catchError, map } from 'rxjs/operators';
 import { HttpClient } from '@angular/common/http';
 import { environment } from '../../../environment/environment';
+import { SearchSessionDto } from './dto/search-Session.dto';
+import { SessionInfoDto } from './dto/session.info.dto';
 
 @Injectable({
   providedIn: 'root'
@@ -40,7 +42,7 @@ export class SessionService {
       dateFin: dateFin,
       lieu: lieu,
       description: description,
-      comission: comission
+      comission: Number(comission)
     };
     const options = {
       withCredentials: true 
@@ -59,7 +61,7 @@ export class SessionService {
       dateFin: dateFin,
       lieu: lieu,
       description: description,
-      comission: comission
+      comission: Number(comission)
     };
     const options = {
       withCredentials: true 
@@ -105,6 +107,24 @@ export class SessionService {
       console.log('update', Session);
       return this.UpdateSession(Session.lieu, Session.dateDebut, Session.dateFin, Session.titre, Session.description, Session.comission);
     }
+  }
+
+  getSessions(SearchSessionDto? : SearchSessionDto): Observable<SessionInfoDto[]> {
+    const body : any =  {}
+    if (SearchSessionDto?.titre != '') {
+      body.titre = SearchSessionDto?.titre
+    }
+    if (SearchSessionDto?.lieu != '') {
+      body.lieu = SearchSessionDto?.lieu
+    }
+    if (SearchSessionDto?.dateDebut != '') {
+      body.dateDebut = SearchSessionDto?.dateDebut
+    }
+    if (SearchSessionDto?.dateFin != '') {
+      body.dateFin = SearchSessionDto?.dateFin
+    }
+    const options = { withCredentials: true };
+    return this.http.post<SessionInfoDto[]>(`${environment.apiUrl}/session/GetListSession`, body, options);
   }
 
 }
