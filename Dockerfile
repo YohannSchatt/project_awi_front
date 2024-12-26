@@ -14,13 +14,15 @@ RUN npm install
 COPY . .
 
 # Construire l'application Angular
-RUN npm run build --prod
+RUN npm run build
 
 # Utiliser une image Nginx pour servir l'application
 FROM nginx:alpine
 
 # Copier les fichiers construits de l'étape précédente
 COPY --from=build /app/dist/awi_front /usr/share/nginx/html
+
+COPY nginx.conf /etc/nginx/conf.d/default.conf
 
 # Exposer le port 80
 EXPOSE 80
