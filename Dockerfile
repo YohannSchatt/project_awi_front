@@ -14,18 +14,26 @@ RUN npm install
 COPY . .
 
 # Construire l'application Angular
-RUN npm run build
+RUN npm run build --prod
 
 # Utiliser une image Nginx pour servir l'application
 FROM nginx:alpine
 
 # Copier les fichiers construits de l'étape précédente
-COPY --from=build /app/dist/awi_front /usr/share/nginx/html
+COPY --from=build /app/dist/awi_front ./dist/awi_front
 
-COPY nginx.conf /etc/nginx/conf.d/default.conf
+# Copier le serveur Node.js
+COPY server.ts .
 
-# Exposer le port 80
-EXPOSE 80
+# Installer les dépendances de production
+RUN npm install express
 
-# Démarrer Nginx
-CMD ["nginx", "-g", "daemon off;"]
+# Exposer le port 4000
+EXPOSE 4000
+
+# Compiler le fichier TypeScript en JavaScript
+RUN npm install -g typescript
+RUN tsc server.ts
+
+# Démarrer le serveur Node.js
+CMD ["node", "server.js"]
