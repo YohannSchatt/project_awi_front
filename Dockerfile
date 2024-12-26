@@ -20,7 +20,7 @@ RUN npm run build --prod
 FROM nginx:alpine
 
 # Copier les fichiers construits de l'étape précédente
-COPY --from=build /app/dist/your-angular-app /usr/share/nginx/html
+COPY --from=build /app/dist/awi_front /usr/share/nginx/html
 
 # Exposer le port 80
 EXPOSE 80
