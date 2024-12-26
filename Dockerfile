@@ -34,6 +34,7 @@ RUN npm install express
 EXPOSE 4000
 
 # Compiler le fichier TypeScript en JavaScript
+RUN npm install -g typescript
 RUN tsc server.ts
 
 # Démarrer le serveur Node.js
