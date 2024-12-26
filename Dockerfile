@@ -17,7 +17,9 @@ COPY . .
 RUN npm run build --prod
 
 # Utiliser une image Nginx pour servir l'application
-FROM nginx:alpine
+FROM node:22
+
+WORKDIR /app
 
 # Copier les fichiers construits de l'étape précédente
 COPY --from=build /app/dist/awi_front ./dist/awi_front
