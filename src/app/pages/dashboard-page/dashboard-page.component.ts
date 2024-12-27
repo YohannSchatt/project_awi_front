@@ -1,11 +1,11 @@
 import { Component } from '@angular/core';
 import { NgClass, NgIf, NgSwitch, NgSwitchCase } from '@angular/common';
-import { SearchTabSessionComponent } from '../../app/components/search-tab-session/search-tab-session.component';
-import { SearchTabVendeurComponent } from '../../app/components/search-tab-vendeur/search-tab-vendeur.component';
-import { DashboardComponent } from "../../app/components/dashboard/dashboard.component";
-import { SessionInfoDto } from '../../app/services/session/dto/session.info.dto';
-import { VendeurInfoDto } from '../../app/services/vendeur/dto/vendeur.info.dto';
-import { DashboardDto } from '../../app/services/dto/dashboard.dto';
+import { SearchTabSessionComponent } from '../../components/search-tab-session/search-tab-session.component';
+import { SearchTabVendeurComponent } from '../../components/search-tab-vendeur/search-tab-vendeur.component';
+import { DashboardComponent } from "../../components/dashboard/dashboard.component";
+import { SessionInfoDto } from '../../services/session/dto/session.info.dto';
+import { VendeurInfoDto } from '../../services/vendeur/dto/vendeur.info.dto';
+import { DashboardDto } from '../../services/dto/dashboard.dto';
 import { HttpClient } from '@angular/common/http';
 
 @Component({

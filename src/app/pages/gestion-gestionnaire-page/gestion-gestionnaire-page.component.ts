@@ -1,6 +1,6 @@
 import { Component } from '@angular/core';
-import { CreateGestionnaireComponent } from "../../app/components/create-gestionnaire/create-gestionnaire.component";
-import { TabGestionnaireComponent } from "../../app/components/tab-gestionnaire/tab-gestionnaire.component";
+import { CreateGestionnaireComponent } from "../../components/create-gestionnaire/create-gestionnaire.component";
+import { TabGestionnaireComponent } from "../../components/tab-gestionnaire/tab-gestionnaire.component";
 
 @Component({
   selector: 'app-gestion-gestionnaire-page',

@@ -1,7 +1,7 @@
 import { Component } from '@angular/core';
-import { InfoVendeurComponent } from '../../app/components/info-vendeur/info-vendeur.component';
-import { SearchTabVendeurComponent } from '../../app/components/search-tab-vendeur/search-tab-vendeur.component';
-import { VendeurInfoDto } from '../../app/services/vendeur/dto/vendeur.info.dto';
+import { InfoVendeurComponent } from '../../components/info-vendeur/info-vendeur.component';
+import { SearchTabVendeurComponent } from '../../components/search-tab-vendeur/search-tab-vendeur.component';
+import { VendeurInfoDto } from '../../services/vendeur/dto/vendeur.info.dto';
 
 @Component({
   selector: 'app-page-vendeur',

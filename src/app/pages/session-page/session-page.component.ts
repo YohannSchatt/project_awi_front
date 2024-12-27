@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { SessiontabPublicComponent } from '../../app/components/sessiontab-public/sessiontab-public.component';
+import { SessiontabPublicComponent } from '../../components/sessiontab-public/sessiontab-public.component';
 
 @Component({
   selector: 'app-session-page',

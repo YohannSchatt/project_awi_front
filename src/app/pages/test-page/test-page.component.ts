@@ -1,6 +1,6 @@
 import { Component } from '@angular/core';
 
-import { CatalogueComponent } from '../../../app/components/catalogue/catalogue.component';
+import { CatalogueComponent } from '../../components/catalogue/catalogue.component';
 
 @Component({
   selector: 'app-test',

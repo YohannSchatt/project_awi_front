@@ -1,6 +1,6 @@
 import { Component } from '@angular/core';
-import { ChangeMdpComponent } from '../../app/components/change-mdp/change-mdp.component';
-import { InfoPersoComponent } from '../../app/components/info-perso/info-perso.component';
+import { ChangeMdpComponent } from '../../components/change-mdp/change-mdp.component';
+import { InfoPersoComponent } from '../../components/info-perso/info-perso.component';
 
 @Component({
   selector: 'app-mon-compte-page',

@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { RetraitJeuComponent } from '../../../app/components/retrait-jeu/retrait-jeu.component';
+import { RetraitJeuComponent } from '../../components/retrait-jeu/retrait-jeu.component';
 
 @Component({
   selector: 'app-retrait-page',

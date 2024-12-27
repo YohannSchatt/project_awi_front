@@ -1,6 +1,6 @@
 import { Component } from '@angular/core';
-import { CreateSessionComponent } from '../../app/components/create-session/create-session.component';
-import { SessiontabPublicComponent } from '../../app/components/sessiontab-public/sessiontab-public.component';
+import { CreateSessionComponent } from '../../components/create-session/create-session.component';
+import { SessiontabPublicComponent } from '../../components/sessiontab-public/sessiontab-public.component';
 
 @Component({
   selector: 'app-gestion-session',
