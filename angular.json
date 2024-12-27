@@ -23,7 +23,7 @@
             "polyfills": [
               "src/polyfills.ts"
             ],
-            "tsConfig": "tsconfig.app.json",
+            "tsConfig": "tsconfig.json",
             "aot": true,
             "inlineStyleLanguage": "scss",
             "assets": [
