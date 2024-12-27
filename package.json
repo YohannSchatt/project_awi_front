@@ -6,6 +6,7 @@
     "start": "ng serve",
     "build": "ng build",
     "build:ssr": "ng build --configuration production",
+    "serve:ssr": "node dist/awi_front/server/server.mjs",
     "watch": "ng build --watch --configuration development",
     "test": "ng test",
     "serve:ssr:awi_front": "node dist/awi_front/server/server.mjs"
