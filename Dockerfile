@@ -16,3 +16,5 @@ RUN chmod -R 755 /usr/share/nginx/html
 
 # Optionnel : afficher le contenu du fichier de configuration
 RUN cat /etc/nginx/conf.d/default.conf
+
+EXPOSE 4012
