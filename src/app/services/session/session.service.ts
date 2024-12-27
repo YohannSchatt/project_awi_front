@@ -3,7 +3,7 @@ import { Session } from '../../Model/SessionClass';
 import { BehaviorSubject, Observable, of, tap  } from 'rxjs';
 import { catchError, map } from 'rxjs/operators';
 import { HttpClient } from '@angular/common/http';
-import { environment } from '../../../environment/environment';
+import { environment } from '../../../environments/environment';
 import { SearchSessionDto } from './dto/search-Session.dto';
 import { SessionInfoDto } from './dto/session.info.dto';
 
