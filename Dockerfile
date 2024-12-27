@@ -11,3 +11,5 @@ COPY nginx.conf /etc/nginx/conf.d/default.conf
 
 # Optionnel : vérifier les fichiers copiés
 RUN ls -la /usr/share/nginx/html
+
+RUN cat /etc/nginx/conf.d/default.conf
