@@ -1,1 +1,1 @@
-web: npm run serve:ssr
+web: nginx -g "daemon off;"
