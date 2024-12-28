@@ -1,1 +1,1 @@
-web: nginx -g "daemon off;"
+web: http-server -p $PORT dist/awi_front
