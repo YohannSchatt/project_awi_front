@@ -1,1 +1,1 @@
-web: http-server -p $PORT dist/awi_front
+web: http-server -p $PORT dist/awi_front/browser
