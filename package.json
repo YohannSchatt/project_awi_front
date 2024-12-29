@@ -5,6 +5,8 @@
     "ng": "ng",
     "start": "ng serve",
     "build": "ng build --configuration production",
+    "build:prod": "ng build --configuration=production",
+    "postbuild:prod": "node set-env.js",
     "watch": "ng build --watch --configuration development",
     "test": "ng test"
   },
