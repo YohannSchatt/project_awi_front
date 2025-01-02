@@ -7,19 +7,88 @@
 
 form
 {
-  margin-top: 10vh;
-  background-color: $color4;
+  margin-top: 4vh;
+  background-color: $color3;
   padding: 20px;
   display: block;
-  width: 40%;
+  width: 60%;
   border-radius: 8px;
   border: 1px solid $color4;
   box-shadow: 0 0 8px rgb(46, 37, 66);
+  display: flex;
+  flex-direction: column;
 }
 
 label, select, input {
-
   font-size: clamp(14px, 1.8vh,  1.8vh);
+  margin-left: 1vh;
+}
+
+.InputJeu {
+  width: 80%;
+  background-color: $color1;
+  border: 1px solid $color3;
+  height: 7vh;
+  border-radius: 2.5vh;
+  font-size: large;
+}
+
+.total {
+  margin-top: 3vh;
+  width: 98%;
+  border-radius: 2.5vh;
+  display: flex;
+  flex-direction: row;
+  justify-content: space-around;
+}
+
+.total > * {
+  padding: 2vh;
+}
+
+.AjouterButton {
+  width: 30%;
+  height: 7vh;
+  background-color: $color4;
+  border : none;
+  border-radius: 2.5vh;
+  color: white;
+  font-size: 1.3em;
+  font-weight: bold;
+  cursor: pointer;
+  justify-self: center;
+  align-self: center;
+  transition-duration: 0.5s;
+  margin-left: 1vh;
+}
+
+.AjouterButton:hover:not(:disabled) {
+  filter: saturate(200%);
+}
+
+.AjouterButton:disabled {
+  background-color: lighten($color7, 15%);
+  cursor: default;
+  transition-duration: 0.5s;
+}
+
+.liste-article {
+  margin-top: 2vh;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  box-sizing: border-box;
+  background-color: $color4;
+  max-height: 14vh;
+  width: 100%;
+  overflow-y:auto;
+  overflow-x: hidden;
+  border: 0.2vh solid $color5
+} 
+
+app-detail-article {
+  width: 100%;
+  border: 0.2vh solid $color5
 }
 
 input {
@@ -32,15 +101,17 @@ input {
 }
 
 form > * {
-  padding: 5px;
+  justify-content: center;
 }
 
 .champ {
+  margin-top: 2vh;
   display: flex;
-
-}
-.champ > * {
-  margin: 10px;
+  flex-direction: row;
+  justify-content:baseline;
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
 }
 
 
@@ -50,14 +121,19 @@ form > * {
 }
 
 #submitbutton {
-  margin-left: 32%;
-  padding: 10px 20px; // Make the button fatter
-  border-radius: 12px; // Make the button a bit roundish
-  background-color: $color7; // Set the background color to $color3
-  color: white; // Set the font color to white
-  border: none; // Remove the default border
-  cursor: pointer; // Change the cursor to pointer on hover
-  font-size: 16px; // Adjust the font size if needed
+  margin-top: 2vh;
+  width: 45%;
+  height: 7vh;
+  background-color: $color4;
+  border : none;
+  border-radius: 2.5vh;
+  color: white;
+  font-size: 1.3em;
+  font-weight: bold;
+  cursor: pointer;
+  justify-self: center;
+  align-self: center;
+  transition-duration: 0.5s;
 }
 
 #submitbutton:hover:not(:disabled) {
@@ -67,4 +143,5 @@ form > * {
 #submitbutton:disabled {
   background-color: lighten($color7, 15%);
   cursor: default;
+
 }

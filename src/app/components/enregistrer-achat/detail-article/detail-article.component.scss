@@ -1,12 +1,28 @@
+@import "../../../../app/styles/variable";
+
 .detail
 {
   display: flex;
   justify-content: space-between; /* Distribute space between child elements */
- align-items: right; /* Center items vertically */
-  padding: 10px;
-
+  align-items: center; /* Center items vertically */
 }
 
-.detail * {
-  margin: 5px;
+p {
+  padding:0.5vh;
+}
+
+button {
+  background-color: $color5;
+  color: white;
+  border: none;
+  border-radius: 0.5vh;
+  height: 5vh;
+  width: 10vh;
+  margin-left: 1vh;
+  cursor: pointer;
+  margin-right: 1vh;
+}
+
+button:hover {
+  background-color: $color7;
 }

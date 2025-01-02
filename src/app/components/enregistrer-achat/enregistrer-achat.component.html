@@ -8,7 +8,7 @@
     <label for = "idJeuUnitaire" class="required">Numéro d'article : </label>
     <!-- la barre de recherche d'email -->
     <!-- formControlName="idJeuUnitaire" -->
-    <input type="text"
+    <input type="text" class="InputJeu"
          placeholder="taper le numéro d'article"
          [(ngModel)] = "inputJeuSelectionneId"
          ariel-label="idJeuUnitaire"
@@ -23,7 +23,7 @@
       }
     </mat-autocomplete>
     <!-- le bouton d'ajout -->
-    <button type="button" (click)="ajouterJeu()" [disabled]="!this.isInputValid">
+    <button type="button" class="AjouterButton" (click)="ajouterJeu()" [disabled]="!this.isInputValid">
       <p>Ajouter</p>
       <!-- <i class='fas fa-plus' style='font-size:24px'></i> -->
     </button>
@@ -36,14 +36,15 @@
       (deleteJeuSelect)="onDeleteJeu($event)"
       ></app-detail-article>
     }
+    @if(this.jeuxSelectionne.length == 0) {
+      <p>Vide</p>
+    }
   </div>
   @if (this.jeuxSelectionne.length > 0) {
-    <div class="champ">
-      <div>
+    <div class="champ total">
         <p>Prix d'achat des jeux : {{this.getPrixJeuxTotal()}} €</p>
         <p>Prix de la commission : {{this.getPrixCommission()}} €</p>
         <p>Prix total : {{this.getPrixTotal()}} €</p>
-      </div>
     </div>
 
   }
