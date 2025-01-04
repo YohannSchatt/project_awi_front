@@ -56,6 +56,9 @@ export class EnregistrerAchatComponent implements OnInit {
   // Error message
   errorMessage: string | undefined = undefined;
 
+  factureReady: boolean = false;
+  gameForFacture: InfoJeuUnitaireDisponibleDto[] = [];
+
   // Form group
 // Add the validator function to the FormGroup
 enregistrerAchatForm: FormGroup = new FormGroup(
@@ -66,6 +69,13 @@ enregistrerAchatForm: FormGroup = new FormGroup(
     validators: [this.idsSelectionnesValidator.bind(this)],
   }
 );
+
+factureForm: FormGroup = new FormGroup(
+  {
+    emailClient: new FormControl('', [Validators.required, this.inputValidator.bind(this)]),
+  }
+);
+
 
 
   constructor(private jeuService: JeuService) {}
@@ -80,15 +90,20 @@ enregistrerAchatForm: FormGroup = new FormGroup(
 
     // Update filteredIdJeuUnitaire when input changes
     this.enregistrerAchatForm.valueChanges.subscribe(() => {
-      this.filteredIdJeuUnitaire = this.getFilteredOptions(
-        this.inputJeuSelectionneId
-      );
+      this.filteredIdJeuUnitaire = this.getFilteredOptions(this.inputJeuSelectionneId);
     });
   }
 
   validateInput(): void {
     const id = Number(this.inputJeuSelectionneId);
     this.isInputValid = this.setIdJeuUnitaireRestant.has(id);
+  }
+
+  inputValidator(control: FormControl): ValidationErrors | null {
+    if (control.value && control.value.trim() !== '') {
+      return null;
+    }
+    return { inputInvalid: true };
   }
 
   getJeuUnitaire(): void {
@@ -180,7 +195,10 @@ idsSelectionnesValidator(formGroup: AbstractControl): ValidationErrors | null {
           next: () => {
             alert('Achat enregistré');
             //we reload fully the component
-            window.location.reload();
+            this.factureReady = true;
+            this.gameForFacture = this.jeuxSelectionne;
+            this.idsJeuSelectionne.clear();
+            this.jeuxSelectionne = [];
           },
           error: (error) => {
             alert('Erreur lors de l\'enregistrement de l\'achat: ' + error.message);
@@ -188,6 +206,7 @@ idsSelectionnesValidator(formGroup: AbstractControl): ValidationErrors | null {
         });
       }
 }
+
 roundToPrecision(value: number, precision: number): number {
   const factor = Math.pow(10, precision);
   return Math.round(value * factor) / factor;
@@ -208,4 +227,28 @@ getPrixTotal(): number {
   return this.roundToPrecision(total, 2);
 }
 
+resetComponent(): void {
+  window.location.reload();
+}
+
+submitFacture(): void {
+  console.log(this.factureForm.value.emailClient);
+  console.log(this.factureForm.value);
+  console.log(this.gameForFacture);
+  this.jeuService.sendFacture(this.factureForm.value.emailClient, this.gameForFacture).subscribe({
+    next: (response) => {
+      const blob = new Blob([response], { type: 'application/pdf' });
+      const url = window.URL.createObjectURL(blob);
+      const a = document.createElement('a');
+      a.href = url;
+      a.download = `facture_${this.factureForm.value.emailClient}_${new Date}.pdf`;
+      a.click();
+      window.URL.revokeObjectURL(url);
+      alert('Facture envoyée');
+    },
+    error: (error) => {
+      alert('Erreur lors de l\'envoi de la facture: ' + error.message);
+    }
+  });
+}
 }

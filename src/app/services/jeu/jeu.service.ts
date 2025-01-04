@@ -6,6 +6,8 @@ import { InfoJeuDto } from './dto/jeu.info.dto';
 import { InfoJeuUnitaireDto } from '../catalogue/response-catalogue.dto';
 import { CreerJeuUnitaire } from './dto/create-jeu-unitaire.dto';
 import { InfoJeuUnitaireDisponibleDto } from './dto/info-jeu-unitaire-disponible.dto';
+import { InvoiceDto } from './dto/invoice.dto';
+import { HttpHeaders } from '@angular/common/http';
 
 @Injectable({
   providedIn: 'root'
@@ -42,15 +44,35 @@ export class JeuService {
 
   getListeJeuUnitaire(): Observable<InfoJeuUnitaireDisponibleDto[]> {
     const options = { withCredentials: true };
-    return this.http.get<InfoJeuUnitaireDisponibleDto[]>(
-      `${this.url}/listInfoAchatJeuUnitaireDisponible`,
-      options
-    );
+    return this.http.get<InfoJeuUnitaireDisponibleDto[]>(`${this.url}/listInfoAchatJeuUnitaireDisponible`,options);
   }
+
   enregisterAchat(setIdJeuUnitaire: Set<number>): Observable<void> {
     const options = { withCredentials: true };
     const idsJeuUnitaire = Array.from(setIdJeuUnitaire); // Convert Set to Array
     return this.http.post<void>(`${this.url}/achat`, { idsJeuUnitaire }, options);
+  }
+
+  sendFacture(email : string,JeuxUnitaire : InfoJeuUnitaireDisponibleDto[]): Observable<Blob> {
+
+    const headers = new HttpHeaders({
+      'Content-Type': 'application/json',
+      'Accept': 'application/pdf'
+    });
+
+    const options = {       
+      headers: headers,
+      responseType: 'blob' as 'json',
+      withCredentials: true 
+    };
+
+    const date = new Date();
+    const body : InvoiceDto = {
+      date : date,
+      email : email,
+      items: JeuxUnitaire
+    }
+    return this.http.post<Blob>(`${environment.apiUrl}/invoice/`, body, options);
   }
 }
 

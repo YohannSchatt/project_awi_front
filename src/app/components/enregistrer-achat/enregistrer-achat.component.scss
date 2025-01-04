@@ -5,9 +5,16 @@
   justify-content: center;
 }
 
-form
+.main { 
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  width: 100%;
+}
+
+.achat
 {
-  margin-top: 4vh;
+  margin-top: 2vh;
   background-color: $color3;
   padding: 20px;
   display: block;
@@ -34,7 +41,7 @@ label, select, input {
 }
 
 .total {
-  margin-top: 3vh;
+  margin-top: 2vh;
   width: 98%;
   border-radius: 2.5vh;
   display: flex;
@@ -144,4 +151,96 @@ form > * {
   background-color: lighten($color7, 15%);
   cursor: default;
 
+}
+
+.factureForm {
+  margin-top: 4vh;
+  background-color: $color3;
+  padding: 20px;
+  display: block;
+  width: 60%;
+  border-radius: 8px;
+  border: 1px solid $color4;
+  box-shadow: 0 0 8px rgb(46, 37, 66);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.factureForm > p {
+  align-self: flex-start;
+}
+
+.inputEmail{
+  width: 80%;
+  background-color: $color1;
+  border: 1px solid $color3;
+  height: 7vh;
+  border-radius: 2.5vh;
+  font-size: large;
+}
+
+.buttonContainerFacture{
+  margin-top: 2vh;
+  width: 98%;
+  border-radius: 2.5vh;
+  display: flex;
+  flex-direction: row;
+  justify-content: space-around;
+}
+
+.buttonFacture{
+  width: 30%;
+  height: 7vh;
+  background-color: $color4;
+  border : none;
+  border-radius: 2.5vh;
+  color: white;
+  font-size: 1.3em;
+  font-weight: bold;
+  cursor: pointer;
+  justify-self: center;
+  align-self: center;
+  transition-duration: 0.5s;
+  margin-left: 1vh;
+}
+
+.buttonFacture:hover:not(:disabled) {
+  filter: saturate(200%);
+}
+
+.buttonFacture:disabled {
+  background-color: lighten($color7, 15%);
+  cursor: default;
+  transition-duration: 0.5s;
+}
+
+.buttonReset{
+  width: 30%;
+  height: 7vh;
+  background-color: $color4;
+  border : none;
+  border-radius: 2.5vh;
+  color: white;
+  font-size: 1.3em;
+  font-weight: bold;
+  cursor: pointer;
+  justify-self: center;
+  align-self: center;
+  transition-duration: 0.5s;
+  margin-left: 1vh;
+}
+
+.validator:hover:not(:disabled) {
+  filter: saturate(200%);
+}
+
+.validator:disabled {
+  background-color: lighten($color7, 15%);
+  cursor: default;
+  transition-duration: 0.5s;
+}
+
+.validator.valid {
+  background-color: $color7; // Color when valid
 }

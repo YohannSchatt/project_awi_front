@@ -1,8 +1,12 @@
 
 
 <script src='https://kit.fontawesome.com/a076d05399.js' crossorigin='anonymous'></script>
+
+<div class="main">
+
+
 <!-- le form -->
-<form [formGroup] = "enregistrerAchatForm" (ngSubmit)="submitAchat()">
+<form class="achat"[formGroup] = "enregistrerAchatForm" (ngSubmit)="submitAchat()">
   <h4>Enregistrer un achat</h4>
   <div class = "champ"><!-- le champ pour l'identifiant du jeu -->
     <label for = "idJeuUnitaire" class="required">Numéro d'article : </label>
@@ -62,6 +66,19 @@
 </button>
 
 </form>
+
+<!-- le form pour la facture -->
+@if(!errorMessage && this.factureReady) {
+  <form class="factureForm" [formGroup]="factureForm" (ngSubmit)="submitFacture()">
+    <p>Envoi de la facture</p>
+    <input type="text" class="inputEmail" placeholder="adresse email du client" formControlName="emailClient"/>
+    <div class="buttonContainerFacture">
+      <button class="buttonFacture" type="submit" [class.valid]="factureForm.valid" [disabled]="!factureForm.valid">Facture</button>
+      <button class="buttonReset" type="button" (click)="resetComponent()">Reset</button>
+    </div>
+  </form>
+}
+</div>
 @if(errorMessage){
   <h5 id = "errormessage">{{errorMessage}}</h5>
 }
