@@ -28,6 +28,7 @@ export class RetraitJeuComponent implements OnInit {
   listvendeur: VendeurInfoDto[] = [];
   vendeurName?: string;
   vendeurFirstName?: string;
+  vendeurId?: number;
 
   jeuUnitaireIds: number[] = [];
   filteredJeuUnitaireIds: Observable<number[]> = new Observable<number[]>();
@@ -46,8 +47,8 @@ export class RetraitJeuComponent implements OnInit {
   ) {
     this.retraitJeuForm = this.fb.group({
       mailVendeur: ['', [Validators.required, this.emailValidator()]],
-      idJeuUnitaire: ['', [Validators.required, this.idJeuUnitaireValidator()]],
-      retraitArgent: ['']
+      idJeuUnitaire: [''],
+      retraitArgent: [false]
     });
   }
 
@@ -78,9 +79,22 @@ export class RetraitJeuComponent implements OnInit {
 
   idJeuUnitaireValidator(): ValidatorFn {
     return (control: AbstractControl): ValidationErrors | null => {
-      const value = control.value;
-      const jeu = this.listJeuUnitaires.find(jeu => jeu.idJeuUnitaire === Number(value));
-      return this.jeuUnitaireIds.includes(Number(value)) ? null : { invalidIdJeuUnitaire: true };
+      const formGroup = control.parent;
+      if (!formGroup) {
+        return null;
+      }
+  
+      // On suppose que 'retraitArgent' est un boolean (checkbox)
+      const retraitArgent = formGroup.get('retraitArgent')?.value === true;
+      const jeuxNonVides = this.jeuSelectionne?.length > 0;
+  
+      // Si la checkbox est cochée OU la liste des jeux n'est pas vide, c'est valide
+      if (retraitArgent || jeuxNonVides) {
+        return null;
+      }
+  
+      // Sinon, on invalide
+      return { invalidIdJeuUnitaire: true };
     };
   }
 
@@ -104,9 +118,11 @@ export class RetraitJeuComponent implements OnInit {
   onMailVendeurChange(email: string): void {
     const vendeur = this.listvendeur.find(vendeur => vendeur.email === email);
     if (vendeur) {
+      this.vendeurId = vendeur.idVendeur;
       this.vendeurName = vendeur.nom;
       this.vendeurFirstName = vendeur.prenom;
       this.getJeuUnitairesByVendeur(vendeur.idVendeur);
+      this.getArgent();
     } else {
       this.vendeurName = undefined;
       this.vendeurFirstName = undefined;
@@ -133,7 +149,6 @@ export class RetraitJeuComponent implements OnInit {
   }
 
   getJeuUnitairesByVendeur(idVendeur: number): void {
-    console.log("coucou")
     this.jeuService.getJeuUnitairesByVendeur(idVendeur).subscribe({
       next: jeuUnitaires => {
         this.listJeuUnitaires = jeuUnitaires;
@@ -168,10 +183,13 @@ export class RetraitJeuComponent implements OnInit {
   submitRetrait(): void {
     const formValue = this.retraitJeuForm.value;
     const vendeur = this.listvendeur.find(v => v.email === formValue.mailVendeur);
-    const idJeuUnitaire = Number(formValue.idJeuUnitaire);
+    const retirerArgent : boolean = formValue.retraitArgent;
 
-    if (vendeur && idJeuUnitaire) {
-      this.vendeurService.postRetraitJeu(vendeur.idVendeur, idJeuUnitaire)
+    const idJeuUnitaire = this.jeuSelectionne.map(jeu => jeu.idJeuUnitaire);
+
+    if (vendeur && (this.jeuSelectionne.length > 0 || retirerArgent)) {
+      console.log(retirerArgent)
+      this.vendeurService.postRetraitJeuArgent(vendeur.idVendeur, idJeuUnitaire, retirerArgent)
         .then(([success, message]) => {
           if (success) {
             alert(message);
@@ -189,7 +207,7 @@ export class RetraitJeuComponent implements OnInit {
           console.error('An error occurred:', error);
         });
     } else {
-      alert("Le vendeur ou le jeu unitaire n'a pas été trouvé.");
+      alert("Le vendeur ou les données du retrait ne sont pas sélectionnés");
     }
   }
 
@@ -207,4 +225,18 @@ export class RetraitJeuComponent implements OnInit {
       this.getJeuUnitairesByVendeur(vendeur.idVendeur);
     }
   }
+
+  getArgent(): void {
+    if (this.vendeurId) {
+      this.vendeurService.getArgentVendeur(this.vendeurId).then(
+        (montant) => {
+          this.argentRetrait = montant;
+        },
+        (error) => {
+          console.error('An error occurred:', error);
+          this.errorMessage = 'Erreur lors de la récupération du montant';
+        }
+      );
+    }
+  } 
 }

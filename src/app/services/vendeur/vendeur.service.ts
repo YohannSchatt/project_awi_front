@@ -1,11 +1,12 @@
 import { environment } from '../../../environment/environment';
 import { inject, Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
-import { BehaviorSubject, Observable } from 'rxjs';
+import { BehaviorSubject, lastValueFrom, Observable } from 'rxjs';
 import { VendeurInfoDto } from './dto/vendeur.info.dto';
 import { SearchVendeurDto } from './dto/search-Vendeur.dto';
 import { EnregistrerRetraitArgentDto } from './dto/enregistrer-retrait-argent.dto';
 import { EnregistrerRetraitJeuDto } from './dto/enregistrer-retrait-jeu.dto';
+import { InfoJeuUnitaireDisponibleDto } from '../jeu/dto/info-jeu-unitaire-disponible.dto';
 @Injectable({
   providedIn: 'root'
 })
@@ -88,15 +89,16 @@ export class VendeurService {
   //   }
   //   return this.http.post<void>(`${this.url}/enregistrerRetraitArgent`, body, options);
   // }
-  async postRetraitJeu(idVendeur: number, idJeu: number): Promise<[boolean, string]> {
+  async postRetraitJeuArgent(idVendeur: number, Jeu: number[],argent : boolean): Promise<[boolean, string]> {
     const options = { withCredentials: true };
     const body: EnregistrerRetraitJeuDto = {
       idVendeur: idVendeur,
-      idJeu: idJeu
+      idJeu: Jeu,
+      argent : argent
     };
 
     try {
-      await this.http.post<void>(`${this.url}/enregistrerRetraitJeu`, body, options).toPromise();
+      const response = this.http.post<void>(`${this.url}/enregistrerRetraitJeuArgent`, body, options).toPromise();
       return [true, 'Enregistrement du retrait réussi'];
     } catch (error: any) {
       const errorMessage = error.message ? `Erreur: ${error.message}` : 'Erreur inconnue';
@@ -117,6 +119,20 @@ export class VendeurService {
     } catch (error: any) {
       const errorMessage = error.message ? `Erreur: ${error.message}` : 'Erreur inconnue';
       return [false, errorMessage];
+    }
+  }
+
+  async getArgentVendeur(idVendeur: number): Promise<number> {
+    const options = { withCredentials: true };
+    const body = { idVendeur };
+    try {
+      const argent = await lastValueFrom(
+        this.http.post<number>(`${this.url}/GetArgent`, body, options)
+      );
+      return argent;
+    } catch (error: any) {
+      this.errorMessageSubject.next("Message d'erreur " + error);
+      return 0;
     }
   }
 }

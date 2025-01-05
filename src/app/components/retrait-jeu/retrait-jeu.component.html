@@ -102,12 +102,12 @@
 <button
   id="submitbutton"
   type="submit"
-  [disabled]="retraitJeuForm.invalid || !retraitJeuForm.get('idJeuUnitaire')?.value">
+  [disabled]="retraitJeuForm.invalid">
   Enregistrer le retrait
 </button>
-</form>
 
 <!-- Error message -->
 @if (errorMessage) {
   <h5 id="errormessage">{{ errorMessage }}</h5>
 }
+</form>
