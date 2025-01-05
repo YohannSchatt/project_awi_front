@@ -33,7 +33,9 @@ export class RetraitJeuComponent implements OnInit {
   filteredJeuUnitaireIds: Observable<number[]> = new Observable<number[]>();
   listJeuUnitaires: InfoJeuUnitaireDisponibleDto[] = [];
 
-  jeuSelectionne?: InfoJeuUnitaireDisponibleDto;
+  jeuSelectionne: InfoJeuUnitaireDisponibleDto[] = [];
+
+  argentRetrait: number = 0;
 
   errorMessage?: string;
 
@@ -44,7 +46,8 @@ export class RetraitJeuComponent implements OnInit {
   ) {
     this.retraitJeuForm = this.fb.group({
       mailVendeur: ['', [Validators.required, this.emailValidator()]],
-      idJeuUnitaire: ['', [Validators.required, this.idJeuUnitaireValidator()]]
+      idJeuUnitaire: ['', [Validators.required, this.idJeuUnitaireValidator()]],
+      retraitArgent: ['']
     });
   }
 
@@ -76,13 +79,7 @@ export class RetraitJeuComponent implements OnInit {
   idJeuUnitaireValidator(): ValidatorFn {
     return (control: AbstractControl): ValidationErrors | null => {
       const value = control.value;
-      const correct : boolean = this.jeuUnitaireIds.includes(Number(value));
-      if (correct) {
-        this.jeuSelectionne = this.listJeuUnitaires.find(jeu => jeu.idJeuUnitaire === Number(value));
-      }
-      else {
-        this.jeuSelectionne = undefined;
-      }
+      const jeu = this.listJeuUnitaires.find(jeu => jeu.idJeuUnitaire === Number(value));
       return this.jeuUnitaireIds.includes(Number(value)) ? null : { invalidIdJeuUnitaire: true };
     };
   }
@@ -115,17 +112,37 @@ export class RetraitJeuComponent implements OnInit {
       this.vendeurFirstName = undefined;
       this.jeuUnitaireIds = [];
       this.listJeuUnitaires = [];
+      this.jeuSelectionne = [];
     }
   }
 
 
+  addJeuUnitaire(idJeu: number | string): void {
+    if (typeof idJeu === 'string') {
+      idJeu = Number(idJeu);
+    }
+    const jeuUnitaire = this.listJeuUnitaires.find(jeu => jeu.idJeuUnitaire === idJeu);
+    const exist : boolean = this.jeuSelectionne.some(jeu => jeu.idJeuUnitaire === idJeu);
+    if (jeuUnitaire && !exist) {
+      this.jeuSelectionne.push(jeuUnitaire);
+    }
+  }
 
+  deleteGame(idJeu: number): void {
+    this.jeuSelectionne = this.jeuSelectionne.filter(jeu => jeu.idJeuUnitaire !== idJeu);
+  }
 
   getJeuUnitairesByVendeur(idVendeur: number): void {
+    console.log("coucou")
     this.jeuService.getJeuUnitairesByVendeur(idVendeur).subscribe({
       next: jeuUnitaires => {
         this.listJeuUnitaires = jeuUnitaires;
-        this.jeuUnitaireIds = jeuUnitaires.map(jeu => jeu.idJeuUnitaire);
+        this.listJeuUnitaires = this.listJeuUnitaires.filter(
+          jeu => !this.jeuSelectionne.some(
+            sel => sel.idJeuUnitaire === jeu.idJeuUnitaire
+          )
+        );
+        this.jeuUnitaireIds = this.listJeuUnitaires.map(jeu => jeu.idJeuUnitaire);
       },
       error: error => {
         this.errorMessage = `HTTP Error: ${error.status} ${error.statusText}`;
@@ -135,9 +152,17 @@ export class RetraitJeuComponent implements OnInit {
     });
   }
 
-  private _filterJeuUnitaireIds(value: string): number[] {
-    const filterValue = value.toLowerCase();
-    return this.jeuUnitaireIds.filter(id => id.toString().includes(filterValue));
+  private _filterJeuUnitaireIds(value: string | number): number[] {
+    let realValue: string;
+    if (typeof value === 'number') {
+      realValue = value.toString();
+    } else {
+      realValue = value;
+    }
+    const filterValue = value.toString().toLowerCase();
+    return this.jeuUnitaireIds
+      .filter(id => !this.jeuSelectionne.some(sel => sel.idJeuUnitaire === id))
+      .filter(id => id.toString().toLowerCase().includes(filterValue));
   }
 
   submitRetrait(): void {

@@ -27,8 +27,10 @@
   <!-- Infos du vendeur -->
   <div>
     @if (vendeurFirstName) {
-      <p>Prénom du vendeur : {{ vendeurFirstName }}</p>
-      <p>Nom du vendeur : {{ vendeurName }}</p>
+      <div class="infoVendeur">
+        <p>Prénom du vendeur : {{ vendeurFirstName }}</p>
+        <p>Nom du vendeur : {{ vendeurName }}</p>
+      </div>
     } @else {
       <span>Le vendeur n'est pas encore enregistré ?</span>
       <a [routerLink]="['/gestion/vendeur']">Cliquer ici</a>
@@ -55,13 +57,44 @@
       <button type="button" (click)="refreshJeuUnitaire()">
         <i class="fa fa-refresh fa_custom fa-2x"></i>
       </button>
+      <button type="button" class="Ajouter" (click)="addJeuUnitaire(this.retraitJeuForm.value.idJeuUnitaire)">Ajouter</button>
     </div>
-    @if(jeuSelectionne) {
-      <div>
-        <p>Nom du jeu : {{ jeuSelectionne.nom }}</p>
-        <p>Prix du jeu : {{ jeuSelectionne.prix }}</p>
+    @if(jeuSelectionne.length > 0) {
+      <div class="tabElt">
+      @for (jeuUnique of jeuSelectionne; track jeuUnique) {
+        <div class="elt">
+          <div>
+            <p>Nom :</p>
+            <p>{{ jeuUnique.nom }}</p>           
+          </div>
+          <div>
+            <p>Editeur :</p>
+            <p>{{jeuUnique.editeur}}</p>
+          </div>
+          <div>
+            <p>Etat :</p>
+            <p>{{jeuUnique.etat}}</p>
+          </div>
+          <div>
+            <p>Prix :</p>
+            <p>Prix : {{ jeuUnique.prix }}</p>
+          </div>
+          <div>
+            <p>Code bar :</p>
+            <p>{{jeuUnique.idJeuUnitaire}}</p>
+          </div>
+          <button type="button" class="deleteGame" (click)="deleteGame(jeuUnique.idJeuUnitaire)">Delete</button>
+        </div>
+      }
       </div>
     }
+    <div class="retraitArgentDiv">
+      <p>Le vendeur à gagné : {{this.argentRetrait}}</p>
+      <div>
+        <p>Retirer l'argent :</p>
+        <input type="checkbox" formControlName="retraitArgent" id="retraitArgent">
+      </div>
+    </div>
   }
 
   <!-- Submit button -->
