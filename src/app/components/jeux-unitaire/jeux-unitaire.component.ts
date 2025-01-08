@@ -17,6 +17,11 @@ byebye() {
   selected : boolean = false;
   @Input() jeu: InfoJeuUnitaireDto = new InfoJeuUnitaireDto();
 
+  unopath = "assets/image/uno.jpg";
+  nopath = "";
+
+  path = this.unopath;
+
   constructor(private catalogueService: CatalogueService) { }
 
   makeMeTheBoss() : void {

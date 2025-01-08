@@ -36,21 +36,23 @@
 }
 
 :host {
+
   display: flex;
   justify-content: space-between; /* Distribute space between child elements */
   align-items: center; /* Center items vertically */
   background-color: #ffffff;
-  padding: 10px;
+  height: 100%;
+  width: 100%;
   border-radius: 5px;
   border: #d1d1d1 2px solid;
 }
 
 .close {
-  right: 2vw; /* Position 2vw from the right */
-  top: -5vh; /* Position 5vh above */
+  right: 0vw; /* Position 2vw from the right */
+  top: -4vh; /* Position 5vh above */
   width: 3vw; /* Set width to 3vw */
   height: 3vw; /* Set height to 3vw */
-  opacity: 0.3;
+  opacity: 0.5;
   position: relative;
   cursor: pointer; /* Add cursor pointer to indicate it's clickable */
 }
@@ -81,10 +83,10 @@
   font-size: 1.2em; /* Increase font size */
 }
 
-.selected #image {
-  width: 200px; /* Increase image size */
-  height: auto;
-}
+// .selected #image {
+//   width: 200px; /* Increase image size */
+//   height: auto;
+// }
 
 .selected .infos {
   font-size: 1.2em; /* Increase font size for infos */
@@ -93,4 +95,9 @@
 
 .selected p {
   font-size: 1.2em; /* Increase font size for all paragraphs */
+}
+
+img {
+  width: auto;
+  max-height: 70%;
 }

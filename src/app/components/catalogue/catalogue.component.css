@@ -1,0 +1,55 @@
+:host {
+  display: block;
+  height: 90vh;
+}
+  .layout {
+    display: grid;
+    grid-template-columns: 250px 1fr; /* Zone de filtres : 250px, contenu principal : tout le reste */
+    height: 100%; /* Prend toute la hauteur de la fenêtre */
+  }
+
+  .filter-zone {
+    background-color: #ff66b2; /* Couleur rose pour la zone de filtres */
+    padding: 20px;
+    box-shadow: 2px 0 5px rgba(0, 0, 0, 0.1);
+  }
+
+  .main-content {
+    display: flex;
+    flex-direction: column;
+    background-color: #f0f0f0; /* Couleur de fond pour la zone principale */
+    padding: 10px;
+  }
+
+  .search-bar {
+    margin-bottom: 10px;
+    text-align: center;
+
+    input {
+      width: 90%;
+      padding: 10px;
+      border: 2px solid #ccc;
+      border-radius: 5px;
+      font-size: 16px;
+    }
+  }
+
+  .grid {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr); /* 2 colonnes */
+    grid-template-rows: repeat(6, 1fr); /* 8 lignes */
+    gap: 10px; /* Espacement entre les items */
+    flex: 1;
+    overflow-y: auto; /* Ajoute un défilement vertical si nécessaire */
+  }
+
+  .item {
+    background-color: #ffffff; /* Fond blanc des items */
+    border: 1px solid #ccc; /* Bordure grise */
+    border-radius: 5px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 18px;
+    font-weight: bold;
+  }

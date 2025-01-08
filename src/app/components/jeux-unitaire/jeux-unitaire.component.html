@@ -1,4 +1,4 @@
-<img [ngClass] = "{selected : selected}"  src="path/to/image.jpg" alt="Pas d'image trouvé" id = "image">
+<img [ngClass] = "{selected : selected}"  src="{{this.path}}" alt="Pas d'image trouvé" id = "image">
 <div [ngClass] = "{selected : selected}" class = "infos" >
   <p id="nom">{{ jeu.nom }}</p>
   <p id="editeur">Éditeur: {{ jeu.editeur }}</p>
