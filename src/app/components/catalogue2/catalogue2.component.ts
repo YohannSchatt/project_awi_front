@@ -4,6 +4,7 @@ import { JeuxUnitaireComponent } from '../jeux-unitaire/jeux-unitaire.component'
 import { InfoJeuUnitaireDto } from '../../services/catalogue/response-catalogue.dto';
 import { Subscription } from 'rxjs';
 import { CatalogueService } from '../../services/catalogue/catalogue.service';
+import { CatalogueService2 } from '../../services/catalogue2/catalogue2.service';
 @Component({
   selector: 'app-catalogue2',
   standalone: true,
@@ -19,7 +20,7 @@ export class Catalogue2Component {
   currentJeuInfo: InfoJeuUnitaireDto | undefined = undefined;
   private subscriptions: Subscription = new Subscription();
 
-  constructor(private catalogueService: CatalogueService) { }
+  constructor(private catalogueService2: CatalogueService2) { }
   // Icon initially not toggled
 
   toggleFilterMenu(): void {
@@ -36,7 +37,7 @@ export class Catalogue2Component {
     this.subscriptions.add(
       // Subscribe to currentJeuInfo$ to get the selected game
       this.subscriptions.add(
-        this.catalogueService.currentJeuInfo$.subscribe({
+        this.catalogueService2.currentJeuInfo$.subscribe({
           next: (jeu) => {
             // console.log('Selected jeu in catalogue comp:', jeu);
             this.currentJeuInfo = jeu;
