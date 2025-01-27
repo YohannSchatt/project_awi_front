@@ -1,4 +1,4 @@
 export const environment = {
     production: true,
-    apiUrl: "http://backendjeutaro.cluster-ig4.igpolytech.fr:3012"
+    apiUrl: "https://backjeutaro-e8bf61eb52f5.herokuapp.com"
   };
