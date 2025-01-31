@@ -4,7 +4,7 @@
   "scripts": {
     "ng": "ng",
     "start": "ng serve",
-    "build": "ng build --prod",
+    "build": "npm run prebuild && ng build --configuration production",
     "prebuild": "node replace-api-url.js",
     "build:prod": "ng build --configuration=production",
     "watch": "ng build --watch --configuration development",
