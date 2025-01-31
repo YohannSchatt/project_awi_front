@@ -1,1 +1,1 @@
-web: http-server -p $PORT dist/jeutaro/server
+web: http-server dist/jeutaro -p $PORT
