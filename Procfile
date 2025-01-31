@@ -1,1 +1,1 @@
-web: http-server -p $PORT dist/awi_front/browser
+web: http-server -p $PORT dist/jeutaro/server
