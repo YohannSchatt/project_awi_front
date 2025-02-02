@@ -1,4 +1,4 @@
 export const environment = {
-    production: false,
-    apiUrl: 'API_KEY'
+    production: true,
+    apiUrl: "https://backjeutaro-e8bf61eb52f5.herokuapp.com"
   };
