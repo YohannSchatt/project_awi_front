@@ -7,6 +7,7 @@ import { SessionInfoDto } from '../../app/services/session/dto/session.info.dto'
 import { VendeurInfoDto } from '../../app/services/vendeur/dto/vendeur.info.dto';
 import { DashboardDto } from '../../app/services/dto/dashboard.dto';
 import { HttpClient } from '@angular/common/http';
+import { environment } from '../../environment/environment';
 
 @Component({
   selector: 'app-dashboard-page',
@@ -26,7 +27,7 @@ export class DashboardPageComponent {
 
   infoDashboard: any = new DashboardDto();
 
-  constructor(private http : HttpClient) { }
+  constructor(private http : HttpClient ) { }
 
   ngOnInit(): void {
     this.Dashboard();
@@ -63,7 +64,7 @@ export class DashboardPageComponent {
     const option = {
       withCredentials: true
     };
-    this.http.get<DashboardDto>("http://localhost:3000/gestionnaire/dashboard/vendeur/" + this.VendeurSelected.idVendeur + "/session/" + this.SessionSelected.idSession, option).subscribe(
+    this.http.get<DashboardDto>(`${environment.apiUrl}/gestionnaire/dashboard/vendeur/` + this.VendeurSelected.idVendeur + "/session/" + this.SessionSelected.idSession, option).subscribe(
       data => {
         this.infoDashboard = data;
     });
@@ -73,7 +74,7 @@ export class DashboardPageComponent {
     const option = {
       withCredentials: true
     };
-    this.http.get<DashboardDto>("http://localhost:3000/gestionnaire/dashboard/vendeur/" + this.VendeurSelected.idVendeur, option).subscribe(
+    this.http.get<DashboardDto>(`${environment.apiUrl}/gestionnaire/dashboard/vendeur/` + this.VendeurSelected.idVendeur, option).subscribe(
       data => {
         this.infoDashboard = data;
       }
@@ -84,7 +85,7 @@ export class DashboardPageComponent {
     const option = {
       withCredentials: true
     };
-    this.http.get<DashboardDto>("http://localhost:3000/gestionnaire/dashboard/session/" + this.SessionSelected.idSession, option).subscribe(
+    this.http.get<DashboardDto>(`${environment.apiUrl}/gestionnaire/dashboard/session/` + this.SessionSelected.idSession, option).subscribe(
       data => {
         this.infoDashboard = data;
       }
@@ -95,7 +96,7 @@ export class DashboardPageComponent {
     const option = {
       withCredentials: true
     };
-    this.http.get("http://localhost:3000/gestionnaire/dashboard", option).subscribe(
+    this.http.get(`${environment.apiUrl}/gestionnaire/dashboard`, option).subscribe(
       data => {
         this.infoDashboard = data;
       }
