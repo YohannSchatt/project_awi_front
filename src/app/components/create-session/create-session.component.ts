@@ -6,6 +6,7 @@ import { SessionService } from '../../services/session/session.service';
 import { Session } from '../../Model/SessionClass';
 import { Subscription } from 'rxjs';
 import { SessiontabPublicComponent } from '../sessiontab-public/sessiontab-public.component';
+import { environment } from '../../../environment/environment';
 
 @Component({
   selector: 'app-create-session',
@@ -89,7 +90,6 @@ export class CreateSessionComponent {
   }
 
   submit() : void {
-    console.log('submit');
     if (this.isEditing) {
       this.Message = 'Mise à jour de la session en cours...';
     }

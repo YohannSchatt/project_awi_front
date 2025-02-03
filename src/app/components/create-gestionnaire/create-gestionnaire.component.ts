@@ -1,6 +1,7 @@
 import { Component } from '@angular/core';
 import { FormGroup, FormControl, ReactiveFormsModule } from '@angular/forms';
 import { HttpClient } from '@angular/common/http';
+import { environment } from '../../../environment/environment';
 
 @Component({
   selector: 'app-create-gestionnaire',
@@ -35,7 +36,7 @@ export class CreateGestionnaireComponent {
     const options = {
       withCredentials: true 
     };
-    this.http.post('http://localhost:3000/admin/createGestionnaire', body, options).subscribe(
+    this.http.post(`${environment.apiUrl}/admin/createGestionnaire`, body, options).subscribe(
       (response) => {
         this.Message = 'Gestionnaire créé';
       },

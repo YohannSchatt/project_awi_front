@@ -1,6 +1,7 @@
 import { Component } from '@angular/core';
 import { Gestionnaire } from '../../Model/GestionnaireClass';
 import { HttpClient } from '@angular/common/http';
+import { environment } from '../../../environment/environment';
 
 @Component({
   selector: 'app-tab-gestionnaire',
@@ -27,7 +28,7 @@ export class TabGestionnaireComponent {
     const options = {
       withCredentials: true // This is the key part to include cookies
     };
-    const result = this.http.get('http://localhost:3000/admin/getGestionnaire',options).subscribe(
+    const result = this.http.get(`${environment.apiUrl}/admin/getGestionnaire`,options).subscribe(
       (response) => {
         this.loadGestionnaires(response);
       },
@@ -44,7 +45,7 @@ export class TabGestionnaireComponent {
     const body = {
       email: Gestionnaire.email
     };
-    this.http.post('http://localhost:3000/admin/deleteGestionnaire', body, options).subscribe(
+    this.http.post(`${environment.apiUrl}/admin/deleteGestionnaire`, body, options).subscribe(
       (response) => {
         console.log(response);
         this.tabGestionnaire = this.tabGestionnaire.filter((item) => item.email !== Gestionnaire.email);
