@@ -1,17 +1,33 @@
-<main class="catalogue2-container">
+<div class="catalogue2-container">
   <!-- Left panel -->
   <div class="left-panel" [class.hidden]="filterMenuOpen">
-    <p class = "title">Zone de filtres</p>
-    <!-- Search bar region -->
-    <div class="search-bar-region">
-      <form class="example">
-        <input type="text" placeholder="Rechercher.." name="search">
-        <button type="submit"><i class="fa fa-search"></i></button>
+    <p class="title">Zone de filtres</p>
+    <!-- Zone de filtres en colonne -->
+    <div class="filters">
+      <form class="filter-form" [formGroup]="CatalogueForm" (ngSubmit)="submit()">
+        <div class="filter-item">
+          <label for="nom">Nom :</label>
+          <input id="nom" type="text" placeholder="Nom..." formControlName="nom" />
+        </div>
+        <div class="filter-item">
+          <label for="editeur">Éditeur :</label>
+          <input id="editeur" type="text" placeholder="Éditeur..." formControlName="editeur" />
+        </div>
+        <div class="filter-item">
+          <label for="prixMin">Prix Min :</label>
+          <input id="prixMin" type="number" placeholder="Prix min..." formControlName="prixMin" />
+        </div>
+        <div class="filter-item">
+          <label for="prixMax">Prix Max :</label>
+          <input id="prixMax" type="number" placeholder="Prix max..." formControlName="prixMax" />
+        </div>
+        <button type="submit" class="apply-filters">Appliquer les filtres</button>
       </form>
     </div>
   </div>
 
-  <!-- Menu icon (absolute) -->
+
+  <!-- Menu icon -->
   <div class="menu-icon" (click)="toggleFilterMenu()">
     <div class="bar1" [ngClass]="{'change': filterMenuIconOpened}"></div>
     <div class="bar2" [ngClass]="{'change': filterMenuIconOpened}"></div>
@@ -20,44 +36,35 @@
 
   <!-- Right panel -->
   <div class="right-panel">
+    <div class="scroll_panel">
+      @if(!this.currentJeuInfo){
+      <div class="pagination" *ngIf="currentmaxPage > 1">
+        <ul>
+          <li *ngFor="let p of pages" [class.active]="p === selectedPage">
+            <button [ngClass]="{current : p == this.selectedPage}"   [disabled]="p === selectedPage" (click)="goToPage(p)">
+              {{ p }}
+            </button>
+          </li>
+        </ul>
+      </div>
+      }
 
-    @if (this.currentJeuInfo !== undefined){
-      <div class = "jeuDetail">
-        <h2>Détail d'un jeu</h2>
-        <app-jeux-unitaire [jeu]="this.currentJeuInfo" [selected]="true"></app-jeux-unitaire>
-    </div>
-    }
-    @else {
-          <!-- 2×8 grid region -->
-    <div class="grid-region">
-      <ul>
-        <!-- 16 placeholder list items (2 columns × 8 rows) -->
-        <app-jeux-unitaire ></app-jeux-unitaire>
-        <app-jeux-unitaire ></app-jeux-unitaire>
-        <app-jeux-unitaire ></app-jeux-unitaire>
-        <app-jeux-unitaire ></app-jeux-unitaire>
-        <app-jeux-unitaire ></app-jeux-unitaire>
-        <app-jeux-unitaire ></app-jeux-unitaire>
-        <app-jeux-unitaire ></app-jeux-unitaire>
-        <app-jeux-unitaire ></app-jeux-unitaire>
-        <app-jeux-unitaire ></app-jeux-unitaire>
-        <app-jeux-unitaire ></app-jeux-unitaire>
-      </ul>
-    </div>
 
-    <!-- Simple pagination -->
-    <div class="pagination">
-      <ul>
-        <li><button>1</button></li>
-        <li><button>2</button></li>
-        <li><button>3</button></li>
-        <li><button>4</button></li>
-        <li><button>5</button></li>
-      </ul>
+
+        <!-- Affichage du jeu sélectionné -->
+        <div *ngIf="currentJeuInfo" class="jeuDetail">
+          <h3>Détail du jeu</h3>
+          <app-jeux-unitaire [jeu]="currentJeuInfo" [selected]="true"></app-jeux-unitaire>
+        </div>
+
+        <!-- Sinon, affichage du catalogue -->
+        <div *ngIf="!currentJeuInfo" class="grid-region">
+          <ul>
+            <li *ngFor="let item of currentPage?.items">
+              <app-jeux-unitaire [jeu]="item" [selected]="false"></app-jeux-unitaire>
+            </li>
+          </ul>
+        </div>
     </div>
-    }
   </div>
-
-
-
-</main>
+</div>

@@ -1,4 +1,4 @@
-import { Component, Input, OnDestroy } from '@angular/core';
+import { Component, HostBinding, Input, OnDestroy } from '@angular/core';
 import { CatalogueItemResponseDto } from '../../services/catalogue2/catalogue-response.dto';
 import { CatalogueService } from '../../services/catalogue/catalogue.service';
 import { CatalogueService2 } from '../../services/catalogue2/catalogue2.service';
@@ -15,16 +15,26 @@ export class JeuxUnitaireComponent {
 byebye() {
   this.catalogueService2.unSelectJeu();
 }
+
+@HostBinding('class.selected')
+get hostSelected(): boolean {
+  return this.selected;
+}
   @Input()
   selected : boolean = false;
   @Input() jeu: CatalogueItemResponseDto = new CatalogueItemResponseDto();
 
-  unopath = "assets/image/uno.jpg";
-  nopath = "";
+  // Retire les anciens chemins unopath, nopath, path
+  // Ajoute une propriété calculée pour construire la source de l'image
+  get imageSrc(): string {
+    return this.jeu.image
+      ? 'data:image/png;base64,' + this.jeu.image
+      : 'assets/image/notfound.png';
+  }
 
-  path = this.unopath;
-
-  constructor(private catalogueService2: CatalogueService2) { }
+  constructor(private catalogueService2: CatalogueService2) {
+    console.log(this.jeu.image);
+   }
 
   makeMeTheBoss() : void {
     this.catalogueService2.setSelectedJeu(this.jeu);

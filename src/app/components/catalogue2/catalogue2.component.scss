@@ -1,52 +1,83 @@
+@import '../../styles/variable';
+
 /* Container fills entire viewport */
+
+
 .catalogue2-container {
   display: flex;
-  width: 100vw;
-  height: 90vh;
+  width: 100%;
+  height: 100%; /* Use full viewport height */
   margin: 0;
   padding: 0;
-  position: relative; /* So the menu icon can be positioned absolutely */
-  background-color: #add8e6; /* Temporary color */
+  position: relative;
+  overflow: hidden; /* Prevent overflow */
 }
 
-/* Left panel: 20% width by default, collapses to 0 when .hidden is applied */
+/* Left panel: 20% width, collapses with .hidden */
 .left-panel {
   width: 20%;
   height: 100%;
-  background-color: greenyellow; /* Temp color */
+  background-color: $color3;
   box-sizing: border-box;
   transition: width 0.4s ease;
   padding: 0.5rem;
-  overflow: hidden;
+  overflow-y: auto;
 }
 .left-panel.hidden {
-  width: 0; /* Hide left panel */
-  padding: 0; /* Remove padding */
+  width: 0;
+  padding: 0;
 }
 
 .left-panel .title {
-  font-size: larger;
-  position: relative;
-left: 65px;
-top : 1rem;
+  font-size: 1.2rem;
+  text-align: center;
+  margin-top: 1rem;
 }
 
-/* Menu icon absolutely at top-left */
+h3 {
+  margin-left: 5%;
+}
+/* Zone de filtres */
+.filters {
+  display: flex;
+  flex-direction: column; /* Affiche les filtres en colonne */
+  gap: 1rem;
+  margin-top: 25px;
+}
+
+.filter-item {
+  display: flex;
+  flex-direction: column;
+}
+
+.apply-filters {
+  margin-top: 1rem;
+  align-self: flex-start;
+  background-color: $color7;
+  color: white;
+  border: none;
+  padding: 0.5rem 1rem;
+  font-size: 1rem;
+  border-radius: 5px;
+  cursor: pointer;
+}
+
+.apply-filters:hover {
+  background-color: darken($color7, 10%);
+}
+
+/* Menu icon */
 .menu-icon {
   position: absolute;
   top: 1rem;
   left: 1rem;
   cursor: pointer;
   z-index: 999;
-
-  /* New styles */
-  background-color: #ccc;       /* Example color */
-  padding: 5px;                 /* 5px padding */
-  border-top-right-radius: 10px;
-  border-bottom-right-radius: 10px;
+  background-color: #ccc;
+  padding: 5px;
+  border-radius: 0 10px 10px 0;
 }
 
-/* Bars transform when .change class toggles */
 .bar1, .bar2, .bar3 {
   width: 30px;
   height: 4px;
@@ -54,113 +85,129 @@ top : 1rem;
   margin: 5px 0;
   transition: 0.4s;
 }
-.change.bar1 {
-  transform: translate(0, 9px) rotate(-45deg);
-}
-.change.bar2 {
-  opacity: 0;
-}
-.change.bar3 {
-  transform: translate(0, -9px) rotate(45deg);
-}
-
-/* Right panel takes remaining width, no overflow hidden */
-.right-panel {
-  flex: 1;
+.scroll_panel {
+  overflow-y: auto;
   height: 100%;
-  background-color: lightgreen; /* Temp color */
-  display: flex;
-  flex-direction: column;
-  box-sizing: border-box;
   padding: 0.5rem;
 }
 
-/* Search bar region on top */
-.search-bar-region {
-  position: relative;
-  top : 20px;
-  background-color: lightyellow; /* Temp color */
-  margin-bottom: 0.5rem;
-}
-.grid-region {
-  /* Fill nearly all available space (subtract margins if needed). */
-  width: calc(100% - 1rem);
-  height: calc(100% - 1rem);
-
-  display: grid;
-  grid-template-columns: repeat(2, 1fr); /* 2 columns */
-  grid-template-rows: repeat(5, 1fr);    /* 5 rows */
-  gap: 0.5rem;
-
-}
-
-.grid-region app-jeux-unitaire {
-  width: 100%;
+/* Right panel: Remaining space */
+.right-panel {
+  flex: 1;
+  display: flex;
+  flex-direction: column; /* Aligne les enfants en colonne */;
   height: 100%;
-  overflow: hidden;
+  width: 100%;
+  box-sizing: border-box;
+  max-height: 90vh;
 }
 
-/* Turn each <li> into a grid cell */
+/* Grid region */
+.grid-region {
+  flex: 1; /* Expand to fill available space */
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  grid-template-rows: repeat(5, 1fr);
+  gap: 0; /* Retire l'espace entre les items */
+  padding: 0.2rem;
+  overflow-y: auto;
+  height: 100%;
+}
+
 .grid-region ul {
   margin: 0;
   padding: 0;
   list-style: none;
   display: contents;
 }
+
 .grid-region ul li {
   background-color: #fff;
   border: 1px solid #ccc;
   display: flex;
   align-items: center;
   justify-content: center;
+  overflow: hidden; /* Prevent oversized content */
+  font-size: 0.8rem; /* Réduction de la taille du texte */
 }
 
-/* Simple pagination region */
+.grid-region app-jeux-unitaire {
+  width: 100%;
+  height: 100%;
+}
+
+/* Pagination */
+/* Pagination */
 .pagination {
   display: flex;
   justify-content: center;
+  align-items: center;
+  flex-shrink: 0; /* Empêche la pagination de se réduire */
+ /* Marge au-dessus et en dessous */
 }
+
 .pagination ul {
-  display: inline-flex;
-  list-style: none;
-  margin: 0;
-  padding: 0;
+  display: flex;
   gap: 0.5rem;
+  list-style: none;
+  padding: 0;
 }
+
 .pagination ul li button {
-  background-color: #2196f3;
+  background-color: $color7;
   color: #fff;
   border: 1px solid #ddd;
   border-radius: 4px;
   padding: 0.4rem 0.8rem;
   cursor: pointer;
-  transition: background-color 0.2s ease;
-}
-.pagination ul li button:hover {
-  background-color: #1976d2;
 }
 
-/* Example search form styles */
+.pagination ul li button.current{
+  background-color: darken($color7, 25%);
+  color: #fff;
+  border: 1px solid #ddd;
+  border-radius: 4px;
+  padding: 0.4rem 0.8rem;
+  cursor: pointer;
+}
+
+.pagination ul li button.current:hover{
+  background-color: darken($color7, 35%);
+  color: #fff;
+  border: 1px solid #ddd;
+  border-radius: 4px;
+  padding: 0.4rem 0.8rem;
+  cursor: pointer;
+}
+
+.pagination ul li button:hover {
+  background-color: darken($color7, 10%);
+}
+
+/* Search form styles */
 form.example {
   display: flex;
   margin: 0;
+  gap: 0.5rem;
 }
-form.example input[type='text'] {
+
+form.example input {
+  flex: 1;
   padding: 6px;
   font-size: 1rem;
   border: 1px solid grey;
   background: #f1f1f1;
-  flex: 1;
 }
+
 form.example button {
   background: #2196f3;
   color: white;
   font-size: 1rem;
-  border: 1px solid grey;
-  border-left: none;
-  cursor: pointer;
+  border: none;
   padding: 6px 12px;
+  cursor: pointer;
 }
+
 form.example button:hover {
   background: #0b7dda;
 }
