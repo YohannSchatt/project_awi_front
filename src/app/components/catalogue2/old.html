@@ -1,0 +1,63 @@
+<main class="catalogue2-container">
+  <!-- Left panel -->
+  <div class="left-panel" [class.hidden]="filterMenuOpen">
+    <p class = "title">Zone de filtres</p>
+    <!-- Search bar region -->
+    <div class="search-bar-region">
+      <form class="example">
+        <input type="text" placeholder="Rechercher.." name="search">
+        <button type="submit"><i class="fa fa-search"></i></button>
+      </form>
+    </div>
+  </div>
+
+  <!-- Menu icon (absolute) -->
+  <div class="menu-icon" (click)="toggleFilterMenu()">
+    <div class="bar1" [ngClass]="{'change': filterMenuIconOpened}"></div>
+    <div class="bar2" [ngClass]="{'change': filterMenuIconOpened}"></div>
+    <div class="bar3" [ngClass]="{'change': filterMenuIconOpened}"></div>
+  </div>
+
+  <!-- Right panel -->
+  <div class="right-panel">
+
+    @if (this.currentJeuInfo !== undefined){
+      <div class = "jeuDetail">
+        <h2>Détail d'un jeu</h2>
+        <app-jeux-unitaire [jeu]="this.currentJeuInfo" [selected]="true"></app-jeux-unitaire>
+    </div>
+    }
+    @else {
+          <!-- 2×8 grid region -->
+    <div class="grid-region">
+      <ul>
+        <!-- 16 placeholder list items (2 columns × 8 rows) -->
+        <app-jeux-unitaire ></app-jeux-unitaire>
+        <app-jeux-unitaire ></app-jeux-unitaire>
+        <app-jeux-unitaire ></app-jeux-unitaire>
+        <app-jeux-unitaire ></app-jeux-unitaire>
+        <app-jeux-unitaire ></app-jeux-unitaire>
+        <app-jeux-unitaire ></app-jeux-unitaire>
+        <app-jeux-unitaire ></app-jeux-unitaire>
+        <app-jeux-unitaire ></app-jeux-unitaire>
+        <app-jeux-unitaire ></app-jeux-unitaire>
+        <app-jeux-unitaire ></app-jeux-unitaire>
+      </ul>
+    </div>
+
+    <!-- Simple pagination -->
+    <div class="pagination">
+      <ul>
+        <li><button>1</button></li>
+        <li><button>2</button></li>
+        <li><button>3</button></li>
+        <li><button>4</button></li>
+        <li><button>5</button></li>
+      </ul>
+    </div>
+    }
+  </div>
+
+
+
+</main>

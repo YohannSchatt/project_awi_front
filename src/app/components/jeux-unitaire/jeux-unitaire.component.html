@@ -1,21 +1,39 @@
-<img [ngClass] = "{selected : selected}"  src="path/to/image.jpg" alt="Pas d'image trouvé" id = "image">
-<div [ngClass] = "{selected : selected}" class = "infos" >
+
+@if(selected){
+  <img [ngClass]="{ selected: selected }"
+  [src]="imageSrc"
+  alt="Pas d'image trouvé"
+  id="imageSelected">
+}
+@else {
+  <img [ngClass]="{ selected: selected }"
+  [src]="imageSrc"
+  alt="Pas d'image trouvé"
+  id="image">
+}
+
+
+<div [ngClass]="{ selected: selected }" class="infos">
   <p id="nom">{{ jeu.nom }}</p>
   <p id="editeur">Éditeur: {{ jeu.editeur }}</p>
   <p id="vendeur">Vendeur: {{ jeu.prenomVendeur }} {{ jeu.nomVendeur }}</p>
   @if (selected) {
     <p id="description">{{ jeu.description }}</p>
   }
-  <!-- <p id="description">{{ jeu.description }}</p> -->
   <p id="prix">{{ jeu.prix }} €</p>
   <p id="etat">État: {{ jeu.etat }}</p>
 </div>
+
 @if(selected){
   <a class="close" (click)="byebye()"></a>
 }
 @else{
-  <div id = "detailbutton" (click)="makeMeTheBoss()">
+  <div id="detailbutton" (click)="makeMeTheBoss()">
     <p>Voir en détail</p>
   </div>
 }
+
+
+
+
 
