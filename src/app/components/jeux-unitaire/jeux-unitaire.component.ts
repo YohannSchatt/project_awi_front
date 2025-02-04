@@ -32,9 +32,7 @@ get hostSelected(): boolean {
       : 'assets/image/notfound.png';
   }
 
-  constructor(private catalogueService2: CatalogueService2) {
-    console.log(this.jeu.image);
-   }
+  constructor(private catalogueService2: CatalogueService2) { }
 
   makeMeTheBoss() : void {
     this.catalogueService2.setSelectedJeu(this.jeu);
