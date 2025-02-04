@@ -17,7 +17,6 @@ import { NgForOf } from '@angular/common';
 export class Catalogue2Component implements OnInit {
 
   public CatalogueForm!: FormGroup;          // Ajout du FormGroup
-  public Message: string = '';               // Par souci de cohérence avec l'exemple
   public currentJeuInfo: CatalogueItemResponseDto | undefined = undefined;
   public errorMessage: string | undefined = undefined;
 
@@ -92,10 +91,19 @@ export class Catalogue2Component implements OnInit {
     this.selectedPage = pageNum;
     this.submit(); // Re-lance la recherche avec la page choisie
   }
+  resetFilters() {
+    this.CatalogueForm.reset();
+    this.submit();
+  }
+
+  submitNew(): void {
+    this.selectedPage = 1;
+    this.submit();
+  }
 
   // Méthode submit, comme dans create-gestionnaire, pour valider le formulaire
   submit(): void {
-    this.Message = 'Recherche en cours...';
+    this.currentJeuInfo = undefined;
     const body = {
       page: this.selectedPage,
       nom: this.CatalogueForm.value.nom,
@@ -105,14 +113,12 @@ export class Catalogue2Component implements OnInit {
     };
     this.catalogueService2.getCatalogue(body).subscribe({
       next: (response) => {
-        this.Message = 'Catalogue chargé avec succès';
         this.currentPage = response;
         this.currentmaxPage = response.totalPages;
         this.generatePages();
       },
       error: () => {
-        this.Message = 'Une erreur est survenue lors du chargement du catalogue';
-      },
+        this.errorMessage = 'Erreur lors de la recherche';},
     });
   }
 

@@ -50,7 +50,7 @@ h3 {
   flex-direction: column;
 }
 
-.apply-filters {
+.apply-filters , .reset-filters {
   margin-top: 1rem;
   align-self: flex-start;
   background-color: $color7;
