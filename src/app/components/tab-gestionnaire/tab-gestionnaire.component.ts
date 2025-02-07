@@ -17,7 +17,7 @@ export class TabGestionnaireComponent {
   constructor(private http : HttpClient) { }
 
   ngOnInit() {
-    this.loadGestionnaires(this.RecupGestionnaire());
+    this.RecupGestionnaire();
   }
 
   private loadGestionnaires(data : any) {
@@ -26,7 +26,7 @@ export class TabGestionnaireComponent {
 
   private RecupGestionnaire(){
     const options = {
-      withCredentials: true // This is the key part to include cookies
+      withCredentials: true
     };
     const result = this.http.get(`${environment.apiUrl}/admin/getGestionnaire`,options).subscribe(
       (response) => {
@@ -40,7 +40,7 @@ export class TabGestionnaireComponent {
 
   public delete(Gestionnaire : Gestionnaire){
     const options = {
-      withCredentials: true // This is the key part to include cookies
+      withCredentials: true
     };
     const body = {
       email: Gestionnaire.email
