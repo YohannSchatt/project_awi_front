@@ -1,6 +1,7 @@
-import { Component, Input, OnDestroy } from '@angular/core';
-import { InfoJeuUnitaireDto } from '../../services/catalogue/response-catalogue.dto';
+import { Component, HostBinding, Input, OnDestroy } from '@angular/core';
+import { CatalogueItemResponseDto } from '../../services/catalogue2/catalogue-response.dto';
 import { CatalogueService } from '../../services/catalogue/catalogue.service';
+import { CatalogueService2 } from '../../services/catalogue2/catalogue2.service';
 import { NgClass } from '@angular/common';
 @Component({
   selector: 'app-jeux-unitaire',
@@ -10,17 +11,31 @@ import { NgClass } from '@angular/common';
   styleUrl: './jeux-unitaire.component.scss'
 })
 export class JeuxUnitaireComponent {
+
 byebye() {
-  this.catalogueService.unSelectJeu();
+  this.catalogueService2.unSelectJeu();
+}
+
+@HostBinding('class.selected')
+get hostSelected(): boolean {
+  return this.selected;
 }
   @Input()
   selected : boolean = false;
-  @Input() jeu: InfoJeuUnitaireDto = new InfoJeuUnitaireDto();
+  @Input() jeu: CatalogueItemResponseDto = new CatalogueItemResponseDto();
 
-  constructor(private catalogueService: CatalogueService) { }
+  // Retire les anciens chemins unopath, nopath, path
+  // Ajoute une propriété calculée pour construire la source de l'image
+  get imageSrc(): string {
+    return this.jeu.image
+      ? 'data:image/png;base64,' + this.jeu.image
+      : 'assets/image/notfound.png';
+  }
+
+  constructor(private catalogueService2: CatalogueService2) { }
 
   makeMeTheBoss() : void {
-    this.catalogueService.setSelectedJeu(this.jeu);
+    this.catalogueService2.setSelectedJeu(this.jeu);
   }
 
 }

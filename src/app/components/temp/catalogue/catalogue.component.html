@@ -1,0 +1,31 @@
+@if (this.errorMessage == undefined){
+  @if (this.currentJeuInfo !== undefined){
+    <div class = "jeuDetail">
+      <h2>Détail d'un jeu</h2>
+      <app-jeux-unitaire [jeu]="this.currentJeuInfo" [selected]="true"></app-jeux-unitaire>
+  </div>
+  }
+  @else {
+    <h4>Liste des jeux disponibles</h4>
+    <div class="pagination">
+      <div class="page-button" (click)="setPage(1)">1</div>
+      <div class="page-button" (click)="setPage(2)">2</div>
+      <div class="page-button" (click)="setPage(3)">3</div>
+      <div class="page-button" (click)="setPage(4)">4</div>
+      <div class="page-button" (click)="setPage(5)">5</div>
+    </div>
+    <div class="listJeu">
+      @for (jeu of this.currentPageJeux; track jeu.id) {
+        <app-jeux-unitaire [jeu]="jeu"></app-jeux-unitaire>
+        }
+    </div>
+  }
+}
+
+@else {
+
+  <h5 id = "errormessage">{{this.errorMessage}}</h5>
+}
+
+
+
