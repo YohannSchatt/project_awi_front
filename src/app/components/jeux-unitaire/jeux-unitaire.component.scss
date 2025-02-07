@@ -1,17 +1,19 @@
 @import "../../styles/variable";
 
 #nom {
-  font-size: clamp(16px, 2vw, 24px); /* Minimum 16px, preferred 2vw, maximum 24px */
+  font-size: clamp(16px, 2vw, 24px);
   font-weight: bold;
 }
 
-#editeur, #vendeur, #etat {
-  font-size: clamp(12px, 1.2vw, 18px); /* Minimum 12px, preferred 1.2vw, maximum 18px */
+#editeur,
+#vendeur,
+#etat {
+  font-size: clamp(12px, 1.2vw, 18px);
   font-style: italic;
 }
 
 #prix {
-  font-size: clamp(14px, 1.8vw, 22px); /* Minimum 14px, preferred 1.8vw, maximum 22px */
+  font-size: clamp(14px, 1.8vw, 22px);
   color: green;
 }
 
@@ -20,16 +22,15 @@
 }
 
 #detailbutton {
-  height: max-content; /* Set height to max-content */
+  height: max-content;
   padding: 10px 5px;
   margin-top: auto;
   margin-bottom: auto;
-  margin-right: 3vh; /* Position 3vh from the right */
-  background-color: $color7; /* Set background color to $color7 */
+  margin-right: 3vh;
+  background-color: $color7;
   border-radius: 12px;
-  color: white
+  color: white;
 }
-
 
 :host * {
   margin: 5px;
@@ -37,29 +38,51 @@
 
 :host {
   display: flex;
-  justify-content: space-between; /* Distribute space between child elements */
-  align-items: center; /* Center items vertically */
+  justify-content: space-between;
+  align-items: center;
   background-color: #ffffff;
-  padding: 10px;
+  height: 80%;
+  width: 90%;
   border-radius: 5px;
   border: #d1d1d1 2px solid;
 }
 
+/* Only apply margin-left: 8% if selected is true */
+:host.selected {
+  margin-left: 5%;
+}
+/* When not selected, use smaller font sizes */
+#nom {
+  font-size: clamp(12px, 1.2vw, 16px);
+}
+
+#editeur,
+#vendeur,
+#etat {
+  font-size: clamp(10px, 1.0vw, 14px);
+}
+
+#prix {
+  font-size: clamp(12px, 1.2vw, 16px);
+}
+
+/* Close button */
 .close {
-  right: 2vw; /* Position 2vw from the right */
-  top: -5vh; /* Position 5vh above */
-  width: 3vw; /* Set width to 3vw */
-  height: 3vw; /* Set height to 3vw */
-  opacity: 0.3;
+  right: 0vw;
+  top: -4vh;
+  width: 3vw;
+  height: 3vw;
+  opacity: 0.5;
   position: relative;
-  cursor: pointer; /* Add cursor pointer to indicate it's clickable */
+  cursor: pointer;
 }
 
 .close:hover {
   opacity: 1;
 }
 
-.close:before, .close:after {
+.close:before,
+.close:after {
   position: absolute;
   left: 15px;
   content: ' ';
@@ -75,22 +98,40 @@
 .close:after {
   transform: rotate(-45deg);
 }
+/* Make the image smaller only when the component is selected */
+  #image {
+  max-height: 80%;
+  width: auto; /* Or 'contain', depending on your preference */
+}
+#imageSelected {
+  margin-top: 0;
+  max-height: 70%;
+  width: auto; /* Or 'contain', depending on your preference */
+}
+
+/* Default (not selected) image style */
+// img {
+//   width: auto;
+//   max-height: 70%;
+// }
 
 /* Styles for the selected state */
 .selected {
-  font-size: 1.2em; /* Increase font size */
-}
-
-.selected #image {
-  width: 200px; /* Increase image size */
-  height: auto;
+  font-size: 1.2em;
 }
 
 .selected .infos {
-  font-size: 1.2em; /* Increase font size for infos */
-  margin-left: 20px; /* Ensure infos are just to the right of the image */
+  font-size: 1.8em;
+  margin-left: 20px;
+}
+
+.infos {
+  font-size : 1.2em;
 }
 
 .selected p {
-  font-size: 1.2em; /* Increase font size for all paragraphs */
+  font-size: 0.9em;
 }
+
+
+
