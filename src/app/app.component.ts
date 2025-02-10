@@ -10,6 +10,7 @@ import { NavbarComponent } from "./components/navbar/navbar.component";
 import { MatDialogModule } from '@angular/material/dialog';
 import { MatButtonModule } from '@angular/material/button';
 import { AuthService } from './services/auth/auth.service';
+import { Title } from '@angular/platform-browser';
 
 
 @Component({
@@ -21,18 +22,21 @@ import { AuthService } from './services/auth/auth.service';
     ReactiveFormsModule,
     NavbarComponent,
     MatDialogModule,
-    MatButtonModule],
+    MatButtonModule,
+    ],
   templateUrl: './app.component.html',
   styleUrl: './app.component.scss'
 })
 export class AppComponent {
-  title = 'awi_front';
+  title = 'Jeutaro';
 
   OnConnexionPage : boolean = false;
 
-  constructor(private router : Router, private auth : AuthService) { }
+  constructor(private router : Router, private auth : AuthService, private titleService : Title) { }
 
   async ngOnInit() {
+
+    this.setTitle(this.title);
 
     await this.auth.isAuthenticated();
 
@@ -41,5 +45,9 @@ export class AppComponent {
     ).subscribe((event: NavigationEnd) => {
       this.OnConnexionPage = event.url === '/gestion';
     });
+  }
+
+  public setTitle( newTitle: string) {
+    this.titleService.setTitle( newTitle );
   }
 }
