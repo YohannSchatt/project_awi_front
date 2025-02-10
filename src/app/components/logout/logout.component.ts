@@ -17,13 +17,9 @@ export class LogoutComponent {
   constructor(public dialogRef: MatDialogRef<LogoutComponent>, private http : HttpClient) {}
 
   confirmLogout() {
-    this.http.post(`${environment.apiUrl}/auth/logout`,{ }, { withCredentials: true }).subscribe(
-      () => {
-        document.cookie = 'Authorization=; expires=Thu, 01 Jan 1970 00:00:00 UTC; path=/;';
-        console.log('Logout');
-        this.dialogRef.close(true);
-      }
-    )
+    document.cookie = 'Authorization=; expires=Thu, 01 Jan 1970 00:00:00 UTC; path=/;';
+    console.log('Logout');
+    this.dialogRef.close(true);
   }
 
   cancelLogout() {
