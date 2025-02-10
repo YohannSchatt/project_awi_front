@@ -13,17 +13,17 @@ export class AuthService {
   constructor(private http: HttpClient, private userService : UserService) {}
 
   public isAuthenticated(): void {
-    this.http.get<{ user : User }>(`${environment.apiUrl}/auth/verify`, { withCredentials: true }).pipe(
-      map(response => {
-        this.userService.createNewUser();
-        this.userService.setPrenom(response.user.prenom);
-        this.userService.setNom(response.user.nom);
-        this.userService.setEmail(response.user.email);
-        this.userService.setRole(response.user.role);
-      })
-    ).subscribe(
-      () => console.log('Authenticated'),
-      (error) => console.log('Not authenticated')
-    );
+    // this.http.get<{ user : User }>(`${environment.apiUrl}/auth/verify`, { withCredentials: true }).pipe(
+    //   map(response => {
+    //     this.userService.createNewUser();
+    //     this.userService.setPrenom(response.user.prenom);
+    //     this.userService.setNom(response.user.nom);
+    //     this.userService.setEmail(response.user.email);
+    //     this.userService.setRole(response.user.role);
+    //   })
+    // ).subscribe(
+    //   () => console.log('Authenticated'),
+    //   (error) => console.log('Not authenticated')
+    // );
   }
 }
