@@ -2,15 +2,13 @@
     <p>Informations Personnelle</p>
     <form [formGroup]="PersoGroup" (ngSubmit)="submit()">
         <div class="AllForms">
-            <div class="identity">
-                <div class="nom">
-                    <label for="email">Nom</label>
-                    <input type="text" id="nom" formControlName="nom"/>
-                </div>
-                <div class="prenom">
-                    <label for="prenom">Prénom</label>
-                    <input type="text" id="prenom" formControlName="prenom"/>
-                </div>
+            <div class="nom">
+                <label for="email">Nom</label>
+                <input type="text" id="nom" formControlName="nom"/>
+            </div>
+            <div class="prenom">
+                <label for="prenom">Prénom</label>
+                <input type="text" id="prenom" formControlName="prenom"/>
             </div>
             <div class="email">
                 <label for="adresse">Email</label>

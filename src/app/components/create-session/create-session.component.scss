@@ -15,7 +15,6 @@
 }
 
 form {
-    display : flex;
     flex-direction: column;
     justify-content: space-around;
 }
@@ -36,7 +35,7 @@ form {
 }
 
 input {
-    width: 80%;
+    width: 100%;
     background-color: $color1;
     border: 1px solid $color3;
     height: 7vh;
@@ -75,4 +74,7 @@ button {
     display: flex;
     flex-direction: column;
     justify-self: center;
+    width: 100%;
+    padding-right: 1.5vh;
+    padding-left: 1vh;
 }

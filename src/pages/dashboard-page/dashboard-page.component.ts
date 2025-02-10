@@ -12,7 +12,7 @@ import { environment } from '../../environment/environment';
 @Component({
   selector: 'app-dashboard-page',
   standalone: true,
-  imports: [SearchTabSessionComponent, SearchTabVendeurComponent, NgClass, DashboardComponent, NgIf],
+  imports: [SearchTabSessionComponent, SearchTabVendeurComponent, NgClass, DashboardComponent],
   templateUrl: './dashboard-page.component.html',
   styleUrl: './dashboard-page.component.scss'
 })

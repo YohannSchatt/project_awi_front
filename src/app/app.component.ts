@@ -19,13 +19,9 @@ import { AuthService } from './services/auth/auth.service';
     RouterOutlet,
     RouterModule,
     ReactiveFormsModule,
-    HomePageComponent,
-    ConnexionPageComponent,
-    HomeGestionPageComponent,
     NavbarComponent,
     MatDialogModule,
-    MatButtonModule,
-    NgIf],
+    MatButtonModule],
   templateUrl: './app.component.html',
   styleUrl: './app.component.scss'
 })

@@ -6,7 +6,7 @@
     align-items: center;
     justify-self: center;
     justify-content: center;
-    height: 50%;
+    height: 30%;
     width: 93%;
     border-radius: 4vh;
     background-color: $color3;
@@ -16,13 +16,15 @@
 
 form {
     display : flex;
-    flex-direction: row;
+    flex-direction: column;
     justify-content: space-around;
 }
 
 .AllForms {
-    width: 50%;
+    width: 100%;
     justify-self: left;
+    display: flex;
+    flex-direction: row;
 }
 
 .AllForms div {
@@ -60,5 +62,5 @@ button {
     cursor: pointer;
     justify-self: center;
     align-self: center;
-    margin-left: 15vh;
+    margin-left: 20vh;
 }

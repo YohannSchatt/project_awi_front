@@ -11,4 +11,5 @@
         <a class="Catalogue" (click)="this.router.navigate(['catalogue'])">Catalogue</a>
         <a class="session" (click)="this.router.navigate(['session'])">Session</a>
         <a class="Déconnexion" *ngIf="this.isAuth()" (click)="logout()">Déconnexion</a>
+        <a class="Connexion" *ngIf="!this.isAuth()" (click)="this.router.navigate(['gestion'])">Connexion</a>
     </nav>
