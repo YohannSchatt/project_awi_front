@@ -2,14 +2,29 @@
 
 form
 {
-  margin-top: 10vh;
-  background-color: $color4;
+  margin-top: 5vh;
+  margin-bottom: 2vh;
+  background-color: $color3;
   padding: 20px;
   display: block;
   width: 40%;
   border-radius: 8px;
-  border: 1px solid $color4;
+  border: 1px solid $color3;
   box-shadow: 0 0 8px rgb(46, 37, 66);
+}
+
+.buttonRefresh {
+  background-color: $color4;
+  border: none;
+  color: white;
+  padding: 1vh 2vh;
+  text-align: center;
+  text-decoration: none;
+  display: inline-block;
+  font-size: 16px;
+  margin: 4px 2px;
+  cursor: pointer;
+  border-radius: 8px;
 }
 
 label, select, input {
@@ -57,6 +72,15 @@ form > * {
   border: none; // Remove the default border
   cursor: pointer; // Change the cursor to pointer on hover
   font-size: 16px; // Adjust the font size if needed
+}
+
+input {
+  width: 50%;
+  background-color: $color1;
+  border-radius: 3vh;
+  border: 0;
+  padding: 1vh;
+  font-size: 1.2em;
 }
 
 #submitbutton:hover:not(:disabled) {

@@ -20,7 +20,7 @@
       }
     </mat-autocomplete>
    <!-- le bouton de refresh -->
-    <button type="button" (click)="refreshVendeur()"><i class="fa fa-refresh fa_custom fa-2x"></i></button>
+    <button type="button" class="buttonRefresh" (click)="refreshVendeur()"><i class="fa fa-refresh fa_custom fa-2x"></i></button>
   </div>
   <div class><!-- le champ pour les infos du vendeur -->
     <!-- infos sur le vendeur -->
@@ -56,7 +56,7 @@
       }
     </mat-autocomplete>
        <!-- le bouton de refresh -->
-       <button type="button" (click)="refreshJeu()"><i class="fa fa-refresh fa_custom fa-2x"></i></button>
+       <button type="button" class="buttonRefresh" (click)="refreshJeu()"><i class="fa fa-refresh fa_custom fa-2x"></i></button>
   </div>
   <div class = "champ">
     <label for="prix" class = "required">Prix du jeu :</label>
@@ -68,6 +68,7 @@
 <button
   id="submitbutton"
   type="submit"
+  class="buttonRefresh"
   [disabled]="!enregistrerJeuForm.valid"
   [attr.title]="enregistrerJeuForm.invalid ? getFormValidationErrors() : ''"
 >
