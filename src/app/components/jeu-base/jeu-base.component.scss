@@ -1,0 +1,91 @@
+:host {
+  margin-left: 8%;
+  margin-top: 5%;
+}
+
+
+.game-info-container {
+  display: flex;
+  width: 80vw;
+  height: 50vh;
+  background-color: #d4c3f3;
+  padding: 2vh;
+  border-radius: 1vw;
+}
+
+.game-image-section {
+  width: 40%;
+  height: 100%;
+  background-color: #f8daf7;
+  display: flex;
+  flex-direction: column;
+  padding: 2vh;
+  border-radius: 1vw;
+}
+
+.game-image-section img {
+ width: 60%;
+  height: auto;
+  border-radius: 1vw;
+}
+
+.champ {
+  display: flex;
+}
+.champ > * {
+  margin: 10px;
+}
+
+.game-image-section label {
+  font-size: 2vh;
+  margin-bottom: 1vh;
+}
+
+.image-placeholder {
+  flex-grow: 1;
+  background-color: rgb(255, 255, 255);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  border-radius: 1vw;
+}
+
+.image-icon {
+  font-size: 5vh;
+}
+
+.game-details-section {
+  width: 60%;
+  padding-left: 2vw;
+  display: block;
+  flex-direction: column;
+}
+
+.game-details-section label {
+  font-size: 2vh;
+  margin-top: 2vh;
+}
+
+form {
+  display: block;
+  flex-direction: column;
+  width: 100%;
+}
+
+
+.game-details-section input{
+  width: 60%;
+  padding: 1vh;
+  font-size: 2vh;
+  border-radius: 0.5vw;
+  border: 1px solid #ccc;
+  background-color: #eae2f8;
+}
+.game-details-section textarea {
+  width: 100%;
+  padding: 1vh;
+  font-size: 2vh;
+  border-radius: 0.5vw;
+  border: 1px solid #ccc;
+  background-color: #eae2f8;
+}

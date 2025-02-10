@@ -1,0 +1,81 @@
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.4.0/css/font-awesome.min.css">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+
+<div class="game-info-container">
+  <div class="game-image-section" (click)="onImagePlaceholderClick()">
+    <!-- Input de type "file" caché pour ne sélectionner que des images PNG -->
+    <input #fileInput type="file"
+           accept="image/png"
+           (change)="onFileSelected($event)"
+           style="display: none;">
+
+    <i class="fa fa-trash-o" style="font-size:36px" (click)="deleteImage(); $event.stopPropagation()"></i>
+    <div class="image-placeholder">
+      <img *ngIf="currentImage"
+           [src]="imageSource()"
+           alt="Pas d'image trouvé"
+           id="imageSelected">
+      <i class="image-icon" *ngIf="!currentImage">🖼</i>
+    </div>
+  </div>
+  <div class="game-details-section">
+    <form [formGroup]="choixJeuForm">
+      <div class="champ">
+        <label for="jeu" class="required">Taper le nom d'un jeu pour le modifier</label>
+        <input type="text"
+               placeholder="taper le nom du jeu"
+               aria-label="nomJeu"
+               matInput
+               formControlName="nomJeu"
+               [matAutocomplete]="autoJeu">
+               <mat-autocomplete #autoJeu="matAutocomplete">
+                @for (jeu of filteredJeuNoms | async; track filteredJeuNoms) {
+                  <mat-option [value]="jeu">{{jeu}}</mat-option>
+                }
+              </mat-autocomplete>
+        <button type="button" (click)="refreshJeu()"><i class="fa fa-refresh fa_custom fa-2x"></i></button>
+        <button type="button" (click)="choisirJeu()">Chercher</button>
+      </div>
+    </form>
+    <div class="champ">
+      <label>Ou créer un nouveau jeu :</label>
+      <button type="button" (click)="initNewForm()">Cliquez ici</button>
+    </div>
+    <form [formGroup]="jeuForm">
+      <div class="champ">
+        <label for="game-name">Nom</label>
+        <input id="game-name" type="text" formControlName="nom" />
+      </div>
+      <div class="champ">
+        <label for="game-publisher">Éditeur</label>
+        <input id="game-publisher" type="text" formControlName="editeur" />
+      </div>
+      <div class="champ">
+              <label for="game-description">Description</label>
+              <textarea id="game-description" formControlName="description"></textarea>
+      </div>
+      @if (!this.currentIsNew) {
+        <div class = "champ">
+          <button type="button" (click)="deleteJeu()">
+            Supprimer le jeu
+          </button>
+          <button type="button" (click)="updateJeu()"
+                  [disabled]="!jeuForm.get('nom')?.value || !jeuForm.get('editeur')?.value">
+            Enregistrer les modifications
+          </button>
+        </div>
+      }
+      @else {
+        <div class="champ">
+          <button type="button" (click)="createJeu()"
+                  [disabled]="!jeuForm.get('nom')?.value || !jeuForm.get('editeur')?.value">
+            Enregistrer le jeu
+          </button>
+        </div>
+      }
+      <!-- <div class="champ">
+        <button type="button" (click)="saveJeu()">Enregistrer</button>
+      </div> -->
+    </form>
+  </div>
+</div>

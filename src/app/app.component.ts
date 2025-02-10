@@ -10,7 +10,7 @@ import { NavbarComponent } from "./components/navbar/navbar.component";
 import { MatDialogModule } from '@angular/material/dialog';
 import { MatButtonModule } from '@angular/material/button';
 import { AuthService } from './services/auth/auth.service';
-
+import { JeuBaseComponent } from './components/jeu-base/jeu-base.component';
 
 @Component({
   selector: 'app-root',
@@ -22,6 +22,7 @@ import { AuthService } from './services/auth/auth.service';
     HomePageComponent,
     ConnexionPageComponent,
     HomeGestionPageComponent,
+    JeuBaseComponent,
     NavbarComponent,
     MatDialogModule,
     MatButtonModule,
