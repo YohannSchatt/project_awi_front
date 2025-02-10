@@ -14,7 +14,7 @@ import { EnregistrerAchatPageComponent } from '../pages/gestion/enregistrer-acha
 import { DashboardPageComponent } from '../pages/dashboard-page/dashboard-page.component';
 import { RetraitPageComponent } from '../pages/gestion/retrait-page/retrait-page.component';
 import { Catalogue2Component } from './components/catalogue2/catalogue2.component';
-import { CatalogueComponent } from './components/catalogue/catalogue.component';
+import { StockPageComponent } from '../pages/stock-page/stock-page.component';
 export const routes: Routes = [
   { path: '', component: HomePageComponent },
   { path: 'gestion', component: ConnexionPageComponent},
@@ -29,5 +29,6 @@ export const routes: Routes = [
   { path: "gestion/enregistrer-achat", component: EnregistrerAchatPageComponent},
   { path: "gestion/retrait", component: RetraitPageComponent},
   { path : "gestion/Dashboard", component : DashboardPageComponent},
+  { path : "gestion/stock", component : StockPageComponent},
   { path: '**', component: PageNotFoundComponent}
   ];

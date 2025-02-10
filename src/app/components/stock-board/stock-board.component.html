@@ -1,0 +1,44 @@
+<div class="SearchTabJeux">
+    <div class="SearchJeux" *ngIf="this.JeuUnitaireSelected.idJeuUnitaire !== -1">
+        <p>Stock</p>
+        <form>
+            <div class="ItemSelected" >
+                <label for="statut">Choisir le statut :</label>
+                <select id="statut" [formControl]="statutControl">
+                    @for (item of choiceStatut; track $index) {
+                        <option [value]="item">{{item}}</option>
+                    }
+                </select>
+                <div class="button">
+                    <button type="button" (click)="modifierStatut()">Enregistrer</button>
+                </div>
+            </div>
+            <div class="info">
+                <p>Id : {{ this.JeuUnitaireSelected.idJeuUnitaire }}</p>
+                <p>Nom : {{ this.JeuUnitaireSelected.nom }}</p>
+                <p>Editeur : {{this.JeuUnitaireSelected.editeur}}</p>
+                <p>Statut : {{this.JeuUnitaireSelected.statut}}</p>
+            </div>
+        </form>
+        <p> {{ this.Message }}</p>
+    </div>
+    <div>
+        <div class="tabSession">
+            <div class="tab">
+            @for (jeu of tabJeu; track jeu) {
+                <div class="elt">
+                    <div class="info">
+                        <p>{{jeu.idJeuUnitaire}}</p>
+                        <p>{{jeu.nom}}</p>
+                        <p>{{jeu.editeur}}</p>
+                        <p>{{jeu.statut}}</p>
+                    </div>
+                    <div class="buttonSelect">
+                        <button class="Select" (click)="selectJeuUnitaire(jeu)" [ngClass]="{'clicked': this.JeuUnitaireSelected.idJeuUnitaire === jeu.idJeuUnitaire}">Sélectionner</button>
+                    </div>
+                </div>
+            }
+            </div>
+        </div>  
+    </div>
+</div>

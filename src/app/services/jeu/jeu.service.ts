@@ -8,6 +8,9 @@ import { CreerJeuUnitaire } from './dto/create-jeu-unitaire.dto';
 import { InfoJeuUnitaireDisponibleDto } from './dto/info-jeu-unitaire-disponible.dto';
 import { InvoiceDto } from './dto/invoice.dto';
 import { HttpHeaders } from '@angular/common/http';
+import { InfoJeuDBDto } from './dto/jeuDB.dto';
+import { InfoJeuStockDto } from './dto/infoJeuStock.dto';
+import { Statut } from '../../Model/Statut';
 
 @Injectable({
   providedIn: 'root'
@@ -74,6 +77,46 @@ export class JeuService {
     }
     return this.http.post<Blob>(`${environment.apiUrl}/invoice/`, body, options);
   }
+
+  getJeuxDB(nom? : string, editeur? : string): Observable<InfoJeuDBDto[]> {
+    const options = { withCredentials: true };
+    if (nom && editeur) {
+      return this.http.get<InfoJeuDBDto[]>(`${this.url}/DBJeu?nom=${nom}&editeur=${editeur}`, options);
+    }
+    else if (nom) {
+      return this.http.get<InfoJeuDBDto[]>(`${this.url}/DBJeu?nom=${nom}`, options);
+    }
+    else if (editeur) {
+      return this.http.get<InfoJeuDBDto[]>(`${this.url}/DBJeu?editeur=${editeur}`, options);
+    }
+    else {
+      return this.http.get<InfoJeuDBDto[]>(`${this.url}/DBJeu`, options);
+    }
+  }
+
+  updateStatut(idJeu : number, statut : Statut): Observable<void> {
+    const options = { withCredentials: true };
+    const body : {idJeu : number, statut : Statut} = { idJeu : idJeu, statut : statut };
+    return this.http.put<void>(`${this.url}/EtatJeu`, body, options);
+  }
+
+  getJeuxByEtat(etat: string, jeuId? : number, vendeurId? : number): Observable<InfoJeuStockDto[]> {
+    const options = { withCredentials: true };
+    if (jeuId && vendeurId && jeuId != -1 && vendeurId != -1) {
+      return this.http.get<InfoJeuStockDto[]>(`${this.url}/jeuxEtat/${etat}?jeu=${jeuId}&vendeur=${vendeurId}`, options);
+    }
+    else if (jeuId && jeuId != -1) {
+      return this.http.get<InfoJeuStockDto[]>(`${this.url}/jeuxEtat/${etat}?jeu=${jeuId}`, options);
+    }
+    else if (vendeurId && vendeurId != -1) {
+      return this.http.get<InfoJeuStockDto[]>(`${this.url}/jeuxEtat/${etat}?vendeur=${vendeurId}`, options);
+    }
+    else {
+      return this.http.get<InfoJeuStockDto[]>(`${this.url}/jeuxEtat/${etat}`, options);
+    }
+  }
+
+
 }
 
 

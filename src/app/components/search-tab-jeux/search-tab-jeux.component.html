@@ -1,0 +1,41 @@
+<div class="SearchTabJeux">
+    <div class="SearchJeux">
+        <p>Chercher une Session</p>
+        <form [formGroup]="JeuSearchGroup" (ngSubmit)="submit()">
+            <div class="nom">
+                <label for="nom">nom</label>
+                <input type="text" id="nom" formControlName="nom"/>
+            </div>
+            <div class="editeur">
+                <label for="editeur">editeur</label>
+                <input type="text" id="editeur" formControlName="editeur"/>
+            </div>
+            <div class="button">
+                <button type="submit">chercher</button>
+                <p> {{ this.Message }}</p>
+            </div>
+        </form>
+    </div>
+    <div>
+        <div class="tabSession">
+            <div class="tab">
+            @for (jeu of tabJeu; track jeu) {
+                <div class="elt">
+                    <div class="info">
+                        <div class="nomEditeur">
+                            <p>{{jeu.nom}}</p>
+                            <p>{{jeu.editeur}}</p>
+                        </div>
+                        <div class="description">
+                            <p>{{jeu.description}}</p>
+                        </div>
+                    </div>
+                    <div class="buttonModifier">
+                        <button class="modifier" (click)="chercher(jeu)" [ngClass]="{'clicked': this.idSelectedJeu === jeu.idJeu}">Sélectionner</button>
+                    </div>
+                </div>
+            }
+            </div>
+        </div>  
+    </div>
+</div>

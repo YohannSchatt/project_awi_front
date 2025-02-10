@@ -1,0 +1,25 @@
+<div class="choiceSelect">
+    <div class="groupChoice">
+        <button class="choiceJeu" (click)="choiceComponent(0)" [ngClass]="{'clicked': this.SelectedSearchComponent == 0, }">Session</button>
+        <button class="choiseVendeur" (click)="choiceComponent(1)" [ngClass]="{'clicked': this.SelectedSearchComponent == 1}">Vendeur</button>
+    </div>
+</div>
+
+<div class="select">
+    <app-search-tab-jeux [ngClass]="{'hidden': SelectedSearchComponent !== 0}" (JeuSelected)="this.onJeuSelected($event)"></app-search-tab-jeux>
+    <app-search-tab-vendeur [ngClass]="{'hidden': SelectedSearchComponent !== 1}" (vendeurSelected)="this.onVendeurSelected($event)"></app-search-tab-vendeur>
+</div>
+
+<div class="groupChercher">
+    <label for="statut">Choisir le statut :</label>
+    <select id="statut" [formControl]="statutControl">
+        @for (item of choiceStatut; track $index) {
+            <option [value]="item">{{item}}</option>
+        }
+    </select>
+    <button class="chercher" (click)="chercher()">Chercher</button>
+</div>
+
+<div class="stock">
+    <app-stock-board [tabJeu]="this.infoStock"></app-stock-board>
+</div>
