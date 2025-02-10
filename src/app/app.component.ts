@@ -11,7 +11,7 @@ import { MatDialogModule } from '@angular/material/dialog';
 import { MatButtonModule } from '@angular/material/button';
 import { AuthService } from './services/auth/auth.service';
 import { Title } from '@angular/platform-browser';
-
+import { JeuBaseComponent } from './components/jeu-base/jeu-base.component';
 
 @Component({
   selector: 'app-root',
@@ -20,6 +20,7 @@ import { Title } from '@angular/platform-browser';
     RouterOutlet,
     RouterModule,
     ReactiveFormsModule,
+    JeuBaseComponent,
     NavbarComponent,
     MatDialogModule,
     MatButtonModule,

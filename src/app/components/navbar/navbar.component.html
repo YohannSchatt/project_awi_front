@@ -2,7 +2,8 @@
         <a class="gestionnaire" *ngIf="this.isAdmin()"(click)="this.router.navigate(['gestion/GestionGestionnaire'])">gérer gestionnaire</a>
         <a class="AjoutSession"*ngIf="this.isAdmin()" (click)="this.router.navigate(['gestion/GestionSession'])">Ajout Session</a>
         <a class="Mon compte" *ngIf="this.isGestionnaire()" (click)="this.router.navigate(['gestion/MonCompte'])">Mon compte</a>
-        <a class="jeu" *ngIf="this.isGestionnaire()" (click)="this.router.navigate(['gestion/enregistrer-jeu'])">Enregistrer un jeu</a>
+        <a class="jeu" *ngIf="this.isGestionnaire()" (click)="this.router.navigate(['gestion/enregistrer-jeu-unitaire'])">Enregistrer un dépot</a>
+        <a class="jeu-base" *ngIf="this.isGestionnaire()" (click)="this.router.navigate(['gestion/enregistrer-jeu-base'])">Enregistrer un jeu</a>
         <a class="achat" *ngIf="this.isGestionnaire()" (click)="this.router.navigate(['gestion/enregistrer-achat'])">Enregistrer un achat</a>
         <a class ="stock" *ngIf="this.isGestionnaire()" (click)="this.router.navigate(['gestion/stock'])">Gérer stock</a>
         <a class="retrait" *ngIf="this.isGestionnaire()" (click)="this.router.navigate(['gestion/retrait'])">Enregistrer un retrait</a>

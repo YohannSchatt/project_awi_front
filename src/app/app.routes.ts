@@ -15,6 +15,7 @@ import { DashboardPageComponent } from '../pages/dashboard-page/dashboard-page.c
 import { RetraitPageComponent } from '../pages/gestion/retrait-page/retrait-page.component';
 import { Catalogue2Component } from './components/catalogue2/catalogue2.component';
 import { StockPageComponent } from '../pages/stock-page/stock-page.component';
+import { JeuBaseComponent } from './components/jeu-base/jeu-base.component';
 export const routes: Routes = [
   { path: '', component: HomePageComponent },
   { path: 'gestion', component: ConnexionPageComponent},
@@ -24,11 +25,12 @@ export const routes: Routes = [
   { path: "gestion/GestionSession", component: GestionSessionComponent},
   { path: "session", component: SessionPageComponent},
   { path : "catalogue", component : Catalogue2Component},
-  { path: "gestion/enregistrer-jeu", component: EnregistrerJeuPageComponent },
+  { path: "gestion/enregistrer-jeu-unitaire", component: EnregistrerJeuPageComponent },
   { path: 'gestion/vendeur', component: PageVendeurComponent },
   { path: "gestion/enregistrer-achat", component: EnregistrerAchatPageComponent},
   { path: "gestion/retrait", component: RetraitPageComponent},
   { path : "gestion/Dashboard", component : DashboardPageComponent},
   { path : "gestion/stock", component : StockPageComponent},
+   {path: "gestion/enregistrer-jeu-base", component: JeuBaseComponent},
   { path: '**', component: PageNotFoundComponent}
   ];

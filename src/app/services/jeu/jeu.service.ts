@@ -11,6 +11,9 @@ import { HttpHeaders } from '@angular/common/http';
 import { InfoJeuDBDto } from './dto/jeuDB.dto';
 import { InfoJeuStockDto } from './dto/infoJeuStock.dto';
 import { Statut } from '../../Model/Statut';
+import { GetJeuResponseDto } from './dto/get-jeu-response';
+import { CreateJeuDto } from './dto/create-jeu.dto';
+import { UpdateJeuDto } from './dto/updtate-jeu.dto';
 
 @Injectable({
   providedIn: 'root'
@@ -21,6 +24,52 @@ export class JeuService {
   readonly url = environment.apiUrl + '/jeu';
 
   constructor() { }
+
+  getJeu(idJeu: number): Observable<GetJeuResponseDto> {
+    const options = { withCredentials: true };
+    return this.http.post<GetJeuResponseDto>(`${this.url}/getJeu`, { idJeu }, options);
+  }
+
+  async createJeu(createJeuDto: CreateJeuDto): Promise<boolean> {
+    const options = { withCredentials: true };
+    try {
+      await lastValueFrom(
+        this.http.post(`${this.url}/creerJeu`, createJeuDto, options)
+      );
+      return true;
+    } catch (error) {
+      throw error;
+    }
+  }
+
+  async updateJeu(updateJeuDto: UpdateJeuDto): Promise<boolean> {
+    const options = { withCredentials: true };
+    try {
+      await lastValueFrom(
+        this.http.put(`${this.url}/updateJeu`, updateJeuDto, options)
+      );
+      return true;
+    } catch (error) {
+      throw error;
+    }
+  }
+
+  async deleteJeu(idJeu: number): Promise<boolean> {
+    const options = { withCredentials: true };
+    try {
+      await lastValueFrom(
+        this.http.delete(`${this.url}/deleteJeu`, { body: { idJeu }, ...options })
+      );
+
+      return true;
+    } catch (error) {
+      throw error;
+    }
+  }
+
+
+
+
 
   getJeuUnitairesByVendeur(idVendeur: number): Observable<InfoJeuUnitaireDisponibleDto[]> {
     const options = { withCredentials: true };
@@ -63,10 +112,10 @@ export class JeuService {
       'Accept': 'application/pdf'
     });
 
-    const options = {       
+    const options = {
       headers: headers,
       responseType: 'blob' as 'json',
-      withCredentials: true 
+      withCredentials: true
     };
 
     const date = new Date();
